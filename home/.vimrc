@@ -1,64 +1,30 @@
+" This file is inspired by spf13's vimrc
+
+
 " keyboard {
     nmap <c-s> :w<CR>
     vmap <c-s> <Esc><c-s>gv
     imap <c-s> <Esc><c-s>
-    " map th :tabfirst<CR>
-    " map tn :tabnext<CR>
-    " map tp :tabprev<CR>
-    " map tl :tablast<CR>
-    " map tq :tabclose<CR>
     map <F8> :TlistToggle<CR>
     nmap <F2> :wa<Bar>exe "mksession! " . v:this_session<CR>
     set mouse=a
-    " map <C-J> <C-W>j<ESC>
-    " map <C-K> <C-W>k<ESC>
-    " map <C-L> <C-W>l<ESC>
-    " map <C-H> <C-W>h<ESC>
     cmap cwd lcd %:p:h
     cmap cd. lcd %:p:h
-    " set <F13>=[1;3A
-    " set <F14>=[1;3B
-    " set <F15>=[1;3C
-    " set <F16>=[1;3D
-    " imap <F13> <ESC><C-W>ki
-    " imap <F14> <ESC><C-W>ji
-    " imap <F15> <ESC><C-W>li
-    " imap <F16> <ESC><C-W>hi
-    " set <F17>=± " alt-1
-    " set <F18>=² " alt-2
-    " set <F19>=³ " alt-3
-    " set <F20>=´ " alt-4
-    " set <F21>=ä " alt-d
-    " set <F22>=å " alt-e
-    " set <F23>=ã " alt-c
-    " set <F24>=ö " alt-v 
-    " set <F25>=
-    " set <F26>=´
-    " imap <F17> <ESC>1gti
-    " imap <F18> <ESC>2gti
-    " imap <F19> <ESC>3gti
-    " imap <F20> <ESC>4gti
     set timeout timeoutlen=1000 ttimeoutlen=100
 :    " }
 
 " My settings {
-	" colorscheme elflord
-    let g:ctrlp_user_command = {}
-	let g:ctrlp_working_path_mode = 0
-    let g:ctrlp_custom_ignore = 'node_modules'
-    " let g:neocomplcache_enable_at_startup = 1
+	filetype on                   " required!
 	set clipboard=unnamedplus
 	set history=1000                 " Store a ton of history (default is 20)
 	set spell                        " Spell checking on
 	set hidden                       " Allow buffer switching without saving
-	set directory=~/.vim/swap//
+	set directory=~/.vim/swap/
     filetype plugin indent on   " Automatically detect file types.
     let NERDSpaceDelims=1
     set listchars=tab:»\ ,eol:¶,trail:·,precedes:…,extends:…
-	" set list
-	" set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
-     " au FileType xml setlocal foldmethod=syntax
-     " let g:xml_syntax_folding=1
+    let g:xml_syntax_folding=1
+    au FileType xml setlocal foldmethod=syntax
 " }
 
 
@@ -80,7 +46,6 @@
     set showmode                    " Display the current mode
 	if has('statusline')
         set laststatus=2
-
         " Broken down into easily includeable segments
         set statusline=%w%h%m%r                 " Options
         " set statusline+=%{fugitive#statusline()} " Git Hotness
@@ -103,15 +68,25 @@
     set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
     set scrolljump=5                " Lines to scroll when cursor leaves screen
     set scrolloff=3                 " Minimum lines to keep above and below cursor
-    " set foldenable                  " Auto fold code
     set list
 " }
 
+"for Ctrl-P{
+
+    let g:ctrlp_user_command = {}
+	let g:ctrlp_working_path_mode = 0
+    let g:ctrlp_show_hidden = 1
+    " custom file/folder ignores
+    let g:ctrlp_custom_ignore = {
+                \ 'dir':  '\v[\/]\.(git|hg|svn|ve|node_modules)$',
+                \ 'file': '\v\.(o|pyc|class)$',
+                \ 'link': '',
+                \ }
+"}"
 
 
 "for Bundle {
 	set nocompatible               " be iMproved
-	filetype on                   " required!
 	set rtp+=~/.vim/bundle/vundle/
 	call vundle#rc()
 	" let Vundle manage Vundle
@@ -120,7 +95,6 @@
 	" My Bundles here:
 	"
 	" original repos on github
-	Bundle 'tpope/eclim'
 	Bundle 'tpope/vim-fugitive'
 	Bundle 'Lokaltog/vim-easymotion'
 	Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
@@ -136,7 +110,6 @@
 	" Bundle 'Raimondi/delimitMate.git' 
 	Bundle 'bkad/CamelCaseMotion' 
     " Bundle 'vim-scripts/boxdraw'
-	filetype plugin indent on     " required!
 
 
     " Bundle "vim-scripts/Vim-JDE"
@@ -166,6 +139,7 @@
     "Bundle 'git://github.com/vim-scripts/autoload_cscope.vim.git'
     Bundle 'honza/vim-snippets'
     Bundle 'int3/vim-taglist-plus'
+	Bundle 'tpope/eclim'
     " Source support_function.vim to support vim-snippets.
     if filereadable(expand("~/.vim/bundle/vim-snippets/snippets/support_functions.vim"))
         source ~/.vim/bundle/vim-snippets/snippets/support_functions.vim
@@ -218,6 +192,7 @@
 
 " Session List {
     set sessionoptions=blank,buffers,curdir,tabpages,winsize,resize,winpos
+    nmap <leader>pt :ProjectsTree<CR>
     nmap <leader>sl :SessionList<CR>
     nmap <leader>sc :SessionClose<CR>
 " }
