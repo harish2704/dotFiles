@@ -23,8 +23,17 @@
     filetype plugin indent on   " Automatically detect file types.
     let NERDSpaceDelims=1
     set listchars=tab:»\ ,eol:¶,trail:·,precedes:…,extends:…
-    let g:xml_syntax_folding=1
+    " let g:xml_syntax_folding=1
     au FileType xml setlocal foldmethod=syntax
+    set path=.,
+    let javaScript_fold=1         " JavaScript
+    let perl_fold=1               " Perl
+    let php_folding=1             " PHP
+    let r_syntax_folding=1        " R
+    let ruby_fold=1               " Ruby
+    let sh_fold_enabled=1         " sh
+    let vimsyn_folding='af'       " Vim script
+    let xml_syntax_folding=1      " XML
 " }
 
 
@@ -78,7 +87,7 @@
     let g:ctrlp_show_hidden = 1
     " custom file/folder ignores
     let g:ctrlp_custom_ignore = {
-                \ 'dir':  '\v[\/]\.(git|hg|svn|ve|node_modules)$',
+                \ 'dir':  '\v[\/](\.git|\.hg|\.svn|\.ve|node_modules)$',
                 \ 'file': '\v\.(o|pyc|class)$',
                 \ 'link': '',
                 \ }
@@ -132,6 +141,8 @@
     Bundle 'tpope/vim-surround'
     Bundle 'vim-scripts/AutoComplPop'
     Bundle 'spf13/vim-autoclose'
+    Bundle 'scrooloose/nerdtree'
+    Bundle 'harish2704/harish2704-vim'
     " Bundle 'Shougo/neocomplcache'
 
 
@@ -139,7 +150,8 @@
     "Bundle 'git://github.com/vim-scripts/autoload_cscope.vim.git'
     Bundle 'honza/vim-snippets'
     Bundle 'int3/vim-taglist-plus'
-	Bundle 'tpope/eclim'
+    Bundle 'vim-scripts/EasyGrep'
+	" Bundle 'tpope/eclim'
     " Source support_function.vim to support vim-snippets.
     if filereadable(expand("~/.vim/bundle/vim-snippets/snippets/support_functions.vim"))
         source ~/.vim/bundle/vim-snippets/snippets/support_functions.vim
@@ -192,6 +204,7 @@
 
 " Session List {
     set sessionoptions=blank,buffers,curdir,tabpages,winsize,resize,winpos
+    nmap <leader><leader>c  :JavaCorrect<cr>
     nmap <leader>pt :ProjectsTree<CR>
     nmap <leader>sl :SessionList<CR>
     nmap <leader>sc :SessionClose<CR>
