@@ -1,0 +1,6 @@
+#!/bin/bash
+
+fname=$( echo $1 | sed 's/\(.*\):\(.*\):.*/\1/g' );
+lineNo=$( echo $1 | sed 's/\(.*\):\(.*\):.*/\2/g' );
+exec gvim $fname +$lineNo &
+

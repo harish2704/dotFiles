@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Ubuntu One
+Exec=/bin/sh -c '[ -d "$HOME/Ubuntu One" ] && ubuntuone-launch'
+Type=Application
+X-GNOME-Autostart-Delay=30
+Icon=ubuntuone
+Comment= 
+NoDisplay=false
+X-Ubuntu-Gettext-Domain=ubuntuone-client
+X-GNOME-Autostart-enabled=false
+Hidden=true

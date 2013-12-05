@@ -1,0 +1,16 @@
+#!/bin/bash
+
+NPM_DIR=~/node_modules;
+TARGET_BIN_PATH=~/.local/bin;
+PACKAGES_WITH_BIN=$( find "$NPM_DIR" -name 'bin' );
+
+cd $TARGET_BIN_PATH;
+for i in $PACKAGES_WITH_BIN;do
+    echo "module: $i";
+    commands=$(ls $i);
+    echo "Commands: $commands";
+    for commandName in $commands;do 
+        ln -s "$i/$commandName" "./$commandName";
+    done
+done
+

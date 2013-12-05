@@ -28,12 +28,16 @@
     set path=.,
     let javaScript_fold=1         " JavaScript
     let perl_fold=1               " Perl
-    let php_folding=1             " PHP
+    " let php_folding=1             " PHP
     let r_syntax_folding=1        " R
     let ruby_fold=1               " Ruby
     let sh_fold_enabled=1         " sh
     let vimsyn_folding='af'       " Vim script
     let xml_syntax_folding=1      " XML
+    autocmd FileType java set foldmethod=syntax
+    nmap <Leader><Leader>es :tabedit ~/.vimrc <CR>
+    " Open current file's snippets file
+    nmap <Leader><Leader>en :execute 'tabedit ~/.vim/bundle/vim-snippets/snippets/' . &filetype . '.snippets' <CR>
 " }
 
 
@@ -47,7 +51,11 @@
     set softtabstop=4               " Let backspace delete indent
 " }
 
-
+" for java {
+    autocmd BufRead *.java set include=^#\s*import
+    autocmd BufRead *.java set includeexpr=substitute(v:fname,'\\.','/','g')
+    autocmd BufRead *.java set suffixesadd=.java,.xml
+    " }
 
 
 " for UI {
@@ -149,9 +157,11 @@
 
     "Bundle 'git://github.com/vim-scripts/autoload_cscope.vim.git'
     Bundle 'honza/vim-snippets'
-    Bundle 'int3/vim-taglist-plus'
+    " Bundle 'int3/vim-taglist-plus'
     Bundle 'vim-scripts/EasyGrep'
-	" Bundle 'tpope/eclim'
+    Bundle 'vim-scripts/matchit.zip'
+    Bundle 'vim-scripts/adt.vim'
+    " Bundle 'tpope/eclim'
     " Source support_function.vim to support vim-snippets.
     if filereadable(expand("~/.vim/bundle/vim-snippets/snippets/support_functions.vim"))
         source ~/.vim/bundle/vim-snippets/snippets/support_functions.vim
@@ -204,8 +214,8 @@
 
 " Session List {
     set sessionoptions=blank,buffers,curdir,tabpages,winsize,resize,winpos
-    nmap <leader><leader>c  :JavaCorrect<cr>
-    nmap <leader>pt :ProjectsTree<CR>
+    " nmap <leader><leader>c  :JavaCorrect<cr>
+    " nmap <leader>pt :ProjectsTree<CR>
     nmap <leader>sl :SessionList<CR>
     nmap <leader>sc :SessionClose<CR>
 " }
@@ -213,6 +223,14 @@
 " JSON {
     nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
 " }
+
+"for easy quote/unquote {
+    nmap <Leader><Leader>dQ ds"
+    nmap <Leader><Leader>aQ ysiw"
+    nmap <Leader><Leader>dq ds'
+    nmap <Leader><Leader>aq ysiw'
+" }
+
 
 " gides {
     let g:indent_guides_start_level = 2
