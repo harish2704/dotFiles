@@ -231,6 +231,10 @@
     nmap <Leader><Leader>aq ysiw'
 " }
 
+" for moving tab {
+    nmap <C-S-PageDown> :execute 'tabmove ' . (tabpagenr()-2 )<CR>
+    nmap <C-S-PageUp> :execute 'tabmove ' . tabpagenr()<CR>
+" }
 
 " gides {
     let g:indent_guides_start_level = 2
