@@ -8,8 +8,8 @@
     map <F8> :TlistToggle<CR>
     nmap <F2> :wa<Bar>exe "mksession! " . v:this_session<CR>
     set mouse=a
-    cmap cwd lcd %:p:h
-    cmap cd. lcd %:p:h
+    " cmap cwd lcd %:p:h
+    " cmap cd. lcd %:p:h
     set timeout timeoutlen=1000 ttimeoutlen=100
 :    " }
 
@@ -49,6 +49,9 @@
     set expandtab                   " Tabs are spaces, not tabs
     set tabstop=4                   " An indentation every four columns
     set softtabstop=4               " Let backspace delete indent
+    nmap <Leader>tt :let &expandtab=!&expandtab<CR>
+    nmap <Leader>tj :let &shiftwidth=&shiftwidth-2\|let &tabstop=&tabstop-2\|let &softtabstop=&softtabstop-2\|echo 'tabstop=' &tabstop<CR>
+    nmap <Leader>tk :let &shiftwidth=&shiftwidth+2\|let &tabstop=&tabstop+2\|let &softtabstop=&softtabstop+2\|echo 'tabstop=' &tabstop<CR>
 " }
 
 " for java {
@@ -148,10 +151,13 @@
     Bundle 'amirh/HTML-AutoCloseTag'
     Bundle 'tpope/vim-surround'
     Bundle 'vim-scripts/AutoComplPop'
+    " Bundle 'Shougo/eocomplcache'
     Bundle 'spf13/vim-autoclose'
     Bundle 'scrooloose/nerdtree'
     Bundle 'harish2704/harish2704-vim'
     " Bundle 'Shougo/neocomplcache'
+    Bundle 'digitaltoad/vim-jade'
+    Bundle 'mustache/vim-mode'
 
 
 
@@ -159,6 +165,7 @@
     Bundle 'honza/vim-snippets'
     " Bundle 'int3/vim-taglist-plus'
     Bundle 'vim-scripts/EasyGrep'
+    Bundle 'briancollins/vim-jst'
     Bundle 'vim-scripts/matchit.zip'
     Bundle 'vim-scripts/adt.vim'
     " Bundle 'tpope/eclim'
@@ -237,7 +244,7 @@
 " }
 
 " gides {
-    let g:indent_guides_start_level = 2
+    " let g:indent_guides_start_level = 2
     let g:indent_guides_guide_size = 1
     let g:indent_guides_enable_on_vim_startup = 1
 " }
