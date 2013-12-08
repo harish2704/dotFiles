@@ -6,7 +6,8 @@ set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic white
 colorscheme jellybeans
 set guioptions-=T
 set guioptions-=m
-set guifont=Ubuntu\ Mono\ 12
+" set guifont=Ubuntu\ Mono\ 12
+set guifont=Monaco\ for\ Powerline\ 12
 nmap <A-Up> <C-W>k
 nmap <A-Down> <C-W>j
 nmap <A-Right> <C-W>l
