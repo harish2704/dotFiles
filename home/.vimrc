@@ -36,11 +36,16 @@
     let xml_syntax_folding=1      " XML
     autocmd FileType java set foldmethod=syntax
     nmap <Leader><Leader>es :tabedit ~/.vimrc <CR>
-    " Open current file's snippets file
-    nmap <Leader><Leader>en :execute 'tabedit ~/.vim/bundle/vim-snippets/snippets/' . &filetype . '.snippets' <CR>
+    " Open current file's snippets file in a new tab
+    nmap <Leader><Leader>en :execute 'OpenSnippets'<CR>
 " }
 
-
+" for moving tab {
+    nmap <C-S-PageUp> :execute 'tabmove ' . (tabpagenr()-2 )<CR>
+    nmap <C-S-PageDown> :execute 'tabmove ' . tabpagenr()<CR>
+    nmap <C-S-j> :execute 'Mt' . (tabpagenr() -1)  <CR>
+    nmap <C-S-k> :execute 'Mt' . (tabpagenr() +1)  <CR>
+" }
 
 " for formating {
     " set nowrap                      " Wrap long lines
@@ -158,11 +163,13 @@
     " Bundle 'Shougo/neocomplcache'
     Bundle 'digitaltoad/vim-jade'
     Bundle 'mustache/vim-mode'
+    Bundle 'chrisbra/NrrwRgn'
+    Bundle 'vim-scripts/JavaScript-Indent'
 
 
 
     "Bundle 'git://github.com/vim-scripts/autoload_cscope.vim.git'
-    Bundle 'honza/vim-snippets'
+    Bundle 'harish2704/vim-snippets'
     " Bundle 'int3/vim-taglist-plus'
     Bundle 'vim-scripts/EasyGrep'
     Bundle 'briancollins/vim-jst'
