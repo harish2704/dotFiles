@@ -74,7 +74,8 @@
         " Broken down into easily includeable segments
         set statusline=%w%h%m%r                 " Options
         " set statusline+=%{fugitive#statusline()} " Git Hotness
-        set statusline+=\ [%{&ff}/%Y]            " Filetype
+        " set statusline+=\ [%{&ff}/%Y]            " Filetype
+        set statusline+=\ [%{winnr()}]            " Filetype
         set statusline+=%<%f\                     " Filename
         " set statusline+=\ [%{getcwd()}]          " Current dir
         set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
@@ -174,7 +175,7 @@
     Bundle 'vim-scripts/EasyGrep'
     Bundle 'briancollins/vim-jst'
     Bundle 'vim-scripts/matchit.zip'
-    Bundle 'vim-scripts/adt.vim'
+    " Bundle 'vim-scripts/adt.vim'
     " Bundle 'tpope/eclim'
     " Source support_function.vim to support vim-snippets.
     if filereadable(expand("~/.vim/bundle/vim-snippets/snippets/support_functions.vim"))
@@ -245,11 +246,6 @@
     nmap <Leader><Leader>aq ysiw'
 " }
 
-" for moving tab {
-    nmap <C-S-PageDown> :execute 'tabmove ' . (tabpagenr()-2 )<CR>
-    nmap <C-S-PageUp> :execute 'tabmove ' . tabpagenr()<CR>
-" }
-
 " gides {
     " let g:indent_guides_start_level = 2
     let g:indent_guides_guide_size = 1
@@ -261,3 +257,18 @@ set wrap
 colorscheme desert256
 " set foldmethod=syntax
 " let javascriptfold=1
+
+nmap <M-Up> <C-W>k
+nmap <M-Down> <C-W>j
+nmap <M-Right> <C-W>l
+nmap <M-Left> <C-W>h
+
+map 1 1gt
+map 2 2gt
+map 3 3gt
+map 4 4gt
+map 5 5gt
+map 6 6gt
+map 7 7gt
+map 8 8gt
+
