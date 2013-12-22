@@ -2,7 +2,7 @@
 
 NPM_DIR=~/node_modules;
 TARGET_BIN_PATH=~/.local/bin;
-PACKAGES_WITH_BIN=$( find "$NPM_DIR" -name 'bin' );
+PACKAGES_WITH_BIN=$( find "$NPM_DIR" -maxdepth 2 -name 'bin' );
 
 cd $TARGET_BIN_PATH;
 for i in $PACKAGES_WITH_BIN;do
