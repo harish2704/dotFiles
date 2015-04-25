@@ -35,10 +35,10 @@ nmap <leader>sc :SessionClose<CR>
 " }
 
 " Ctrl-Enter in insert mode will append ';' to the line and insert a new line 
-imap <C-CR> <ESC>A;<CR>
+imap <NL> <ESC>A;<CR>
 
 " Ctrl-Enter in normal mode will jump to tag definition using cscope
-nmap <C-CR> :vert scs f g <C-R><C-W><CR>
+nmap <NL> :vert scs f g <C-R><C-W><CR>
 " Ctrl-? in normal mode will jump to tag references using cscope
 nmap <C-?> :vert scs f t <C-R><C-W><CR>
 

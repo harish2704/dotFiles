@@ -49,3 +49,10 @@ imap ¸ <ESC>8gti
 " }
 
 
+" Ctrl-Enter in insert mode will append ';' to the line and insert a new line 
+imap <C-CR> <ESC>A;<CR>
+
+" Ctrl-Enter in normal mode will jump to tag definition using cscope
+nmap <C-CR> :vert scs f g <C-R><C-W><CR>
+
+
