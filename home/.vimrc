@@ -7,7 +7,8 @@ nmap <c-s> :w<CR>
 vmap <c-s> <Esc><c-s>gv
 imap <c-s> <Esc><c-s>
 " }
-" map <F8> :TagbarToggle<CR>
+nmap q :bd<CR>
+map <F8> :TagbarToggle<CR>
 nmap <F2> :wa<Bar>exe "mksession! " . v:this_session<CR>
 " \\es Open vimrc in a new tab
 nmap <Leader><Leader>es :tabedit ~/.vimrc <CR>
@@ -36,10 +37,10 @@ nmap <leader>sc :SessionClose<CR>
 " }
 
 " Ctrl-Enter in insert mode will append ';' to the line and insert a new line 
-imap <NL> <ESC>A;<CR>
+imap <NL> <ESC>A;
 
 " Ctrl-Enter in normal mode will jump to tag definition using cscope
-nmap <NL> :vert scs f g <C-R><C-W><CR>
+nmap <C-CR> :vert scs f g <C-R><C-W><CR>
 " Ctrl-? in normal mode will jump to tag references using cscope
 nmap <C-?> :vert scs f t <C-R><C-W><CR>
 
@@ -106,6 +107,7 @@ autocmd FileType java set foldmethod=indent
 autocmd FileType java set foldmethod=indent
 autocmd FileType html set foldmethod=indent
 autocmd FileType javascript set foldmethod=indent
+" autocmd FileType php set foldmethod=indent ft=php.html
 set noswapfile
 " }
 
@@ -223,7 +225,8 @@ set sessionoptions=blank,buffers,curdir,tabpages,winsize,resize,winpos
 
 
 " for JavaScript syntax checking {
-let g:syntastic_javascript_checkers = ['jslint']
+let g:syntastic_javascript_checkers = ['jshint']
+" let g:syntastic_javascript_checkers = ['jslint']
 " }
 
 
@@ -232,14 +235,7 @@ let g:syntastic_javascript_checkers = ['jslint']
 let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
 " }
-" colorscheme  colorful256
-" colorscheme mrkn256
 set wrap
-" colorscheme desert256
-" colorscheme 256-grayvim
-colorscheme  jellybeans
-" colorscheme devbox-dark-256
-" colorscheme lodestone
 hi TabLineFill ctermfg=210
 hi TabLineSel ctermbg=50
 hi TabLine ctermbg=60 ctermfg=210
@@ -262,7 +258,6 @@ let Gtags_VerticalWindow = 1
 let Gtags_Auto_Update = 1
 let GtagsCscope_Auto_Load = 1
 
-
 " set lazyredraw
 " set ttyfast
 let g:sparkupNextMapping = '<M-K>'
@@ -276,6 +271,7 @@ let g:sparkupNextMapping = '<M-K>'
 "       \    }
 "       \}
 
+let g:mustache_abbreviations = 1
 
 "for Bundle {
 set nocompatible               " be iMproved
@@ -287,7 +283,7 @@ Bundle 'gmarik/vundle'
 " My Bundles here:
 "
 " original repos on github
-" Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 " vim-scripts repos
@@ -296,7 +292,6 @@ Bundle 'FuzzyFinder'
 " non github repos
 " Bundle 'git://git.wincent.com/command-t.git'
 " Bundle 'git://github.com/vim-scripts/YankRing.vim.git'
-Bundle 'git://github.com/maxbrunsfeld/vim-yankstack.git' 
 " Bundle 'vim-scripts/Auto-Pairs' 
 Bundle 'vim-scripts/DoxygenToolkit.vim' 
 " Bundle 'Raimondi/delimitMate.git' 
@@ -314,15 +309,18 @@ Bundle 'garbas/vim-snipmate'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
 Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'Lokaltog/vim-distinguished'
 " Bundle 'flazz/vim-colorschemes'
 Bundle 'vim-scripts/sessionman.vim'
 Bundle 'kien/ctrlp.vim'
 " Bundle 'leshill/vim-json'
 Bundle 'godlygeek/tabular'
+" Bundle 'marijnh/tern_for_vim'
 Bundle 'majutsushi/tagbar'
 " Bundle 'amirh/HTML-AutoCloseTag'
-Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/AutoComplPop'
+Bundle 'git://github.com/maxbrunsfeld/vim-yankstack.git' 
+Bundle 'tpope/vim-surround'
 " Bundle 'Shougo/eocomplcache'
 Bundle 'spf13/vim-autoclose'
 Bundle 'scrooloose/nerdtree'
@@ -335,7 +333,7 @@ Bundle 'mustache/vim-mode'
 Bundle 'chrisbra/NrrwRgn'
 Bundle 'heavenshell/vim-jsdoc'
 Bundle 'vim-scripts/JavaScript-Indent'
-Bundle 'spf13/PIV'
+" Bundle 'spf13/PIV'
 " Bundle 'joonty/vim-taggatron'
 
 "Bundle 'git://github.com/vim-scripts/autoload_cscope.vim.git'
@@ -344,8 +342,13 @@ Bundle 'spf13/PIV'
 Bundle 'briancollins/vim-jst'
 Bundle 'vim-scripts/matchit.zip'
 Bundle 'harish2704/vim-snippets'
-Bundle 'vim-scripts/SyntaxRange'
+" Bundle 'vim-scripts/SyntaxRange'
 Bundle 'harish2704/gtags.vim'
+" Bundle 'mustache/vim-mustache-handlebars'
+Bundle 'vim-scripts/marvim'
+Bundle 'Shougo/vimshell.vim'
+Bundle 'Shougo/vimproc.vim'
+" Bundle 'terryma/vim-multiple-cursors'
 " Bundle 'vim-scripts/guicolorscheme.vim'
 " Bundle 'vim-scripts/CSApprox'
 " Bundle 'vim-scripts/adt.vim'
@@ -358,3 +361,12 @@ endif
 
 " }
 
+" colorscheme  colorful256
+" colorscheme mrkn256
+" colorscheme desert256
+" colorscheme 256-grayvim
+colorscheme distinguished
+" colorscheme devbox-dark-256
+" colorscheme lodestone
+
+imap  <End>

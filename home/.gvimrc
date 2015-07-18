@@ -1,11 +1,12 @@
 " set incsearch                   " Find as you type search
-colorscheme jellybeans
+colorscheme distinguished
 set guioptions-=T
 set guioptions-=m
 set guioptions-=R
 set guioptions-=L
 
-set guifont=Monaco\ for\ Powerline\ 12
+" set guifont=Monaco\ for\ Powerline\ 12
+set guifont=Ubuntu\ Mono\ 14
 " set guifont=Monospace\ 10
 " set guifont=Ubuntu\ Mono\ 14
 " set guifont=Monaco\ 10
@@ -50,9 +51,9 @@ imap ¸ <ESC>8gti
 
 
 " Ctrl-Enter in insert mode will append ';' to the line and insert a new line 
-imap <C-CR> <ESC>A;<CR>
+imap <C-CR> <ESC>A;
 
 " Ctrl-Enter in normal mode will jump to tag definition using cscope
 nmap <C-CR> :vert scs f g <C-R><C-W><CR>
-
+nmap ñ :bd<CR>
 
