@@ -21,5 +21,5 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.local/python/scripts:$PATH"
-export PYTHONPATH="$HOME/.local/python/lib"
+# export PATH="$HOME/.local/python/scripts:$PATH"
+# export PYTHONPATH="$HOME/.local/python/lib"
