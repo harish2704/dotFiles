@@ -226,6 +226,7 @@ set sessionoptions=blank,buffers,curdir,tabpages,winsize,resize,winpos
 
 " for JavaScript syntax checking {
 let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_always_populate_loc_list = 1
 " let g:syntastic_javascript_checkers = ['jslint']
 " }
 
@@ -332,7 +333,8 @@ Bundle 'AndrewRadev/vim-eco'
 Bundle 'mustache/vim-mode'
 Bundle 'chrisbra/NrrwRgn'
 Bundle 'heavenshell/vim-jsdoc'
-Bundle 'vim-scripts/JavaScript-Indent'
+" Bundle 'vim-scripts/JavaScript-Indent'
+" Bundle 'vim-scripts/phpfolding.vim'
 " Bundle 'spf13/PIV'
 " Bundle 'joonty/vim-taggatron'
 
