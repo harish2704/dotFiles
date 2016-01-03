@@ -1,85 +1,13 @@
 " This file is inspired by spf13's vimrc
 
-set t_Co=256
-" Ctrl-S to save file {
-nmap <c-s> :w<CR>
-vmap <c-s> <Esc><c-s>gv
-imap <c-s> <Esc><c-s>
-" }
-nmap q :bd<CR>
-map <F8> :TagbarToggle<CR>
-nmap <F2> :wa<Bar>exe "mksession! " . v:this_session<CR>
-" \\es Open vimrc in a new tab
-nmap <Leader><Leader>es :tabedit ~/.nvim/nvimrc <CR>
-" \\en Open current file's snippets file in a new tab
-nmap <Leader><Leader>en :execute 'OpenSnippets'<CR>
-" for moving tab {
-" Ctrl-Shift + Page-Up/Down to rearrange tab {
-nmap <C-S-PageUp> :execute 'tabmove ' . (tabpagenr()-2 )<CR>
-nmap <C-S-PageDown> :execute 'tabmove ' . tabpagenr()<CR>
-" }
-" Ctrl-Shift + j/k to move current window in to another tab{
-nmap <C-S-j> :execute 'Mt' . (tabpagenr() -1)  <CR>
-nmap <C-S-k> :execute 'Mt' . (tabpagenr() +1)  <CR>
-" }
+" set t_Co=256
 
- " \tt Toggle tab and spaces
-nmap <Leader>tt :let &expandtab=!&expandtab<CR>
- " \tj Incraese additional two spaces width for tab
-nmap <Leader>tj :let &shiftwidth=&shiftwidth-2\|let &tabstop=&tabstop-2\|let &softtabstop=&softtabstop-2\|echo 'tabstop=' &tabstop<CR>
- " \tj Decreases two spaces width for tab
-nmap <Leader>tk :let &shiftwidth=&shiftwidth+2\|let &tabstop=&tabstop+2\|let &softtabstop=&softtabstop+2\|echo 'tabstop=' &tabstop<CR>
-" }
-" Session handling {
-nmap <leader>sl :SessionList<CR>
-nmap <leader>sc :SessionClose<CR>
-" }
+set mouse=a
 
-" Ctrl-Enter in insert mode will append ';' to the line and insert a new line 
-imap <NL> <ESC>A;
+" Cd to current file's directory
+command! Cwd :execute 'cd %:p:h'
 
-" Ctrl-Enter in normal mode will jump to tag definition using cscope
-nmap <C-CR> :vert scs f g <C-R><C-W><CR>
-" Ctrl-? in normal mode will jump to tag references using cscope
-nmap <C-?> :vert scs f t <C-R><C-W><CR>
-
-" Alt + Arrows to Moving cursor to different windows {
-nmap <M-Up> <C-W>k
-nmap <M-Down> <C-W>j
-nmap <M-Right> <C-W>l
-nmap <M-Left> <C-W>h
-" }
-
-"for easy quote/unquote {
-" \\ + a[add] / d[delete] + q[single quote] / Q [Double quote]
-" \\dQ  remove double quote
-nmap <Leader><Leader>dQ ds"
-" \\dQ  add double quote
-nmap <Leader><Leader>aQ ysiw"
-" \\dQ  remove single quote
-nmap <Leader><Leader>dq ds'
-" \\dQ  remove double quote
-nmap <Leader><Leader>aq ysiw'
-" }
-" format JSON {
-nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
-" }
-
-" Alt + [1-8] to Switch tabs {
-map 1 1gt
-map 2 2gt
-map 3 3gt
-map 4 4gt
-map 5 5gt
-map 6 6gt
-map 7 7gt
-map 8 8gt
-" }
-
-  set mouse=a
-  " cmap cwd lcd %:p:h
-  " cmap cd. lcd %:p:h
-  set timeout timeoutlen=1000 ttimeoutlen=100
+" set timeout timeoutlen=1000 ttimeoutlen=100
 
 " My settings {
 filetype on                   " required!
@@ -91,9 +19,10 @@ set directory=~/.nvim/swap/
 filetype plugin indent on   " Automatically detect file types.
 let NERDSpaceDelims=1
 set listchars=tab:»\ ,eol:¶,trail:·,precedes:…,extends:…
-" let g:xml_syntax_folding=1
-au FileType xml setlocal foldmethod=indent
+set noswapfile
+
 set path=.,
+
 let javaScript_fold=1         " JavaScript
 let perl_fold=1               " Perl
 " let php_folding=1             " PHP
@@ -102,12 +31,11 @@ let ruby_fold=1               " Ruby
 let sh_fold_enabled=1         " sh
 let vimsyn_folding='af'       " Vim script
 let xml_syntax_folding=1      " XML
-autocmd FileType java set foldmethod=indent
+
 autocmd FileType java set foldmethod=indent
 autocmd FileType html set foldmethod=indent
 autocmd FileType javascript set foldmethod=indent
-" autocmd FileType php set foldmethod=indent ft=php.html
-set noswapfile
+autocmd FileType xml set foldmethod=indent
 " }
 
 
@@ -124,6 +52,7 @@ autocmd BufRead *.java set include=^#\s*import
 autocmd BufRead *.java set includeexpr=substitute(v:fname,'\\.','/','g')
 autocmd BufRead *.java set suffixesadd=.java,.xml
 autocmd BufRead *.ect set suffixesadd=.ect ft=html.ect
+autocmd BufEnter *.gradle setf groovy
 " }
 
 
@@ -148,6 +77,7 @@ set linespace=0                 " No extra spaces between rows
 set nu                          " Line numbers on
 set showmatch                   " Show matching brackets/parenthesis
 set hlsearch                    " Highlight search terms
+set noincsearch
 set winminheight=0              " Windows can be 0 line high
 set ignorecase                  " Case insensitive search
 set smartcase                   " Case sensitive when uc present
@@ -184,11 +114,6 @@ let g:html_indent_style1 = "inc"
 " Make it so AutoCloseTag works for xml and xhtml files as well
 au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
 " }
-" NerdTree {
-nmap <Leader>ac <Plug>ToggleAutoCloseMappings
-map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
-map <leader>e :NERDTreeFind<CR>
-nmap <leader>nt :NERDTreeFind<CR>
 
 let NERDTreeShowBookmarks=1
 let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
@@ -200,21 +125,6 @@ let NERDTreeKeepTreeInNewTab=1
 let g:nerdtree_tabs_open_on_gui_startup=0
 " }
 
-" Tabularize {
-nmap <Leader>a& :Tabularize /&<CR>
-vmap <Leader>a& :Tabularize /&<CR>
-nmap <Leader>a= :Tabularize /=<CR>
-vmap <Leader>a= :Tabularize /=<CR>
-nmap <Leader>a: :Tabularize /:<CR>
-vmap <Leader>a: :Tabularize /:<CR>
-nmap <Leader>a:: :Tabularize /:\zs<CR>
-vmap <Leader>a:: :Tabularize /:\zs<CR>
-nmap <Leader>a, :Tabularize /,<CR>
-vmap <Leader>a, :Tabularize /,<CR>
-vmap <Leader>a// :Tabularize /\/\/<CR>
-nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-" }
 
 " Session List {
 set sessionoptions=blank,buffers,curdir,tabpages,winsize,resize,winpos
@@ -225,6 +135,7 @@ set sessionoptions=blank,buffers,curdir,tabpages,winsize,resize,winpos
 
 " for JavaScript syntax checking {
 let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_always_populate_loc_list = 1
 " let g:syntastic_javascript_checkers = ['jslint']
 " }
 
@@ -235,20 +146,8 @@ let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
 " }
 set wrap
-hi TabLineFill ctermfg=210
-hi TabLineSel ctermbg=50
-hi TabLine ctermbg=60 ctermfg=210
-hi TabLineSel ctermbg=50 ctermfg=90
-
-" autocmd VimEnter * :hi IndentGuidesEven  ctermbg=240
-" autocmd VimEnter * :hi IndentGuidesOdd  ctermbg=235
-let g:indent_guides_auto_colors = 0
-hi IndentGuidesEven  ctermbg=240
-hi IndentGuidesOdd  ctermbg=235
-" set foldmethod=syntax
-" let javascriptfold=1
 " dont set cursorline for performance imporoovements
-" set cursorline                  " Highlight current line
+set cursorline                  " Highlight current line
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 
 
@@ -257,8 +156,8 @@ let Gtags_VerticalWindow = 1
 let Gtags_Auto_Update = 1
 let GtagsCscope_Auto_Load = 1
 
+
 " set lazyredraw
-" set ttyfast
 let g:sparkupNextMapping = '<M-K>'
 
 
@@ -270,7 +169,6 @@ let g:sparkupNextMapping = '<M-K>'
 "       \    }
 "       \}
 
-let g:mustache_abbreviations = 1
 
 "for Bundle {
 set nocompatible               " be iMproved
@@ -285,6 +183,8 @@ Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'Lokaltog/vim-distinguished'
+Bundle 'junegunn/seoul256.vim'
+Bundle 'whatyouhide/vim-gotham'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 " vim-scripts repos
 Bundle 'L9'
@@ -304,6 +204,7 @@ Bundle 'vim-scripts/DoxygenToolkit.vim'
 " Bundle 'maksimr/vim-jsbeautify'
 Bundle 'scrooloose/syntastic'
 " Bundle 'pangloss/vim-javascript'
+Bundle 'ternjs/tern_for_vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'garbas/vim-snipmate'
 " Bundle 'amiorin/vim-project'
@@ -315,23 +216,23 @@ Bundle 'vim-scripts/sessionman.vim'
 Bundle 'kien/ctrlp.vim'
 " Bundle 'leshill/vim-json'
 Bundle 'godlygeek/tabular'
-" Bundle 'marijnh/tern_for_vim'
 Bundle 'majutsushi/tagbar'
 " Bundle 'amirh/HTML-AutoCloseTag'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/AutoComplPop'
+" Bundle 'Shougo/neocomplcache'
+" Bundle 'Valloric/YouCompleteMe'
 " Bundle 'Shougo/eocomplcache'
 Bundle 'spf13/vim-autoclose'
 Bundle 'scrooloose/nerdtree'
 Bundle 'harish2704/harish2704-vim'
-" Bundle 'Shougo/neocomplcache'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'digitaltoad/vim-jade'
 Bundle 'AndrewRadev/vim-eco'
 Bundle 'mustache/vim-mode'
 Bundle 'chrisbra/NrrwRgn'
 Bundle 'heavenshell/vim-jsdoc'
-Bundle 'vim-scripts/JavaScript-Indent'
+" Bundle 'vim-scripts/JavaScript-Indent'
 " Bundle 'spf13/PIV'
 " Bundle 'joonty/vim-taggatron'
 
@@ -343,11 +244,6 @@ Bundle 'vim-scripts/matchit.zip'
 Bundle 'harish2704/vim-snippets'
 " Bundle 'vim-scripts/SyntaxRange'
 Bundle 'harish2704/gtags.vim'
-" Bundle 'mustache/vim-mustache-handlebars'
-Bundle 'vim-scripts/marvim'
-Bundle 'Shougo/vimshell.vim'
-Bundle 'Shougo/vimproc.vim'
-" Bundle 'terryma/vim-multiple-cursors'
 " Bundle 'vim-scripts/guicolorscheme.vim'
 " Bundle 'vim-scripts/CSApprox'
 " Bundle 'vim-scripts/adt.vim'
@@ -362,26 +258,181 @@ endif
 
 " Neovim specific settings
 syntax on 
-if has('neovim')
-	let s:python_host_init = 'python -c "import neovim; neovim.start_host()"'
-	let &initpython = s:python_host_init
-	let &initclipboard = s:python_host_init
-	set unnamedclip " Automatically use clipboard as storage for the unnamed register
-endif"
+" if has('neovim')
+" let s:python_host_init = 'python -c "import neovim; neovim.start_host()"'
+" let &initpython = s:python_host_init
+" let &initclipboard = s:python_host_init
+" set unnamedclip " Automatically use clipboard as storage for the unnamed register
+" endif"
 
 " colorscheme  colorful256
 " colorscheme mrkn256
 " colorscheme desert256
 " colorscheme 256-grayvim
-colorscheme distinguished
+" colorscheme  jellybeans
 " colorscheme devbox-dark-256
 " colorscheme lodestone
+" colorscheme distinguished
+colorscheme molokai
 " set foldmethod=syntax
 " let javascriptfold=1
-let g:indent_guides_auto_colors = 0
-hi IndentGuidesEven  ctermbg=235
-hi IndentGuidesOdd  ctermbg=240
-hi StatusLine ctermbg=202
-hi StatusLineNC ctermbg=246 ctermfg=0
-autocmd ColorScheme * hi IndentGuidesEven  ctermbg=235 | hi IndentGuidesOdd  ctermbg=240
+" let g:indent_guides_auto_colors = 0
+" hi IndentGuidesEven  ctermbg=235
+" hi IndentGuidesOdd  ctermbg=240
+" hi StatusLine ctermbg=202
+" hi StatusLineNC ctermbg=246 ctermfg=0
+" autocmd ColorScheme * hi IndentGuidesEven  ctermbg=235 | hi IndentGuidesOdd  ctermbg=240
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+" hi SpellBad ctermbg=9 ctermfg=20
+
+
+" Switch tabs using Alt-1..9
+map ± 1gt
+map ² 2gt
+map ³ 3gt
+map ´ 4gt
+map µ 5gt
+map ¶ 6gt
+map · 7gt
+map ¸ 8gt
+
+
+" Ctrl-l -> Go to end of line
+imap  <End>
+
+" Replace grep with silver-searcher
+set grepprg=ag\ --nogroup\ --nocolor
+
+" Ctrl-Enter on normal mode -> Jump to definition using Tern
+nmap <C-CR> :TernDefSplit<CR>
+
+" Ctrl-/ on normal mode -> Grep word under cursor ( Recursive )
+nmap  :grep! -r <C-R><C-W>
+
+" Open the <X>version of current file using fugitive, where <X> is the string in clipboard.
+nmap <leader>go :Gvsplit <C-R>+:<C-R>%
+
+nmap <leader>co :copen<CR>
+nmap <leader>cc :cclose<CR>
+nmap <leader>lo :lopen<CR>
+nmap <leader>lc :lclose<CR>
+
+" Ctrl-Shift-T -> Open new tab
+nmap <C-S-T> :tabedit<CR>
+
+" Ctrl-S to save file {
+nmap  :w<CR>
+vmap  <Esc><c-s>gv
+imap  <Esc><c-s>
+" }
+
+" Alt-q Delete current buffer ( Close file )
+nmap ñ :bd<CR>
+" map <F8> :TagbarToggle<CR>
+nmap <F2> :wa<Bar>exe "mksession! " . v:this_session<CR>
+" \\es Open vimrc in a new tab
+nmap <Leader><Leader>es :tabedit ~/.nvim/nvimrc <CR>
+" \\en Open current file's snippets file in a new tab
+nmap <Leader><Leader>en :execute 'OpenSnippets'<CR>
+
+
+" for moving tab {
+" Ctrl-Shift + Page-Up/Down to rearrange tab {
+nmap <C-S-PageUp> :execute 'tabmove ' . (tabpagenr()-2 )<CR>
+nmap <C-S-PageDown> :execute 'tabmove ' . tabpagenr()<CR>
+nmap <M-PageUp> :execute 'tabmove ' . (tabpagenr()-2 )<CR>
+nmap <M-PageDown> :execute 'tabmove ' . tabpagenr()<CR>
+" }
+
+
+" Ctrl-Shift + j/k to move current window in to another tab{
+nmap <C-S-j> :execute 'Mt' . (tabpagenr() -1)  <CR>
+nmap <C-S-k> :execute 'Mt' . (tabpagenr() +1)  <CR>
+nmap <C-j> :execute 'Mt' . (tabpagenr() -1)  <CR>
+nmap <C-k> :execute 'Mt' . (tabpagenr() +1)  <CR>
+" }
+
+ " \tt Toggle tab and spaces
+nmap <Leader>tt :let &expandtab=!&expandtab<CR>
+ " \tj Incraese additional two spaces width for tab
+nmap <Leader>tj :let &shiftwidth=&shiftwidth-2\|let &tabstop=&tabstop-2\|let &softtabstop=&softtabstop-2\|echo 'tabstop=' &tabstop<CR>
+ " \tj Decreases two spaces width for tab
+nmap <Leader>tk :let &shiftwidth=&shiftwidth+2\|let &tabstop=&tabstop+2\|let &softtabstop=&softtabstop+2\|echo 'tabstop=' &tabstop<CR>
+" }
+
+" Session handling {
+" List saved sessions
+nmap <leader>sl :SessionList<CR>
+" Save and close current session
+nmap <leader>sc :SessionClose<CR>
+" }
+
+" Ctrl-Enter in insert mode will append ';' to the line and insert a new line 
+imap <C-CR> <ESC>A;
+
+" Ctrl-Enter in normal mode will jump to tag definition using cscope
+" nmap <NL> :vert scs f g <C-R><C-W><CR>
+" Ctrl-? in normal mode will jump to tag references using cscope
+" nmap <C-?> :vert scs f t <C-R><C-W><CR>
+
+" Alt + Arrows to Moving cursor to different windows {
+nmap <M-Up> <C-W>k
+nmap <M-Down> <C-W>j
+nmap <M-Right> <C-W>l
+nmap <M-Left> <C-W>h
+" }
+
+
+"for easy quote/unquote {
+" \\ + a[add] / d[delete] + q[single quote] / Q [Double quote]
+" \\dQ  remove double quote
+nmap <Leader><Leader>dQ ds"
+" \\dQ  add double quote
+nmap <Leader><Leader>aQ ysiw"
+" \\dQ  remove single quote
+nmap <Leader><Leader>dq ds'
+" \\dQ  remove double quote
+nmap <Leader><Leader>aq ysiw'
+" }
+
+
+" format JSON {
+nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
+" }
+
+
+" Alt + [1-8] to Switch tabs {
+map 1 1gt
+map 2 2gt
+map 3 3gt
+map 4 4gt
+map 5 5gt
+map 6 6gt
+map 7 7gt
+map 8 8gt
+" }
+
+" NerdTree {
+nmap <Leader>ac <Plug>ToggleAutoCloseMappings
+map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+map <leader>e :NERDTreeFind<CR>
+nmap <leader>nt :NERDTreeFind<CR>
+" }
+
+
+" Tabularize {
+nmap <Leader>a& :Tabularize /&<CR>
+vmap <Leader>a& :Tabularize /&<CR>
+nmap <Leader>a= :Tabularize /=<CR>
+vmap <Leader>a= :Tabularize /=<CR>
+nmap <Leader>a: :Tabularize /:<CR>
+vmap <Leader>a: :Tabularize /:<CR>
+nmap <Leader>a:: :Tabularize /:\zs<CR>
+vmap <Leader>a:: :Tabularize /:\zs<CR>
+nmap <Leader>a, :Tabularize /,<CR>
+vmap <Leader>a, :Tabularize /,<CR>
+vmap <Leader>a// :Tabularize /\/\/<CR>
+nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
+vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
+" }
+
