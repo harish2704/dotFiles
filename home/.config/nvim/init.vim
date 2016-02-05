@@ -174,23 +174,18 @@ let g:sparkupNextMapping = '<M-K>'
 "for Plug {
 set nocompatible               " be iMproved
 let nvim_conf_root='~/.config/nvim/'
-" let &rtp = &rtp . ',' . g:nvim_conf_root . 'bundle/vundle/'
 call plug#begin( )
-" required! 
-" Plug 'gmarik/vundle'
 " My Plugs here:
 "
 " original repos on github
 Plug 'tpope/vim-fugitive'
 Plug 'Lokaltog/vim-easymotion'
-Plug 'Lokaltog/vim-distinguished'
-Plug 'junegunn/seoul256.vim'
-Plug 'whatyouhide/vim-gotham'
-Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
-" vim-scripts repos
+" Plug 'Lokaltog/vim-distinguished'
+" Plug 'junegunn/seoul256.vim'
+" Plug 'whatyouhide/vim-gotham'
+Plug 'rstacruz/sparkup'
 Plug 'L9'
 Plug 'FuzzyFinder'
-" non github repos
 " Plug 'git://git.wincent.com/command-t.git'
 " Plug 'git://github.com/vim-scripts/YankRing.vim.git'
 Plug 'git://github.com/maxbrunsfeld/vim-yankstack.git' 
@@ -199,13 +194,11 @@ Plug 'vim-scripts/DoxygenToolkit.vim'
 " Plug 'Raimondi/delimitMate.git' 
 " Plug 'bkad/CamelCaseMotion' 
 " Plug 'vim-scripts/boxdraw'
-
-
 " Plug 'vim-scripts/Vim-JDE'
 " Plug 'maksimr/vim-jsbeautify'
 Plug 'scrooloose/syntastic'
 " Plug 'pangloss/vim-javascript'
-Plug 'ternjs/tern_for_vim'
+Plug 'ternjs/tern_for_vim' , { 'for': 'javascript' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'garbas/vim-snipmate'
 " Plug 'amiorin/vim-project'
@@ -225,23 +218,22 @@ Plug 'vim-scripts/AutoComplPop'
 " Plug 'Valloric/YouCompleteMe'
 " Plug 'Shougo/eocomplcache'
 Plug 'spf13/vim-autoclose'
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'harish2704/harish2704-vim'
-Plug 'kchmck/vim-coffee-script'
-Plug 'digitaltoad/vim-jade'
-Plug 'AndrewRadev/vim-eco'
+Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
+Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
+Plug 'AndrewRadev/vim-eco', { 'for': [ 'ect', 'eco' ] }
 " Plug 'mustache/vim-mode'
-Plug 'mustache/vim-mustache-handlebars'
+Plug 'mustache/vim-mustache-handlebars', { 'for': 'handlebars' }
 Plug 'chrisbra/NrrwRgn'
-Plug 'heavenshell/vim-jsdoc'
+Plug 'heavenshell/vim-jsdoc', { 'for': 'javascript' }
 " Plug 'vim-scripts/JavaScript-Indent'
 " Plug 'spf13/PIV'
 " Plug 'joonty/vim-taggatron'
-
-"Plug 'git://github.com/vim-scripts/autoload_cscope.vim.git'
+" Plug 'git://github.com/vim-scripts/autoload_cscope.vim.git'
 " Plug 'int3/vim-taglist-plus'
 " Plug 'vim-scripts/EasyGrep'
-Plug 'briancollins/vim-jst'
+Plug 'briancollins/vim-jst', { 'for': 'jst' }
 Plug 'vim-scripts/matchit.zip'
 Plug 'harish2704/vim-snippets'
 " Plug 'vim-scripts/SyntaxRange'
@@ -250,6 +242,7 @@ Plug 'harish2704/gtags.vim'
 " Plug 'vim-scripts/CSApprox'
 " Plug 'vim-scripts/adt.vim'
 " Plug 'tpope/eclim'
+Plug 'tomasr/molokai'
 call plug#end()
 
 " Source support_function.vim to support vim-snippets.
