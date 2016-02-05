@@ -15,11 +15,12 @@ set clipboard=unnamedplus
 set history=1000                 " Store a ton of history (default is 20)
 set spell                        " Spell checking on
 set hidden                       " Allow buffer switching without saving
-set directory=~/.nvim/swap/
+" No need to specify swap directory as it is the default
 filetype plugin indent on   " Automatically detect file types.
 let NERDSpaceDelims=1
 set listchars=tab:»\ ,eol:¶,trail:·,precedes:…,extends:…
 set noswapfile
+set title
 
 set path=.,
 
@@ -96,7 +97,7 @@ let g:ctrlp_working_path_mode = 0
 let g:ctrlp_show_hidden = 1
 " custom file/folder ignores
 let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\v[\/](\.git|\.hg|\.svn|\.ve|node_modules)$',
+      \ 'dir':  '\v[\/](\.git|\.hg|\.svn|\.ve|node_modules|bower_components)$',
       \ 'file': '\v\.(o|pyc|class)$',
       \ 'link': '',
       \ }
@@ -170,88 +171,90 @@ let g:sparkupNextMapping = '<M-K>'
 "       \}
 
 
-"for Bundle {
+"for Plug {
 set nocompatible               " be iMproved
-set rtp+=~/.nvim/bundle/vundle/
-call vundle#rc()
-" let Vundle manage Vundle
+let nvim_conf_root='~/.config/nvim/'
+" let &rtp = &rtp . ',' . g:nvim_conf_root . 'bundle/vundle/'
+call plug#begin( )
 " required! 
-Bundle 'gmarik/vundle'
-" My Bundles here:
+" Plug 'gmarik/vundle'
+" My Plugs here:
 "
 " original repos on github
-Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'Lokaltog/vim-distinguished'
-Bundle 'junegunn/seoul256.vim'
-Bundle 'whatyouhide/vim-gotham'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+Plug 'tpope/vim-fugitive'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'Lokaltog/vim-distinguished'
+Plug 'junegunn/seoul256.vim'
+Plug 'whatyouhide/vim-gotham'
+Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
 " vim-scripts repos
-Bundle 'L9'
-Bundle 'FuzzyFinder'
+Plug 'L9'
+Plug 'FuzzyFinder'
 " non github repos
-" Bundle 'git://git.wincent.com/command-t.git'
-" Bundle 'git://github.com/vim-scripts/YankRing.vim.git'
-Bundle 'git://github.com/maxbrunsfeld/vim-yankstack.git' 
-" Bundle 'vim-scripts/Auto-Pairs' 
-Bundle 'vim-scripts/DoxygenToolkit.vim' 
-" Bundle 'Raimondi/delimitMate.git' 
-" Bundle 'bkad/CamelCaseMotion' 
-" Bundle 'vim-scripts/boxdraw'
+" Plug 'git://git.wincent.com/command-t.git'
+" Plug 'git://github.com/vim-scripts/YankRing.vim.git'
+Plug 'git://github.com/maxbrunsfeld/vim-yankstack.git' 
+" Plug 'vim-scripts/Auto-Pairs' 
+Plug 'vim-scripts/DoxygenToolkit.vim' 
+" Plug 'Raimondi/delimitMate.git' 
+" Plug 'bkad/CamelCaseMotion' 
+" Plug 'vim-scripts/boxdraw'
 
 
-" Bundle 'vim-scripts/Vim-JDE'
-" Bundle 'maksimr/vim-jsbeautify'
-Bundle 'scrooloose/syntastic'
-" Bundle 'pangloss/vim-javascript'
-Bundle 'ternjs/tern_for_vim'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'garbas/vim-snipmate'
-" Bundle 'amiorin/vim-project'
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'tomtom/tlib_vim'
-Bundle 'nathanaelkane/vim-indent-guides'
-" Bundle 'flazz/vim-colorschemes'
-Bundle 'vim-scripts/sessionman.vim'
-Bundle 'kien/ctrlp.vim'
-" Bundle 'leshill/vim-json'
-Bundle 'godlygeek/tabular'
-Bundle 'majutsushi/tagbar'
-" Bundle 'amirh/HTML-AutoCloseTag'
-Bundle 'tpope/vim-surround'
-Bundle 'vim-scripts/AutoComplPop'
-" Bundle 'Shougo/neocomplcache'
-" Bundle 'Valloric/YouCompleteMe'
-" Bundle 'Shougo/eocomplcache'
-Bundle 'spf13/vim-autoclose'
-Bundle 'scrooloose/nerdtree'
-Bundle 'harish2704/harish2704-vim'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'digitaltoad/vim-jade'
-Bundle 'AndrewRadev/vim-eco'
-Bundle 'mustache/vim-mode'
-Bundle 'chrisbra/NrrwRgn'
-Bundle 'heavenshell/vim-jsdoc'
-" Bundle 'vim-scripts/JavaScript-Indent'
-" Bundle 'spf13/PIV'
-" Bundle 'joonty/vim-taggatron'
+" Plug 'vim-scripts/Vim-JDE'
+" Plug 'maksimr/vim-jsbeautify'
+Plug 'scrooloose/syntastic'
+" Plug 'pangloss/vim-javascript'
+Plug 'ternjs/tern_for_vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'garbas/vim-snipmate'
+" Plug 'amiorin/vim-project'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'nathanaelkane/vim-indent-guides'
+" Plug 'flazz/vim-colorschemes'
+Plug 'vim-scripts/sessionman.vim'
+Plug 'kien/ctrlp.vim'
+" Plug 'leshill/vim-json'
+Plug 'godlygeek/tabular'
+Plug 'majutsushi/tagbar'
+" Plug 'amirh/HTML-AutoCloseTag'
+Plug 'tpope/vim-surround'
+Plug 'vim-scripts/AutoComplPop'
+" Plug 'Shougo/neocomplcache'
+" Plug 'Valloric/YouCompleteMe'
+" Plug 'Shougo/eocomplcache'
+Plug 'spf13/vim-autoclose'
+Plug 'scrooloose/nerdtree'
+Plug 'harish2704/harish2704-vim'
+Plug 'kchmck/vim-coffee-script'
+Plug 'digitaltoad/vim-jade'
+Plug 'AndrewRadev/vim-eco'
+" Plug 'mustache/vim-mode'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'chrisbra/NrrwRgn'
+Plug 'heavenshell/vim-jsdoc'
+" Plug 'vim-scripts/JavaScript-Indent'
+" Plug 'spf13/PIV'
+" Plug 'joonty/vim-taggatron'
 
-"Bundle 'git://github.com/vim-scripts/autoload_cscope.vim.git'
-" Bundle 'int3/vim-taglist-plus'
-" Bundle 'vim-scripts/EasyGrep'
-Bundle 'briancollins/vim-jst'
-Bundle 'vim-scripts/matchit.zip'
-Bundle 'harish2704/vim-snippets'
-" Bundle 'vim-scripts/SyntaxRange'
-Bundle 'harish2704/gtags.vim'
-" Bundle 'vim-scripts/guicolorscheme.vim'
-" Bundle 'vim-scripts/CSApprox'
-" Bundle 'vim-scripts/adt.vim'
-" Bundle 'tpope/eclim'
+"Plug 'git://github.com/vim-scripts/autoload_cscope.vim.git'
+" Plug 'int3/vim-taglist-plus'
+" Plug 'vim-scripts/EasyGrep'
+Plug 'briancollins/vim-jst'
+Plug 'vim-scripts/matchit.zip'
+Plug 'harish2704/vim-snippets'
+" Plug 'vim-scripts/SyntaxRange'
+Plug 'harish2704/gtags.vim'
+" Plug 'vim-scripts/guicolorscheme.vim'
+" Plug 'vim-scripts/CSApprox'
+" Plug 'vim-scripts/adt.vim'
+" Plug 'tpope/eclim'
+call plug#end()
 
 " Source support_function.vim to support vim-snippets.
-if filereadable(expand("~/.nvim/bundle/vim-snippets/snippets/support_functions.vim"))
-  source ~/.nvim/bundle/vim-snippets/snippets/support_functions.vim
+if filereadable(expand( g:nvim_conf_root ."bundle/vim-snippets/snippets/support_functions.vim"))
+  source g:nvim_conf_root . 'bundle/vim-snippets/snippets/support_functions.vim'
 endif
 
 " }
@@ -304,10 +307,12 @@ imap  <End>
 set grepprg=ag\ --nogroup\ --nocolor
 
 " Ctrl-Enter on normal mode -> Jump to definition using Tern
-nmap <C-CR> :TernDefSplit<CR>
+autocmd BufEnter *.js nmap <C-CR> :TernDefSplit<CR>
 
 " Ctrl-/ on normal mode -> Grep word under cursor ( Recursive )
 nmap  :grep! -r <C-R><C-W>
+nmap <C-/> :grep! -r <C-R><C-W>
+
 
 " Open the <X>version of current file using fugitive, where <X> is the string in clipboard.
 nmap <leader>go :Gvsplit <C-R>+:<C-R>%
@@ -327,11 +332,11 @@ imap  <Esc><c-s>
 " }
 
 " Alt-q Delete current buffer ( Close file )
-nmap ñ :bd<CR>
+nmap <M-q> :bd<CR>
 " map <F8> :TagbarToggle<CR>
 nmap <F2> :wa<Bar>exe "mksession! " . v:this_session<CR>
 " \\es Open vimrc in a new tab
-nmap <Leader><Leader>es :tabedit ~/.nvim/nvimrc <CR>
+execute( 'nmap <Leader><Leader>es :tabedit '. g:nvim_conf_root .'nvimrc <CR>' )
 " \\en Open current file's snippets file in a new tab
 nmap <Leader><Leader>en :execute 'OpenSnippets'<CR>
 
@@ -436,6 +441,3 @@ nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
 vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
 " }
 
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
