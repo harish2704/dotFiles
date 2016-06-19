@@ -24,8 +24,9 @@ set noswapfile
 set title
 
 set path=.,
+set foldlevel=99
 
-let javaScript_fold=1         " JavaScript
+let javaScript_fold=0         " JavaScript
 let perl_fold=1               " Perl
 " let php_folding=1             " PHP
 let r_syntax_folding=1        " R
@@ -55,7 +56,7 @@ autocmd BufRead *.java set include=^#\s*import
 autocmd BufRead *.java set includeexpr=substitute(v:fname,'\\.','/','g')
 autocmd BufRead *.java set suffixesadd=.java,.xml
 autocmd BufRead *.ect set suffixesadd=.ect ft=html.ect
-autocmd BufEnter *.gradle setf groovy
+autocmd BufEnter *.gradle set ft=groovy
 " }
 
 
@@ -110,7 +111,16 @@ let g:ctrlp_custom_ignore = {
 let g:html_indent_inctags = "html,body,head,tbody"
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
+
+let b:javascript_fold = 0
+" let g:tern_set_omni_function = 0
+
 " }
+
+
+" For JSX {
+  let g:jsx_ext_required = 0
+"}
 
 
 " AutoCloseTag {
@@ -137,7 +147,7 @@ set sessionoptions=blank,buffers,curdir,tabpages,winsize,resize,winpos
 
 
 " for JavaScript syntax checking {
-let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_always_populate_loc_list = 1
 " let g:syntastic_javascript_checkers = ['jslint']
 " }
@@ -175,6 +185,34 @@ let g:sparkupNextMapping = '<M-K>'
 
 "for Plug {
 set nocompatible               " be iMproved
+"
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" <CR>: close popup and save indent.
+" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+let s:ss=0
+let g:ss=""
+function! s:my_cr_function()
+  if pumvisible()
+    let g:ss .= synIDattr( synID( line(".") , col("."), 1), "name") . ' - '
+    " let g:ss .=  col(".") . ' ' . virtcol(".") .' - '
+    if s:ss == 1
+      let s:ss = 0
+      return "\<C-Y>"
+    else
+      let s:ss = 1
+      return "\<C-n>"
+    endif
+  else
+    return "\<CR>"
+  endif
+endfunction
+
 let nvim_conf_root='~/.config/nvim/'
 call plug#begin( )
 " My Plugs here:
@@ -199,13 +237,15 @@ Plug 'vim-scripts/DoxygenToolkit.vim'
 " Plug 'vim-scripts/Vim-JDE'
 " Plug 'maksimr/vim-jsbeautify'
 Plug 'scrooloose/syntastic'
-" Plug 'pangloss/vim-javascript'
-Plug 'ternjs/tern_for_vim' , { 'for': 'javascript' }
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+" Plug 'othree/yajs.vim'
+Plug 'harish2704/tern_for_vim' , { 'for': 'javascript' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'garbas/vim-snipmate'
 " Plug 'amiorin/vim-project'
 Plug 'MarcWeber/vim-addon-mw-utils'
-" Plug 'tomtom/tlib_vim'
+Plug 'tomtom/tlib_vim'
 Plug 'nathanaelkane/vim-indent-guides'
 " Plug 'flazz/vim-colorschemes'
 Plug 'vim-scripts/sessionman.vim'
@@ -215,7 +255,11 @@ Plug 'godlygeek/tabular'
 Plug 'majutsushi/tagbar'
 " Plug 'amirh/HTML-AutoCloseTag'
 Plug 'tpope/vim-surround'
-Plug 'vim-scripts/AutoComplPop'
+function! DoRemote(arg)
+  UpdateRemotePlugins
+endfunction
+Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+" Plug 'vim-scripts/AutoComplPop'
 " Plug 'Shougo/neocomplcache'
 " Plug 'Valloric/YouCompleteMe'
 " Plug 'Shougo/eocomplcache'
@@ -248,6 +292,12 @@ Plug 'tomasr/molokai'
 Plug 'joonty/vdebug'
 Plug 'junegunn/fzf', { 'dir': '~/.local/Apps/fzf' }
 Plug 'junegunn/fzf.vim'
+Plug 'vim-scripts/SyntaxComplete'
+Plug 'justinj/vim-react-snippets'
+Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'kannokanno/previm'
+Plug 'tyru/open-browser.vim'
 call plug#end()
 
 " Source support_function.vim to support vim-snippets.
@@ -258,6 +308,7 @@ endif
 " }
 let $FZF_DEFAULT_COMMAND='ag -g ""'
 nmap <C-p> :Files<CR>
+nmap <C-b> :Buffers<CR>
 
 " Neovim specific settings
 syntax on 
@@ -326,9 +377,9 @@ nmap <leader>lc :lclose<CR>
 nmap <C-S-T> :tabedit<CR>
 
 " Ctrl-S to save file {
-nmap  :w<CR>
-vmap  <Esc><c-s>gv
-imap  <Esc><c-s>
+nmap <C-s> :w<CR>
+vmap <C-s> <Esc><c-s>gv
+imap <C-s> <Esc><c-s>
 " }
 
 " Alt-q Delete current buffer ( Close file )
@@ -387,6 +438,12 @@ nmap <M-Right> <C-W>l
 nmap <M-Left> <C-W>h
 " }
 
+" For terminal mode{
+tmap   <M-Up>     <C-\><C-n><C-W>k
+tmap   <M-Down>   <C-\><C-n><C-W>j
+tmap   <M-Right>  <C-\><C-n><C-W>l
+tmap   <M-Left>   <C-\><C-n><C-W>h
+" }
 
 "for easy quote/unquote {
 " \\ + a[add] / d[delete] + q[single quote] / Q [Double quote]
@@ -420,6 +477,17 @@ map <M-7> 7gt
 map <M-8> 8gt
 " }
 
+" For Terminal mode Alt + [1-8] to Switch tabs {
+tmap <M-1> <C-\><C-n>1gt
+tmap <M-2> <C-\><C-n>2gt
+tmap <M-3> <C-\><C-n>3gt
+tmap <M-4> <C-\><C-n>4gt
+tmap <M-5> <C-\><C-n>5gt
+tmap <M-6> <C-\><C-n>6gt
+tmap <M-7> <C-\><C-n>7gt
+tmap <M-8> <C-\><C-n>8gt
+" }
+
 " NerdTree {
 nmap <Leader>ac <Plug>ToggleAutoCloseMappings
 map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
@@ -444,3 +512,10 @@ nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
 vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
 " }
 
+
+" For terminal mode{
+tmap <M-c> <C-\><C-n><Esc>
+" }
+
+" <Alt-R> -> Reload current file
+nmap <M-r> :e!<CR>
