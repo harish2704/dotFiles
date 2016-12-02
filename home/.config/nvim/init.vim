@@ -5,6 +5,7 @@
 set mouse=a
 
 " Cd to current file's directory
+command! Header :execute '0r!file-header %'
 command! Cwd :execute 'cd %:p:h'
 command! Reload :execute "bufdo execute 'checktime . bufnr('%')'"
 
@@ -56,6 +57,7 @@ autocmd BufRead *.java set include=^#\s*import
 autocmd BufRead *.java set includeexpr=substitute(v:fname,'\\.','/','g')
 autocmd BufRead *.java set suffixesadd=.java,.xml
 autocmd BufRead *.ect set suffixesadd=.ect ft=html.ect
+autocmd BufRead *.njk set ft=jinja
 autocmd BufEnter *.gradle set ft=groovy
 " }
 
@@ -119,7 +121,7 @@ let b:javascript_fold = 0
 
 
 " For JSX {
-  let g:jsx_ext_required = 0
+  " let g:jsx_ext_required = 0
 "}
 
 
@@ -138,6 +140,9 @@ let NERDTreeKeepTreeInNewTab=1
 let g:nerdtree_tabs_open_on_gui_startup=0
 " }
 
+:let g:NERDCustomDelimiters = {
+\ 'jinja': { 'left': '{# ', 'right': ' #}', 'leftAlt': '{# ', 'rightAlt': ' #}' }
+\ }
 
 " Session List {
 set sessionoptions=blank,buffers,curdir,tabpages,winsize,resize,winpos
@@ -147,9 +152,9 @@ set sessionoptions=blank,buffers,curdir,tabpages,winsize,resize,winpos
 
 
 " for JavaScript syntax checking {
-let g:syntastic_javascript_checkers = ['eslint']
+" let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_javascript_checkers = ['jslint']
+let g:syntastic_javascript_checkers = ['jshint']
 " }
 
 
@@ -164,10 +169,12 @@ set cursorline                  " Highlight current line
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 
 
-" let Gtags_Auto_Map = 1
-let Gtags_VerticalWindow = 1
-let Gtags_Auto_Update = 1
-let GtagsCscope_Auto_Load = 1
+" for Gtags {
+let g:Gtags_Auto_Map = 1
+let g:Gtags_VerticalWindow = 1
+let g:Gtags_Auto_Update = 1
+let g:GtagsCscope_Auto_Load = 1
+" }
 
 
 " set lazyredraw
@@ -193,25 +200,6 @@ let g:fzf_action = {
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
 
-" <CR>: close popup and save indent.
-" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-let s:ss=0
-let g:ss=""
-function! s:my_cr_function()
-  if pumvisible()
-    let g:ss .= synIDattr( synID( line(".") , col("."), 1), "name") . ' - '
-    " let g:ss .=  col(".") . ' ' . virtcol(".") .' - '
-    if s:ss == 1
-      let s:ss = 0
-      return "\<C-Y>"
-    else
-      let s:ss = 1
-      return "\<C-n>"
-    endif
-  else
-    return "\<CR>"
-  endif
-endfunction
 
 let nvim_conf_root='~/.config/nvim/'
 call plug#begin( )
@@ -219,7 +207,7 @@ call plug#begin( )
 "
 " original repos on github
 Plug 'tpope/vim-fugitive'
-Plug 'Lokaltog/vim-easymotion'
+" Plug 'Lokaltog/vim-easymotion'
 " Plug 'Lokaltog/vim-distinguished'
 " Plug 'junegunn/seoul256.vim'
 " Plug 'whatyouhide/vim-gotham'
@@ -240,7 +228,7 @@ Plug 'scrooloose/syntastic'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 " Plug 'othree/yajs.vim'
-Plug 'harish2704/tern_for_vim' , { 'for': 'javascript' }
+" Plug 'harish2704/tern_for_vim' , { 'for': 'javascript' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'garbas/vim-snipmate'
 " Plug 'amiorin/vim-project'
@@ -265,7 +253,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 " Plug 'Shougo/eocomplcache'
 Plug 'spf13/vim-autoclose'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeFind' }
-Plug 'git@github.com:harish2704/harish2704-vim'
+Plug 'harish2704/harish2704-vim'
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
 Plug 'AndrewRadev/vim-eco', { 'for': [ 'ect', 'eco' ] }
@@ -281,7 +269,7 @@ Plug 'heavenshell/vim-jsdoc', { 'for': 'javascript' }
 " Plug 'vim-scripts/EasyGrep'
 Plug 'briancollins/vim-jst', { 'for': 'jst' }
 Plug 'vim-scripts/matchit.zip'
-Plug 'git@github.com:harish2704/vim-snippets.git'
+Plug 'harish2704/vim-snippets'
 " Plug 'vim-scripts/SyntaxRange'
 Plug 'harish2704/gtags.vim'
 " Plug 'vim-scripts/guicolorscheme.vim'
@@ -290,7 +278,7 @@ Plug 'harish2704/gtags.vim'
 " Plug 'tpope/eclim'
 Plug 'tomasr/molokai'
 Plug 'joonty/vdebug'
-Plug 'junegunn/fzf', { 'dir': '~/.local/Apps/fzf' }
+Plug 'junegunn/fzf', { 'dir': '/opt/fzf' }
 Plug 'junegunn/fzf.vim'
 Plug 'vim-scripts/SyntaxComplete'
 Plug 'justinj/vim-react-snippets'
@@ -298,6 +286,10 @@ Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'kannokanno/previm'
 Plug 'tyru/open-browser.vim'
+Plug 'harish2704/MatchTag'
+Plug 'leafgarland/typescript-vim'
+Plug 'zenbro/mirror.vim'
+Plug 'kassio/neoterm'
 call plug#end()
 
 " Source support_function.vim to support vim-snippets.
@@ -356,9 +348,10 @@ imap  <End>
 
 " Replace grep with silver-searcher
 set grepprg=ag\ --nogroup\ --nocolor
+" set grepprg=grep\ -n\ $*\ /dev/null
 
 " Ctrl-Enter on normal mode -> Jump to definition using Tern
-autocmd BufEnter *.js nmap <C-CR> :TernDefSplit<CR>
+" autocmd BufEnter *.js nmap <C-CR> :TernDefSplit<CR>
 
 " Ctrl-/ on normal mode -> Grep word under cursor ( Recursive )
 nmap  :grep! -r <C-R><C-W>
@@ -387,7 +380,7 @@ nmap <M-q> :bd<CR>
 " map <F8> :TagbarToggle<CR>
 nmap <F2> :wa<Bar>exe "mksession! " . v:this_session<CR>
 " \\es Open vimrc in a new tab
-execute( 'nmap <Leader><Leader>es :tabedit '. g:nvim_conf_root .'nvimrc <CR>' )
+execute( 'nmap <Leader><Leader>es :tabedit '. g:nvim_conf_root .'init.vim <CR>' )
 " \\en Open current file's snippets file in a new tab
 nmap <Leader><Leader>en :execute 'OpenSnippets'<CR>
 
@@ -497,25 +490,38 @@ nmap <leader>nt :NERDTreeFind<CR>
 
 
 " Tabularize {
-nmap <Leader>a& :Tabularize /&<CR>
-vmap <Leader>a& :Tabularize /&<CR>
-nmap <Leader>a= :Tabularize /=<CR>
-vmap <Leader>a= :Tabularize /=<CR>
-nmap <Leader>a: :Tabularize /:<CR>
-vmap <Leader>a: :Tabularize /:<CR>
-nmap <Leader>a:: :Tabularize /:\zs<CR>
-vmap <Leader>a:: :Tabularize /:\zs<CR>
-nmap <Leader>a, :Tabularize /,<CR>
-vmap <Leader>a, :Tabularize /,<CR>
-vmap <Leader>a// :Tabularize /\/\/<CR>
-nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
+" nmap <Leader>a& :Tabularize /&<CR>
+" vmap <Leader>a& :Tabularize /&<CR>
+" nmap <Leader>a= :Tabularize /=<CR>
+" vmap <Leader>a= :Tabularize /=<CR>
+" nmap <Leader>a: :Tabularize /:<CR>
+" vmap <Leader>a: :Tabularize /:<CR>
+" nmap <Leader>a:: :Tabularize /:\zs<CR>
+" vmap <Leader>a:: :Tabularize /:\zs<CR>
+" nmap <Leader>a, :Tabularize /,<CR>
+" vmap <Leader>a, :Tabularize /,<CR>
+" vmap <Leader>a// :Tabularize /\/\/<CR>
+" nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
+" vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
 " }
 
 
 " For terminal mode{
 tmap <M-c> <C-\><C-n><Esc>
 " }
+" For NeoTerm plugin{
+nmap <Leader><Leader>o :Topen<CR>
+nmap <Leader><Leader>c :Tclose<CR>
+" }
+" For Open a terminal in current directory{
+nmap <Leader><Leader>t :!gnome-terminal<CR>
+nmap <Leader><Leader>g :!git gui &<CR>
+" }
 
 " <Alt-R> -> Reload current file
 nmap <M-r> :e!<CR>
+
+" <Ctrl-Shift-q> force Close buffer 
+nmap <M-Q> :bd!<CR>
+vmap <C-h> "fy:%s#<C-r>f#
+
