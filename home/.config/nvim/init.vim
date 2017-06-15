@@ -6,6 +6,7 @@ set mouse=a
 
 " Cd to current file's directory
 command! Header :execute '0r!file-header %'
+command! Term :execute 'sp | term'
 command! Cwd :execute 'cd %:p:h'
 command! Reload :execute "bufdo execute 'checktime . bufnr('%')'"
 
