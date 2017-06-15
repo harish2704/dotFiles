@@ -20,7 +20,9 @@ set spell                        " Spell checking on
 set hidden                       " Allow buffer switching without saving
 " No need to specify swap directory as it is the default
 filetype plugin indent on   " Automatically detect file types.
-let NERDSpaceDelims=1
+let g:NERDSpaceDelims=1
+au BufEnter *.ts let b:NERDSexyComMarker='* '
+au BufEnter *.js let b:NERDSexyComMarker='* '
 set listchars=tab:»\ ,eol:¶,trail:·,precedes:…,extends:…
 set noswapfile
 set title
