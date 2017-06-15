@@ -2,18 +2,19 @@
 
 " set t_Co=256
 
-set mouse=a
+
+" My custom commands {{{
 
 " Cd to current file's directory
 command! Header :execute '0r!file-header %'
 command! Term :execute 'sp | term'
 command! Cwd :execute 'cd %:p:h'
 command! Reload :execute "bufdo execute 'checktime . bufnr('%')'"
+" }}}
 
-" set timeout timeoutlen=1000 ttimeoutlen=100
-
-" My settings {
+" My settings {{{
 filetype on                   " required!
+set mouse=a
 set clipboard=unnamedplus
 set history=1000                 " Store a ton of history (default is 20)
 set spell                        " Spell checking on
@@ -29,6 +30,8 @@ set title
 
 set path=.,
 set foldlevel=99
+let g:python_host_prog='/usr/bin/python2.7'
+let g:python3_host_prog='/usr/bin/python3.5'
 
 let javaScript_fold=0         " JavaScript
 let perl_fold=1               " Perl
@@ -38,16 +41,16 @@ let ruby_fold=1               " Ruby
 let sh_fold_enabled=1         " sh
 let vimsyn_folding='af'       " Vim script
 " let xml_syntax_folding=1      " XML
-
+" set completeopt+=preview
 set foldmethod=indent
 autocmd FileType java set foldmethod=indent
 autocmd FileType html set foldmethod=indent
 autocmd FileType javascript set foldmethod=indent
 autocmd FileType xml set foldmethod=indent
-" }
+" }}}
 
 
-" for formating {
+" for formating {{{
 " set nowrap                      " Wrap long lines
 set autoindent                  " Indent at the same level of the previous line
 set shiftwidth=2                " Use indents of 4 spaces
@@ -55,17 +58,17 @@ set expandtab                   " Tabs are spaces, not tabs
 set tabstop=2                   " An indentation every four columns
 set softtabstop=2               " Let backspace delete indent
 
-" for java {
+" for java {{{
 autocmd BufRead *.java set include=^#\s*import
 autocmd BufRead *.java set includeexpr=substitute(v:fname,'\\.','/','g')
 autocmd BufRead *.java set suffixesadd=.java,.xml
 autocmd BufRead *.ect set suffixesadd=.ect ft=html.ect
 autocmd BufRead *.njk set ft=jinja
 autocmd BufEnter *.gradle set ft=groovy
-" }
+" }}}
 
 
-" for UI {
+" for UI {{{
 
 set showmode                    " Display the current mode
 if has('statusline')
@@ -96,9 +99,9 @@ set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
 set scrolljump=1                " Lines to scroll when cursor leaves screen
 set scrolloff=0                 " Minimum lines to keep above and below cursor
 set list
-" }
+" }}}
 
-"for Ctrl-P{
+"for Ctrl- {{{
 
 let g:ctrlp_user_command = {}
 let g:ctrlp_working_path_mode = 0
@@ -109,10 +112,10 @@ let g:ctrlp_custom_ignore = {
       \ 'file': '\v\.(o|pyc|class)$',
       \ 'link': '',
       \ }
-"}"
+" }}}"
 
 
-" for JS {
+" for JS {{{
 let g:html_indent_inctags = "html,body,head,tbody"
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
@@ -120,18 +123,18 @@ let g:html_indent_style1 = "inc"
 let b:javascript_fold = 0
 " let g:tern_set_omni_function = 0
 
-" }
+" }}}
 
 
-" For JSX {
+" For JSX {{{
   " let g:jsx_ext_required = 0
-"}
+" }}}
 
 
-" AutoCloseTag {
+" AutoCloseTag {{{
 " Make it so AutoCloseTag works for xml and xhtml files as well
 au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
-" }
+" }}}
 
 let NERDTreeShowBookmarks=1
 let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
@@ -141,43 +144,47 @@ let NERDTreeMouseMode=2
 let NERDTreeShowHidden=1
 let NERDTreeKeepTreeInNewTab=1
 let g:nerdtree_tabs_open_on_gui_startup=0
-" }
+" }}}
 
 :let g:NERDCustomDelimiters = {
-\ 'jinja': { 'left': '{# ', 'right': ' #}', 'leftAlt': '{# ', 'rightAlt': ' #}' }
+      \ 'jinja': { 'left': '{# ', 'right': ' #}', 'leftAlt': '{# ', 'rightAlt': ' #}' },
+      \ 'typescript': { 'left': '//', 'leftAlt': '/**', 'rightAlt': '*/' },
+      \ 'javascript': { 'left': '//', 'leftAlt': '/**', 'rightAlt': '*/' },
 \ }
 
-" Session List {
+" Session List {{{
 set sessionoptions=blank,buffers,curdir,tabpages,winsize,resize,winpos
 " nmap <leader><leader>c  :JavaCorrect<cr>
 " nmap <leader>pt :ProjectsTree<CR>
-" }
+" }}}
 
 
-" for JavaScript syntax checking {
+" for JavaScript syntax checking {{{
 " let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_checkers = ['jshint']
-" }
+" let g:syntastic_typescript_checkers = ['tsuquyomi']
+" }}}
 
 
-" gides {
+" gides {{{
 " let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
-" }
+" }}}
 set wrap
 " dont set cursorline for performance imporoovements
 set cursorline                  " Highlight current line
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 
 
-" for Gtags {
+" for Gtags {{{
 let g:Gtags_Auto_Map = 1
 let g:Gtags_VerticalWindow = 1
 let g:Gtags_Auto_Update = 1
 let g:GtagsCscope_Auto_Load = 1
-" }
+" }}}
 
 
 " set lazyredraw
@@ -193,7 +200,7 @@ let g:sparkupNextMapping = '<M-K>'
 "       \}
 
 
-"for Plug {
+"for Plug {{{
 set nocompatible               " be iMproved
 "
 " Use deoplete.
@@ -210,7 +217,8 @@ call plug#begin( )
 "
 " original repos on github
 Plug 'tpope/vim-fugitive'
-" Plug 'Lokaltog/vim-easymotion'
+Plug 'brooth/far.vim'
+Plug 'Lokaltog/vim-easymotion'
 " Plug 'Lokaltog/vim-distinguished'
 " Plug 'junegunn/seoul256.vim'
 " Plug 'whatyouhide/vim-gotham'
@@ -227,12 +235,14 @@ Plug 'vim-scripts/DoxygenToolkit.vim'
 " Plug 'vim-scripts/boxdraw'
 " Plug 'vim-scripts/Vim-JDE'
 " Plug 'maksimr/vim-jsbeautify'
+Plug 'Shougo/vimproc.vim'
+Plug 'Quramy/tsuquyomi'
 Plug 'scrooloose/syntastic'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 " Plug 'othree/yajs.vim'
 " Plug 'harish2704/tern_for_vim' , { 'for': 'javascript' }
-Plug 'scrooloose/nerdcommenter'
+Plug 'harish2704/nerdcommenter'
 Plug 'garbas/vim-snipmate'
 " Plug 'amiorin/vim-project'
 Plug 'MarcWeber/vim-addon-mw-utils'
@@ -249,7 +259,8 @@ Plug 'tpope/vim-surround'
 function! DoRemote(arg)
   UpdateRemotePlugins
 endfunction
-Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'mhartington/deoplete-typescript'
 " Plug 'vim-scripts/AutoComplPop'
 " Plug 'Shougo/neocomplcache'
 " Plug 'Valloric/YouCompleteMe'
@@ -280,19 +291,21 @@ Plug 'harish2704/gtags.vim'
 " Plug 'vim-scripts/adt.vim'
 " Plug 'tpope/eclim'
 Plug 'tomasr/molokai'
-Plug 'joonty/vdebug'
-Plug 'junegunn/fzf', { 'dir': '/opt/fzf' }
+" Plug 'joonty/vdebug'
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'vim-scripts/SyntaxComplete'
+" Plug 'vim-scripts/SyntaxComplete'
 Plug 'justinj/vim-react-snippets'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'Glench/Vim-Jinja2-Syntax'
-Plug 'kannokanno/previm'
+" Plug 'kannokanno/previm'
 Plug 'tyru/open-browser.vim'
 Plug 'harish2704/MatchTag'
-Plug 'leafgarland/typescript-vim'
-Plug 'zenbro/mirror.vim'
-Plug 'kassio/neoterm'
+" Plug 'leafgarland/typescript-vim'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'bogado/file-line'
+" Plug 'zenbro/mirror.vim'
+" Plug 'kassio/neoterm'
 call plug#end()
 
 " Source support_function.vim to support vim-snippets.
@@ -300,39 +313,16 @@ if filereadable(expand( g:nvim_conf_root ."bundle/vim-snippets/snippets/support_
   source g:nvim_conf_root . 'bundle/vim-snippets/snippets/support_functions.vim'
 endif
 
-" }
+" }}}
 let $FZF_DEFAULT_COMMAND='ag -g ""'
 nmap <C-p> :Files<CR>
 nmap <C-b> :Buffers<CR>
 
 " Neovim specific settings
 syntax on 
-" if has('neovim')
-" let s:python_host_init = 'python -c "import neovim; neovim.start_host()"'
-" let &initpython = s:python_host_init
-" let &initclipboard = s:python_host_init
-" set unnamedclip " Automatically use clipboard as storage for the unnamed register
-" endif"
 
-" colorscheme  colorful256
-" colorscheme mrkn256
-" colorscheme desert256
-" colorscheme 256-grayvim
-" colorscheme  jellybeans
-" colorscheme devbox-dark-256
-" colorscheme lodestone
-" colorscheme distinguished
 colorscheme molokai
-" set foldmethod=syntax
-" let javascriptfold=1
-" let g:indent_guides_auto_colors = 0
-" hi IndentGuidesEven  ctermbg=235
-" hi IndentGuidesOdd  ctermbg=240
-" hi StatusLine ctermbg=202
-" hi StatusLineNC ctermbg=246 ctermfg=0
-" autocmd ColorScheme * hi IndentGuidesEven  ctermbg=235 | hi IndentGuidesOdd  ctermbg=240
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
-" hi SpellBad ctermbg=9 ctermfg=20
 
 
 " Switch tabs using Alt-1..9
@@ -372,11 +362,11 @@ nmap <leader>lc :lclose<CR>
 " Ctrl-Shift-T -> Open new tab
 nmap <C-S-T> :tabedit<CR>
 
-" Ctrl-S to save file {
+" Ctrl-S to save file {{{
 nmap <C-s> :w<CR>
 vmap <C-s> <Esc><c-s>gv
 imap <C-s> <Esc><c-s>
-" }
+" }}}
 
 " Alt-q Delete current buffer ( Close file )
 nmap <M-q> :bd<CR>
@@ -388,21 +378,21 @@ execute( 'nmap <Leader><Leader>es :tabedit '. g:nvim_conf_root .'init.vim <CR>' 
 nmap <Leader><Leader>en :execute 'OpenSnippets'<CR>
 
 
-" for moving tab {
-" Ctrl-Shift + Page-Up/Down to rearrange tab {
+" for moving tab {{{
+" Ctrl-Shift + Page-Up/Down to rearrange tab {{{
 nmap <C-S-PageUp> :execute 'tabmove ' . (tabpagenr()-2 )<CR>
 nmap <C-S-PageDown> :execute 'tabmove ' . ( tabpagenr()+1 )<CR>
 nmap <M-PageUp> :execute 'tabmove ' . (tabpagenr()-2 )<CR>
 nmap <M-PageDown> :execute 'tabmove ' . ( tabpagenr()+1 )<CR>
-" }
+" }}}
 
 
-" Ctrl-Shift + j/k to move current window in to another tab{
+" Ctrl-Shift + j/k to move current window in to another ta {{{
 nmap <C-S-j> :execute 'Mt' . (tabpagenr() -1)  <CR>
 nmap <C-S-k> :execute 'Mt' . (tabpagenr() +1)  <CR>
 nmap <C-j> :execute 'Mt' . (tabpagenr() -1)  <CR>
 nmap <C-k> :execute 'Mt' . (tabpagenr() +1)  <CR>
-" }
+" }}}
 
  " \tt Toggle tab and spaces
 nmap <Leader>tt :let &expandtab=!&expandtab<CR>
@@ -410,14 +400,14 @@ nmap <Leader>tt :let &expandtab=!&expandtab<CR>
 nmap <Leader>tj :let &shiftwidth=&shiftwidth-2\|let &tabstop=&tabstop-2\|let &softtabstop=&softtabstop-2\|echo 'tabstop=' &tabstop<CR>
  " \tj Decreases two spaces width for tab
 nmap <Leader>tk :let &shiftwidth=&shiftwidth+2\|let &tabstop=&tabstop+2\|let &softtabstop=&softtabstop+2\|echo 'tabstop=' &tabstop<CR>
-" }
+" }}}
 
-" Session handling {
+" Session handling {{{
 " List saved sessions
 nmap <leader>sl :SessionList<CR>
 " Save and close current session
 nmap <leader>sc :SessionClose<CR>
-" }
+" }}}
 
 " Ctrl-Enter in insert mode will append ';' to the line and insert a new line 
 imap <C-CR> <ESC>A;
@@ -427,21 +417,39 @@ imap <C-CR> <ESC>A;
 " Ctrl-? in normal mode will jump to tag references using cscope
 " nmap <C-?> :vert scs f t <C-R><C-W><CR>
 
-" Alt + Arrows to Moving cursor to different windows {
+" Alt + Arrows to Moving cursor to different windows {{{
 nmap <M-Up> <C-W>k
 nmap <M-Down> <C-W>j
 nmap <M-Right> <C-W>l
 nmap <M-Left> <C-W>h
-" }
+" }}}
 
-" For terminal mode{
-tmap   <M-Up>     <C-\><C-n><C-W>k
-tmap   <M-Down>   <C-\><C-n><C-W>j
-tmap   <M-Right>  <C-\><C-n><C-W>l
-tmap   <M-Left>   <C-\><C-n><C-W>h
-" }
+" For terminal mod {{{
+tmap   <C-PageUp>   <C-\><C-n><C-PageUp>
+tmap   <C-PageDown> <C-\><C-n><C-PageDown>
+tmap   <M-Up>       <C-\><C-n><C-W>k
+tmap   <M-Down>     <C-\><C-n><C-W>j
+tmap   <M-Right>    <C-\><C-n><C-W>l
+tmap   <M-Left>     <C-\><C-n><C-W>h
+" }}}
 
-"for easy quote/unquote {
+" For Terminal mode Alt + [1-8] to Switch tabs {{{
+tmap <M-1> <C-\><C-n>1gt
+tmap <M-2> <C-\><C-n>2gt
+tmap <M-3> <C-\><C-n>3gt
+tmap <M-4> <C-\><C-n>4gt
+tmap <M-5> <C-\><C-n>5gt
+tmap <M-6> <C-\><C-n>6gt
+tmap <M-7> <C-\><C-n>7gt
+tmap <M-8> <C-\><C-n>8gt
+" }}}
+
+" For terminal mod {{{
+tmap <M-c> <C-\><C-n><Esc>
+tmap <M-c> <C-\><C-n><Esc>
+" }}}
+
+"for easy quote/unquote {{{
 " \\ + a[add] / d[delete] + q[single quote] / Q [Double quote]
 " \\dQ  remove double quote
 nmap <Leader><Leader>dQ ds"
@@ -455,14 +463,14 @@ nmap <Leader><Leader>aq ysiw'
 imap <M-S-s> <Esc>maysiw"`aa
 " In insert mode, <Alt-S> will quote current word with double quotes
 imap <M-s> <Esc>maysiw'`ai
-" }
+" }}}
 
 
-" format JSON {
+" format JSON {{{
 nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
-" }
+" }}}
 
-" Alt + [1-8] to Switch tabs {
+" Alt + [1-8] to Switch tabs {{{
 map <M-1> 1gt
 map <M-2> 2gt
 map <M-3> 3gt
@@ -471,28 +479,18 @@ map <M-5> 5gt
 map <M-6> 6gt
 map <M-7> 7gt
 map <M-8> 8gt
-" }
+" }}}
 
-" For Terminal mode Alt + [1-8] to Switch tabs {
-tmap <M-1> <C-\><C-n>1gt
-tmap <M-2> <C-\><C-n>2gt
-tmap <M-3> <C-\><C-n>3gt
-tmap <M-4> <C-\><C-n>4gt
-tmap <M-5> <C-\><C-n>5gt
-tmap <M-6> <C-\><C-n>6gt
-tmap <M-7> <C-\><C-n>7gt
-tmap <M-8> <C-\><C-n>8gt
-" }
 
-" NerdTree {
+" NerdTree {{{
 nmap <Leader>ac <Plug>ToggleAutoCloseMappings
 map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
 map <leader>e :NERDTreeFind<CR>
 nmap <leader>nt :NERDTreeFind<CR>
-" }
+" }}}
 
 
-" Tabularize {
+" Tabularize {{{
 " nmap <Leader>a& :Tabularize /&<CR>
 " vmap <Leader>a& :Tabularize /&<CR>
 " nmap <Leader>a= :Tabularize /=<CR>
@@ -506,20 +504,17 @@ nmap <leader>nt :NERDTreeFind<CR>
 " vmap <Leader>a// :Tabularize /\/\/<CR>
 " nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
 " vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-" }
+" }}}
 
 
-" For terminal mode{
-tmap <M-c> <C-\><C-n><Esc>
-" }
-" For NeoTerm plugin{
+" For NeoTerm plugi {{{
 nmap <Leader><Leader>o :Topen<CR>
 nmap <Leader><Leader>c :Tclose<CR>
-" }
-" For Open a terminal in current directory{
+" }}}
+" For Open a terminal in current director {{{
 nmap <Leader><Leader>t :!gnome-terminal<CR>
 nmap <Leader><Leader>g :!git gui &<CR>
-" }
+" }}}
 
 " <Alt-R> -> Reload current file
 nmap <M-r> :e!<CR>
