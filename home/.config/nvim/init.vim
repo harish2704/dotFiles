@@ -1,35 +1,51 @@
 " This file is inspired by spf13's vimrc
 
-" set t_Co=256
-
-
 " My custom commands {{{
 
-" Cd to current file's directory
+" Add file header to current buffer
 command! Header :execute '0r!file-header %'
+
+" Open Terminal in split
 command! Term :execute 'sp | term'
+
+" Cd to current file's directory
 command! Cwd :execute 'cd %:p:h'
+
+" Cd to current file's directory, but limit to current tab
+command! Tcd :execute ':tcd %:p:h'
+
+" Reload current buffer
 command! Reload :execute "bufdo execute 'checktime . bufnr('%')'"
+
+" Delete current file and close buffer
+command! Rm :execute '!rm %' | bd
+
+" Copy current file path to unnamedplus register
+command! CopyFilename :let @+=@%
 " }}}
+
+
 
 " My settings {{{
 filetype on                   " required!
+filetype plugin indent on   " Automatically detect file types.
+
+" set selection=exclusive       " Do not inlcude char under cursor while doing visual selection
 set mouse=a
 set clipboard=unnamedplus
 set history=1000                 " Store a ton of history (default is 20)
 set spell                        " Spell checking on
 set hidden                       " Allow buffer switching without saving
-" No need to specify swap directory as it is the default
-filetype plugin indent on   " Automatically detect file types.
-let g:NERDSpaceDelims=1
-au BufEnter *.ts let b:NERDSexyComMarker='* '
-au BufEnter *.js let b:NERDSexyComMarker='* '
-set listchars=tab:»\ ,eol:¶,trail:·,precedes:…,extends:…
 set noswapfile
 set title
-
 set path=.,
 set foldlevel=99
+set foldmethod=indent
+
+au BufEnter *.js.ejs set ft=javascript.ejs
+
+let g:NERDSpaceDelims=1
+
 let g:python_host_prog='/usr/bin/python2.7'
 let g:python3_host_prog='/usr/bin/python3.5'
 
@@ -42,11 +58,16 @@ let sh_fold_enabled=1         " sh
 let vimsyn_folding='af'       " Vim script
 " let xml_syntax_folding=1      " XML
 " set completeopt+=preview
-set foldmethod=indent
+
+" Syntax based folding found be slow. In most of the cases, we will do indenting according to syntax.
 autocmd FileType java set foldmethod=indent
 autocmd FileType html set foldmethod=indent
 autocmd FileType javascript set foldmethod=indent
 autocmd FileType xml set foldmethod=indent
+
+" Add file header automatically for javascript files
+autocmd BufNewFile *.js :Header
+
 " }}}
 
 
@@ -57,13 +78,27 @@ set shiftwidth=2                " Use indents of 4 spaces
 set expandtab                   " Tabs are spaces, not tabs
 set tabstop=2                   " An indentation every four columns
 set softtabstop=2               " Let backspace delete indent
+set wrap
+set cursorline                  " Highlight current line
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+set nocompatible               " be iMproved
+syntax on 
+
+" for JavaScript {{{
+" if we press 'gf' under require('abc/xyz'), then also sarch for ./abs/xyz.js
+autocmd FileType javascript set includeexpr='./'.v:fname
+autocmd FileType typescript set includeexpr='./'.v:fname
+" }}}
 
 " for java {{{
 autocmd BufRead *.java set include=^#\s*import
 autocmd BufRead *.java set includeexpr=substitute(v:fname,'\\.','/','g')
 autocmd BufRead *.java set suffixesadd=.java,.xml
 autocmd BufRead *.ect set suffixesadd=.ect ft=html.ect
+
+" For Nunjucks templates
 autocmd BufRead *.njk set ft=jinja
+
 autocmd BufEnter *.gradle set ft=groovy
 " }}}
 
@@ -101,34 +136,15 @@ set scrolloff=0                 " Minimum lines to keep above and below cursor
 set list
 " }}}
 
-"for Ctrl- {{{
-
-let g:ctrlp_user_command = {}
-let g:ctrlp_working_path_mode = 0
-let g:ctrlp_show_hidden = 1
-" custom file/folder ignores
-let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\v[\/](\.git|\.hg|\.svn|\.ve|node_modules|bower_components)$',
-      \ 'file': '\v\.(o|pyc|class)$',
-      \ 'link': '',
-      \ }
-" }}}"
-
-
 " for JS {{{
 let g:html_indent_inctags = "html,body,head,tbody"
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
 
 let b:javascript_fold = 0
-" let g:tern_set_omni_function = 0
 
 " }}}
 
-
-" For JSX {{{
-  " let g:jsx_ext_required = 0
-" }}}
 
 
 " AutoCloseTag {{{
@@ -136,6 +152,7 @@ let b:javascript_fold = 0
 au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
 " }}}
 
+" For NeRD Tree NERD Commenter {{{
 let NERDTreeShowBookmarks=1
 let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
 let NERDTreeChDirMode=0
@@ -144,13 +161,19 @@ let NERDTreeMouseMode=2
 let NERDTreeShowHidden=1
 let NERDTreeKeepTreeInNewTab=1
 let g:nerdtree_tabs_open_on_gui_startup=0
-" }}}
 
-:let g:NERDCustomDelimiters = {
+" * Commenting support for jinja tempaltes
+" * Typedoc compatible Sexycomment support for typescript ( '/**' instead of '/*'' )
+" * jsdoc3 compatible Sexycomment support for javascript ( '/**' instead of '/*'' )
+
+au BufEnter *.ts let b:NERDSexyComMarker='* '
+au BufEnter *.js let b:NERDSexyComMarker='* '
+let g:NERDCustomDelimiters = {
       \ 'jinja': { 'left': '{# ', 'right': ' #}', 'leftAlt': '{# ', 'rightAlt': ' #}' },
       \ 'typescript': { 'left': '//', 'leftAlt': '/**', 'rightAlt': '*/' },
       \ 'javascript': { 'left': '//', 'leftAlt': '/**', 'rightAlt': '*/' },
 \ }
+" }}}
 
 " Session List {{{
 set sessionoptions=blank,buffers,curdir,tabpages,winsize,resize,winpos
@@ -160,10 +183,9 @@ set sessionoptions=blank,buffers,curdir,tabpages,winsize,resize,winpos
 
 
 " for JavaScript syntax checking {{{
-" let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_javascript_checkers = ['eslint']
+" let g:syntastic_javascript_checkers = ['jshint']
 " let g:syntastic_typescript_checkers = ['tsuquyomi']
 " }}}
 
@@ -173,10 +195,6 @@ let g:syntastic_javascript_checkers = ['jshint']
 let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
 " }}}
-set wrap
-" dont set cursorline for performance imporoovements
-set cursorline                  " Highlight current line
-set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 
 
 " for Gtags {{{
@@ -201,10 +219,11 @@ let g:sparkupNextMapping = '<M-K>'
 
 
 "for Plug {{{
-set nocompatible               " be iMproved
 "
 " Use deoplete.
 let g:deoplete#enable_at_startup = 1
+
+" Ctrl-p will open fuzzy file search using fzf plugin. These are the shortcuts available in fzf window
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-x': 'split',
@@ -213,9 +232,6 @@ let g:fzf_action = {
 
 let nvim_conf_root='~/.config/nvim/'
 call plug#begin( )
-" My Plugs here:
-"
-" original repos on github
 Plug 'tpope/vim-fugitive'
 Plug 'brooth/far.vim'
 Plug 'Lokaltog/vim-easymotion'
@@ -260,6 +276,7 @@ function! DoRemote(arg)
   UpdateRemotePlugins
 endfunction
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'roxma/nvim-completion-manager'
 " Plug 'mhartington/deoplete-typescript'
 " Plug 'vim-scripts/AutoComplPop'
 " Plug 'Shougo/neocomplcache'
@@ -291,12 +308,14 @@ Plug 'harish2704/gtags.vim'
 " Plug 'vim-scripts/adt.vim'
 " Plug 'tpope/eclim'
 Plug 'tomasr/molokai'
+" Plug 'joshdick/onedark.vim'
+" Plug 'mhartington/oceanic-next'
 " Plug 'joonty/vdebug'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 " Plug 'vim-scripts/SyntaxComplete'
-Plug 'justinj/vim-react-snippets'
-Plug 'othree/javascript-libraries-syntax.vim'
+" Plug 'justinj/vim-react-snippets'
+" Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'Glench/Vim-Jinja2-Syntax'
 " Plug 'kannokanno/previm'
 Plug 'tyru/open-browser.vim'
@@ -313,17 +332,21 @@ if filereadable(expand( g:nvim_conf_root ."bundle/vim-snippets/snippets/support_
   source g:nvim_conf_root . 'bundle/vim-snippets/snippets/support_functions.vim'
 endif
 
-" }}}
+
 let $FZF_DEFAULT_COMMAND='ag -g ""'
+
+
+" Ctrl-p opens fuzzy file search
 nmap <C-p> :Files<CR>
+
+" Ctrl-b opens current buffers list
 nmap <C-b> :Buffers<CR>
 
-" Neovim specific settings
-syntax on 
-
 colorscheme molokai
-set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+" colorscheme OceanicNext
+" colorscheme onedark
 
+" Neovim specific settings
 
 " Switch tabs using Alt-1..9
 map ± 1gt
@@ -340,6 +363,7 @@ map ¸ 8gt
 imap  <End>
 
 " Replace grep with silver-searcher
+" silver-searcher or 'ag' command is much faster than grep command. So use ag command instead of grep command for 'vimgrep'
 set grepprg=ag\ --nogroup\ --nocolor
 " set grepprg=grep\ -n\ $*\ /dev/null
 
@@ -352,8 +376,11 @@ nmap <C-/> :grep! -r <C-R><C-W>
 
 
 " Open the <X>version of current file using fugitive, where <X> is the string in clipboard.
+" Eg: copy sha id of git commit to clip board. then press '\go' which open old
+" version of current file in vsplit using fugitive
 nmap <leader>go :Gvsplit <C-R>+:<C-R>%
 
+" Open error list. By default, Syntax checking plugin ( syntastic ) will emit errors to vim's error list
 nmap <leader>co :copen<CR>
 nmap <leader>cc :cclose<CR>
 nmap <leader>lo :lopen<CR>
@@ -370,24 +397,27 @@ imap <C-s> <Esc><c-s>
 
 " Alt-q Delete current buffer ( Close file )
 nmap <M-q> :bd<CR>
+
 " map <F8> :TagbarToggle<CR>
 nmap <F2> :wa<Bar>exe "mksession! " . v:this_session<CR>
-" \\es Open vimrc in a new tab
+
+" '\\es' or '<leader><leader>es' Open vimrc in a new tab
 execute( 'nmap <Leader><Leader>es :tabedit '. g:nvim_conf_root .'init.vim <CR>' )
-" \\en Open current file's snippets file in a new tab
+
+" '\\en' '<leader><leader>en' Open current file's snippets file in a new tab
 nmap <Leader><Leader>en :execute 'OpenSnippets'<CR>
 
 
 " for moving tab {{{
-" Ctrl-Shift + Page-Up/Down to rearrange tab {{{
+" Ctrl-Shift + Page-Up/Down to rearrange tab
 nmap <C-S-PageUp> :execute 'tabmove ' . (tabpagenr()-2 )<CR>
 nmap <C-S-PageDown> :execute 'tabmove ' . ( tabpagenr()+1 )<CR>
 nmap <M-PageUp> :execute 'tabmove ' . (tabpagenr()-2 )<CR>
 nmap <M-PageDown> :execute 'tabmove ' . ( tabpagenr()+1 )<CR>
-" }}}
 
 
-" Ctrl-Shift + j/k to move current window in to another ta {{{
+
+" Ctrl-Shift + j/k to move current window in to nearby tab {{{
 nmap <C-S-j> :execute 'Mt' . (tabpagenr() -1)  <CR>
 nmap <C-S-k> :execute 'Mt' . (tabpagenr() +1)  <CR>
 nmap <C-j> :execute 'Mt' . (tabpagenr() -1)  <CR>
@@ -489,37 +519,24 @@ map <leader>e :NERDTreeFind<CR>
 nmap <leader>nt :NERDTreeFind<CR>
 " }}}
 
-
-" Tabularize {{{
-" nmap <Leader>a& :Tabularize /&<CR>
-" vmap <Leader>a& :Tabularize /&<CR>
-" nmap <Leader>a= :Tabularize /=<CR>
-" vmap <Leader>a= :Tabularize /=<CR>
-" nmap <Leader>a: :Tabularize /:<CR>
-" vmap <Leader>a: :Tabularize /:<CR>
-" nmap <Leader>a:: :Tabularize /:\zs<CR>
-" vmap <Leader>a:: :Tabularize /:\zs<CR>
-" nmap <Leader>a, :Tabularize /,<CR>
-" vmap <Leader>a, :Tabularize /,<CR>
-" vmap <Leader>a// :Tabularize /\/\/<CR>
-" nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-" vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-" }}}
-
-
-" For NeoTerm plugi {{{
-nmap <Leader><Leader>o :Topen<CR>
-nmap <Leader><Leader>c :Tclose<CR>
-" }}}
-" For Open a terminal in current director {{{
+" For Open a terminal in current directory
 nmap <Leader><Leader>t :!gnome-terminal<CR>
+" Open git-gui in current pwd
 nmap <Leader><Leader>g :!git gui &<CR>
-" }}}
 
 " <Alt-R> -> Reload current file
 nmap <M-r> :e!<CR>
 
 " <Ctrl-Shift-q> force Close buffer 
 nmap <M-Q> :bd!<CR>
+
+" Select a word and press Ctrl-h to replace all its occurance, even if the word is having special chars
 vmap <C-h> "fy:%s#<C-r>f#
+" Copy current word to 'f' register, search for that word
+vmap <C-f> "fy/<C-r>f
+
+
+set guicursor=n-c:block,i-ci-ve:ver40,r-cr-v:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175
+set termguicolors
+hi Visual guibg=#603D3D
 
