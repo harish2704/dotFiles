@@ -144,8 +144,7 @@ let b:javascript_fold = 0
 
 
 " Ctrl-l -> Go to end of line
-imap 
-      <End>
+imap <C-L> <End>
 
 " Replace grep with silver-searcher
 " silver-searcher or 'ag' command is much faster than grep command. So use ag command instead of grep command for 'vimgrep'
@@ -154,8 +153,8 @@ imap
 
 
 " Ctrl-/ on normal mode -> Grep word under cursor ( Recursive )
-nmap  :grep! -r <C-R><C-W>
-nmap <C-/> :grep! -r <C-R><C-W>
+" See https://stackoverflow.com/questions/9051837/how-to-map-c-to-toggle-comments-in-vim
+nmap <C-_> :grep! -r <C-R><C-W>
 
 
 
