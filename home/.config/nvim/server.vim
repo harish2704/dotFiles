@@ -30,10 +30,7 @@ command! CopyFilename :let @+=@%
 filetype on                   " required!
 filetype plugin indent on   " Automatically detect file types.
 
-" set selection=exclusive       " Do not inlcude char under cursor while doing visual selection
-set mouse=a
 set history=1000                 " Store a ton of history (default is 20)
-set spell                        " Spell checking on
 set hidden                       " Allow buffer switching without saving
 set noswapfile
 set title
@@ -128,6 +125,9 @@ set scrolljump=1                " Lines to scroll when cursor leaves screen
 set scrolloff=0                 " Minimum lines to keep above and below cursor
 set list
 " }}}
+
+" Press <F12> in insert mode to toggle paste mode
+set pastetoggle=<F12>
 
 " for JS {{{
 let g:html_indent_inctags = "html,body,head,tbody"
