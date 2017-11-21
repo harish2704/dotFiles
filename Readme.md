@@ -50,4 +50,8 @@ My dot files
 * myvim script does the same for gvim
 * update-npm-binaries script scan ~/node_modules and create links to binary tools to ~/.local/bin
 
+#### Vim config for server
 
+```bash
+wget https://raw.githubusercontent.com/harish2704/dotFiles/master/home/.config/nvim/server.vim -O ~/.vimrc
+```
