@@ -2,6 +2,9 @@
 
 " My custom commands {{{
 
+" Grep for a word
+command! -nargs=+ Gr :silent execute 'grep! -nr "<args>" | copen'
+command! -nargs=* Grc grep -nr <args>
 " Add file header to current buffer
 command! Header :execute '0r!file-header %'
 
@@ -43,11 +46,13 @@ set foldlevel=99
 set foldmethod=indent
 
 au BufEnter *.js.ejs set ft=javascript.ejs
+" Disable python linting
+autocmd VimEnter *.py SyntasticToggleMode
 
 let g:NERDSpaceDelims=1
 
-let g:python_host_prog='/usr/bin/python2.7'
-let g:python3_host_prog='/usr/bin/python3.5'
+let g:python_host_prog='/usr/bin/python2'
+let g:python3_host_prog='/usr/bin/python3'
 
 let javaScript_fold=0         " JavaScript
 let perl_fold=1               " Perl
@@ -64,6 +69,10 @@ autocmd FileType java set foldmethod=indent
 autocmd FileType html set foldmethod=indent
 autocmd FileType javascript set foldmethod=indent
 autocmd FileType xml set foldmethod=indent
+
+" % key will be mapped by MatchTag plugin to match HTML tags.
+" It is not need on php file
+autocmd FileType php unmap %
 
 " Add file header automatically for javascript files
 autocmd BufNewFile *.js :Header
@@ -95,6 +104,9 @@ autocmd BufRead *.java set include=^#\s*import
 autocmd BufRead *.java set includeexpr=substitute(v:fname,'\\.','/','g')
 autocmd BufRead *.java set suffixesadd=.java,.xml
 autocmd BufRead *.ect set suffixesadd=.ect ft=html.ect
+
+" For vue js
+" autocmd BufRead,BufNewFile *.vue setlocal filetype=html.vue
 
 " For Nunjucks templates
 autocmd BufRead *.njk set ft=jinja
@@ -168,6 +180,7 @@ let g:nerdtree_tabs_open_on_gui_startup=0
 
 au BufEnter *.ts let b:NERDSexyComMarker='* '
 au BufEnter *.js let b:NERDSexyComMarker='* '
+au BufEnter *.jsx let b:NERDSexyComMarker='* '
 let g:NERDCustomDelimiters = {
       \ 'jinja': { 'left': '{# ', 'right': ' #}', 'leftAlt': '{# ', 'rightAlt': ' #}' },
       \ 'typescript': { 'left': '//', 'leftAlt': '/**', 'rightAlt': '*/' },
@@ -231,66 +244,84 @@ let g:fzf_action = {
 
 
 let nvim_conf_root='~/.config/nvim/'
+
+" Enable jsdoc comments Highlight for javascript 
+let g:javascript_plugin_jsdoc = 1
+
 call plug#begin( )
-Plug 'tpope/vim-fugitive'
-Plug 'brooth/far.vim'
-Plug 'Lokaltog/vim-easymotion'
+Plug 'tpope/vim-fugitive' " For Git repo management.
+Plug 'brooth/far.vim'   " Interactive Fine & replace on multiple files
+Plug 'Lokaltog/vim-easymotion' " Quick cursor movement to any where in the screen
 " Plug 'Lokaltog/vim-distinguished'
 " Plug 'junegunn/seoul256.vim'
 " Plug 'whatyouhide/vim-gotham'
-Plug 'rstacruz/sparkup'
+Plug 'rstacruz/sparkup' " HTML zen-coding  helper
 " Plug 'L9'
 " Plug 'FuzzyFinder'
 " Plug 'git://git.wincent.com/command-t.git'
 " Plug 'git://github.com/vim-scripts/YankRing.vim.git'
-Plug 'git://github.com/maxbrunsfeld/vim-yankstack.git' 
+Plug 'git://github.com/maxbrunsfeld/vim-yankstack.git' " Clipboard histroy management.
+"
+" Plug 'tpope/vim-repeat'
+" Plug 'svermeulen/vim-easyclip'
+
 " Plug 'vim-scripts/Auto-Pairs' 
-Plug 'vim-scripts/DoxygenToolkit.vim' 
+Plug 'vim-scripts/DoxygenToolkit.vim'  " Quickly create Doxygent style comments
 " Plug 'Raimondi/delimitMate.git' 
 " Plug 'bkad/CamelCaseMotion' 
 " Plug 'vim-scripts/boxdraw'
 " Plug 'vim-scripts/Vim-JDE'
 " Plug 'maksimr/vim-jsbeautify'
-Plug 'Shougo/vimproc.vim'
-Plug 'Quramy/tsuquyomi'
-Plug 'scrooloose/syntastic'
-Plug 'pangloss/vim-javascript'
+
+
+Plug 'scrooloose/syntastic' " Syntax checking pluin
+Plug 'rust-lang/rust.vim', { 'for': 'rust'}
 Plug 'mxw/vim-jsx'
 " Plug 'othree/yajs.vim'
 " Plug 'harish2704/tern_for_vim' , { 'for': 'javascript' }
-Plug 'harish2704/nerdcommenter'
-Plug 'garbas/vim-snipmate'
+Plug 'harish2704/nerdcommenter' " Code commenting uncommenting
+Plug 'garbas/vim-snipmate' " Snippet management
 " Plug 'amiorin/vim-project'
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'tomtom/tlib_vim'
-Plug 'nathanaelkane/vim-indent-guides'
+Plug 'MarcWeber/vim-addon-mw-utils'  " Dependency of Snipmate plugin
+" Plug 'tomtom/tlib_vim' " Dependency of Snipmate plugin
+Plug 'nathanaelkane/vim-indent-guides' " Show indentation guides
 " Plug 'flazz/vim-colorschemes'
-Plug 'vim-scripts/sessionman.vim'
+Plug 'vim-scripts/sessionman.vim' " Session manager. Manage projects
 " Plug 'kien/ctrlp.vim'
 " Plug 'leshill/vim-json'
-Plug 'godlygeek/tabular'
+Plug 'godlygeek/tabular' " Tabularize Text
 Plug 'majutsushi/tagbar'
 " Plug 'amirh/HTML-AutoCloseTag'
-Plug 'tpope/vim-surround'
+Plug 'tpope/vim-surround' " quickly Insert/remove/change quote/brackes any vim selection.
 function! DoRemote(arg)
   UpdateRemotePlugins
 endfunction
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } "Autocompletion
 " Plug 'roxma/nvim-completion-manager'
 " Plug 'mhartington/deoplete-typescript'
 " Plug 'vim-scripts/AutoComplPop'
 " Plug 'Shougo/neocomplcache'
 " Plug 'Valloric/YouCompleteMe'
 " Plug 'Shougo/eocomplcache'
-Plug 'spf13/vim-autoclose'
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeFind' }
+
+Plug 'Shougo/vimproc.vim'
+" Plug 'Quramy/tsuquyomi'
+Plug 'mhartington/nvim-typescript'
+
+
+Plug 'spf13/vim-autoclose' " Autoclose brackets/quotes etc
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeFind' } "File tree
+" My personal utils which does 
+" 1. Open current file in new tab by keeping cursor position
+" 2. Open all snippet files of current Filetype
+" 3. Move current window to any tab
 Plug 'harish2704/harish2704-vim'
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
 Plug 'AndrewRadev/vim-eco', { 'for': [ 'ect', 'eco' ] }
 " Plug 'mustache/vim-mode'
 Plug 'mustache/vim-mustache-handlebars', { 'for': 'handlebars' }
-Plug 'chrisbra/NrrwRgn'
+Plug 'chrisbra/NrrwRgn' " Edit a portion file as different buffer
 Plug 'heavenshell/vim-jsdoc', { 'for': 'javascript' }
 " Plug 'vim-scripts/JavaScript-Indent'
 " Plug 'spf13/PIV'
@@ -302,7 +333,7 @@ Plug 'briancollins/vim-jst', { 'for': 'jst' }
 Plug 'vim-scripts/matchit.zip'
 Plug 'harish2704/vim-snippets'
 " Plug 'vim-scripts/SyntaxRange'
-Plug 'harish2704/gtags.vim'
+" Plug 'harish2704/gtags.vim'
 " Plug 'vim-scripts/guicolorscheme.vim'
 " Plug 'vim-scripts/CSApprox'
 " Plug 'vim-scripts/adt.vim'
@@ -321,8 +352,13 @@ Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'tyru/open-browser.vim'
 Plug 'harish2704/MatchTag'
 " Plug 'leafgarland/typescript-vim'
-Plug 'HerringtonDarkholme/yats.vim'
 Plug 'bogado/file-line'
+" Plug 'vim-scripts/marvim'
+Plug 'dohsimpson/vim-macroeditor'
+Plug 'tikhomirov/vim-glsl'
+Plug 'pangloss/vim-javascript' , { 'for': ['javascript', 'javascript.jsx', 'html', 'vue'] }
+Plug 'posva/vim-vue'
+" Plug 'HerringtonDarkholme/yats.vim'
 " Plug 'zenbro/mirror.vim'
 " Plug 'kassio/neoterm'
 call plug#end()
@@ -371,8 +407,8 @@ set grepprg=ag\ --nogroup\ --nocolor
 " autocmd BufEnter *.js nmap <C-CR> :TernDefSplit<CR>
 
 " Ctrl-/ on normal mode -> Grep word under cursor ( Recursive )
-nmap  :grep! -r <C-R><C-W>
-nmap <C-/> :grep! -r <C-R><C-W>
+nmap  :Gr <C-R><C-W>
+nmap <C-/> :Gr <C-R><C-W>
 
 
 " Open the <X>version of current file using fugitive, where <X> is the string in clipboard.
@@ -385,6 +421,8 @@ nmap <leader>co :copen<CR>
 nmap <leader>cc :cclose<CR>
 nmap <leader>lo :lopen<CR>
 nmap <leader>lc :lclose<CR>
+" When opening any items in location list, Try current window, othertabs, then new tab
+set switchbuf=useopen,usetab,newtab
 
 " Ctrl-Shift-T -> Open new tab
 nmap <C-S-T> :tabedit<CR>
@@ -399,7 +437,7 @@ imap <C-s> <Esc><c-s>
 nmap <M-q> :bd<CR>
 
 " map <F8> :TagbarToggle<CR>
-nmap <F2> :wa<Bar>exe "mksession! " . v:this_session<CR>
+" nmap <F2> :wa<Bar>exe "mksession! " . v:this_session<CR>
 
 " '\\es' or '<leader><leader>es' Open vimrc in a new tab
 execute( 'nmap <Leader><Leader>es :tabedit '. g:nvim_conf_root .'init.vim <CR>' )
@@ -424,6 +462,8 @@ nmap <C-j> :execute 'Mt' . (tabpagenr() -1)  <CR>
 nmap <C-k> :execute 'Mt' . (tabpagenr() +1)  <CR>
 " }}}
 
+ " \tr Reset shiftwidth to default value 2
+nmap <Leader>tr :set tabstop=2 | set shiftwidth=2 | set softtabstop=2
  " \tt Toggle tab and spaces
 nmap <Leader>tt :let &expandtab=!&expandtab<CR>
  " \tj Incraese additional two spaces width for tab
