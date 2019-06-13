@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-
+# Open space separated list of ssh logins in separate tabs ( using gnome-terminal )
 sshInTabs(){
   logins="$@"
   for i in $logins; do
@@ -8,19 +8,20 @@ sshInTabs(){
   done
 }
 
-
+# Edit this file
 edit(){
-  vim ~/.local/Apps/daily-utils/bin/hari-tools.sh
+  vim ~/.local/bin/hari-tools.sh
 }
 
 ## Convert text to wav
 genSound(){  echo $1 | espeak --stdout | ffmpeg -i - -ar 8000 -y $2.wav ; }
 
-
+# Clear sysrq keys which messing up with Window manager after switching to "raw mode"
 clearSysRq(){
 	sudo kbd_mode -s -C /dev/tty7
 }
 
+# Show my public IP
 myIp(){
 	curl 'https://api.ipify.org?format=json'
 }
@@ -33,6 +34,9 @@ block_dev_to_vmdk(){
 
 # Print sha256 fignerprint of ssh public keys
 sshsha256(){ awk '{print $2}' $1 | base64 -d | sha256sum -b | awk '{print $1}' | xxd -r -p | base64 ; }
+
+
+# Print all available commands if none was provided in commandline 
 
 cmd=$1
 shift
