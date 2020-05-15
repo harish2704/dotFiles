@@ -46,7 +46,7 @@
     "json": "^9.0.6",
     "jspm": "^0.17.0-beta.42",
     "karma": "^1.7.0",
-    "knex": "^0.13.0",
+    "knex": "^0.19.5",
     "less": "^3.0.0-pre.4",
     "level": "^1.7.0",
     "linklocal": "^2.8.0",
@@ -90,7 +90,7 @@
     "uiflow": "^1.1.8",
     "watch": "^1.0.2",
     "webpack": "^3.0.0-rc.2",
-    "webpack-dev-server": "^2.4.5",
+    "webpack-dev-server": "^3.1.11",
     "wiredep-cli": "^0.1.0",
     "xml2js": "^0.4.17"
   },
