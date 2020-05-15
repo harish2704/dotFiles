@@ -2,13 +2,19 @@
 
 " My custom commands {{{
 
-" Grep for a word
+imap <M-;> <End>;<CR>
+imap <M-,> <End>,<CR>
+imap <M-CR> <End><CR>
+" Grep for a word and open the result in errorlist
 command! -nargs=+ Gr :silent execute 'grep! -nr "<args>" | copen'
+" Raw version of Gr command. 
 command! -nargs=* Grc grep -nr <args>
-" Add file header to current buffer
+
+" Add file header to current buffer. Depends on https://github.com/harish2704/file-header
 command! Header :execute '0r!file-header %'
 
-" Open Terminal in split
+" Open Terminal in split window
+command! Termw :execute '!konsole -e bash-session &'
 command! Term :execute 'sp | term'
 
 " Cd to current file's directory
@@ -25,6 +31,9 @@ command! Rm :execute '!rm %' | bd
 
 " Copy current file path to unnamedplus register
 command! CopyFilename :let @+=@%
+
+" Open vscode in on current line
+command! Code :execute "!code ./ -g %:". ( line('.')+1 )
 " }}}
 
 
@@ -46,10 +55,11 @@ set foldlevel=99
 set foldmethod=indent
 
 au BufEnter *.js.ejs set ft=javascript.ejs
+au BufEnter *.sshconf set ft=sshconfig
+
 " Disable python linting
 autocmd VimEnter *.py SyntasticToggleMode
 
-let g:NERDSpaceDelims=1
 
 let g:python_host_prog='/usr/bin/python2'
 let g:python3_host_prog='/usr/bin/python3'
@@ -76,6 +86,7 @@ autocmd FileType php unmap %
 
 " Add file header automatically for javascript files
 autocmd BufNewFile *.js :Header
+autocmd BufNewFile *.py :Header
 
 " }}}
 
@@ -83,15 +94,15 @@ autocmd BufNewFile *.js :Header
 " for formating {{{
 " set nowrap                      " Wrap long lines
 set autoindent                  " Indent at the same level of the previous line
-set shiftwidth=2                " Use indents of 4 spaces
 set expandtab                   " Tabs are spaces, not tabs
 set tabstop=2                   " An indentation every four columns
-set softtabstop=2               " Let backspace delete indent
+set shiftwidth=0                " Use indents of 4 spaces
+set softtabstop=0               " Let backspace delete indent
 set wrap
 set cursorline                  " Highlight current line
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 set nocompatible               " be iMproved
-syntax on 
+syntax on
 
 " for JavaScript {{{
 " if we press 'gf' under require('abc/xyz'), then also sarch for ./abs/xyz.js
@@ -152,9 +163,6 @@ set list
 let g:html_indent_inctags = "html,body,head,tbody"
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
-
-let b:javascript_fold = 0
-
 " }}}
 
 
@@ -178,6 +186,7 @@ let g:nerdtree_tabs_open_on_gui_startup=0
 " * Typedoc compatible Sexycomment support for typescript ( '/**' instead of '/*'' )
 " * jsdoc3 compatible Sexycomment support for javascript ( '/**' instead of '/*'' )
 
+let g:NERDSpaceDelims=1
 au BufEnter *.ts let b:NERDSexyComMarker='* '
 au BufEnter *.js let b:NERDSexyComMarker='* '
 au BufEnter *.jsx let b:NERDSexyComMarker='* '
@@ -248,6 +257,7 @@ let nvim_conf_root='~/.config/nvim/'
 " Enable jsdoc comments Highlight for javascript 
 let g:javascript_plugin_jsdoc = 1
 
+let g:MacroManagerDir = g:nvim_conf_root . 'macros'
 call plug#begin( )
 Plug 'tpope/vim-fugitive' " For Git repo management.
 Plug 'brooth/far.vim'   " Interactive Fine & replace on multiple files
@@ -276,15 +286,15 @@ Plug 'vim-scripts/DoxygenToolkit.vim'  " Quickly create Doxygent style comments
 
 Plug 'scrooloose/syntastic' " Syntax checking pluin
 Plug 'rust-lang/rust.vim', { 'for': 'rust'}
-Plug 'mxw/vim-jsx'
 " Plug 'othree/yajs.vim'
 " Plug 'harish2704/tern_for_vim' , { 'for': 'javascript' }
 Plug 'harish2704/nerdcommenter' " Code commenting uncommenting
+Plug 'tomtom/tlib_vim' " Dependency of Snipmate plugin
+Plug 'MarcWeber/vim-addon-mw-utils'  " Dependency of Snipmate plugin
 Plug 'garbas/vim-snipmate' " Snippet management
 " Plug 'amiorin/vim-project'
-Plug 'MarcWeber/vim-addon-mw-utils'  " Dependency of Snipmate plugin
-" Plug 'tomtom/tlib_vim' " Dependency of Snipmate plugin
-Plug 'nathanaelkane/vim-indent-guides' " Show indentation guides
+" Plug 'nathanaelkane/vim-indent-guides' " Show indentation guides
+Plug 'Yggdroot/indentLine'
 " Plug 'flazz/vim-colorschemes'
 Plug 'vim-scripts/sessionman.vim' " Session manager. Manage projects
 " Plug 'kien/ctrlp.vim'
@@ -306,7 +316,11 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } "Autocompletion
 
 Plug 'Shougo/vimproc.vim'
 " Plug 'Quramy/tsuquyomi'
-Plug 'mhartington/nvim-typescript'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx' , { 'for': [ 'javascript.jsx'] }
+" Plug 'posva/vim-vue'
+Plug 'leafOfTree/vim-vue-plugin' , { 'for': ['vue']}
+Plug 'mhartington/nvim-typescript' , { 'for': ['javascript.ts'] }
 
 
 Plug 'spf13/vim-autoclose' " Autoclose brackets/quotes etc
@@ -322,7 +336,7 @@ Plug 'AndrewRadev/vim-eco', { 'for': [ 'ect', 'eco' ] }
 " Plug 'mustache/vim-mode'
 Plug 'mustache/vim-mustache-handlebars', { 'for': 'handlebars' }
 Plug 'chrisbra/NrrwRgn' " Edit a portion file as different buffer
-Plug 'heavenshell/vim-jsdoc', { 'for': 'javascript' }
+" Plug 'heavenshell/vim-jsdoc', { 'for': 'javascript' }
 " Plug 'vim-scripts/JavaScript-Indent'
 " Plug 'spf13/PIV'
 " Plug 'joonty/vim-taggatron'
@@ -350,15 +364,19 @@ Plug 'junegunn/fzf.vim'
 Plug 'Glench/Vim-Jinja2-Syntax'
 " Plug 'kannokanno/previm'
 Plug 'tyru/open-browser.vim'
-Plug 'harish2704/MatchTag'
+" Plug 'harish2704/MatchTag'
+Plug 'Valloric/MatchTagAlways'
 " Plug 'leafgarland/typescript-vim'
 Plug 'bogado/file-line'
 " Plug 'vim-scripts/marvim'
 Plug 'dohsimpson/vim-macroeditor'
+Plug 'low-ghost/vim-macro-manager'
 Plug 'tikhomirov/vim-glsl'
-Plug 'pangloss/vim-javascript' , { 'for': ['javascript', 'javascript.jsx', 'html', 'vue'] }
-Plug 'posva/vim-vue'
-" Plug 'HerringtonDarkholme/yats.vim'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+Plug 'ollykel/v-vim'
+Plug 'sjl/gundo.vim'
+Plug 'evanleck/vim-svelte', { 'for': 'svelte' }
 " Plug 'zenbro/mirror.vim'
 " Plug 'kassio/neoterm'
 call plug#end()
@@ -463,13 +481,13 @@ nmap <C-k> :execute 'Mt' . (tabpagenr() +1)  <CR>
 " }}}
 
  " \tr Reset shiftwidth to default value 2
-nmap <Leader>tr :set tabstop=2 | set shiftwidth=2 | set softtabstop=2
+nmap <Leader>tr :set tabstop=2
  " \tt Toggle tab and spaces
 nmap <Leader>tt :let &expandtab=!&expandtab<CR>
  " \tj Incraese additional two spaces width for tab
-nmap <Leader>tj :let &shiftwidth=&shiftwidth-2\|let &tabstop=&tabstop-2\|let &softtabstop=&softtabstop-2\|echo 'tabstop=' &tabstop<CR>
+nmap <Leader>tj :let &tabstop=&tabstop-2\|echo 'tabstop=' &tabstop<CR>
  " \tj Decreases two spaces width for tab
-nmap <Leader>tk :let &shiftwidth=&shiftwidth+2\|let &tabstop=&tabstop+2\|let &softtabstop=&softtabstop+2\|echo 'tabstop=' &tabstop<CR>
+nmap <Leader>tk :let &tabstop=&tabstop+2\|echo 'tabstop=' &tabstop<CR>
 " }}}
 
 " Session handling {{{
@@ -576,7 +594,22 @@ vmap <C-h> "fy:%s#<C-r>f#
 vmap <C-f> "fy/<C-r>f
 
 
-set guicursor=n-c:block,i-ci-ve:ver40,r-cr-v:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175
+" set guicursor=n-c:block,i-ci-ve:ver40,r-cr-v:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175
 set termguicolors
-hi Visual guibg=#603D3D
+" hi Visual guibg=#603D3D
 
+
+
+function! CopyMatches(reg)
+  let hits = []
+  %s//\=len(add(hits, submatch(0))) ? submatch(0) : ''/gne
+  let reg = empty(a:reg) ? '+' : a:reg
+  execute 'let @'.reg.' = join(hits, "\n") . "\n"'
+endfunction
+command! -register CopyMatches call CopyMatches(<q-reg>)
+
+function! Unretab() range
+  execute a:firstline . "," . a:lastline . 's/ \{1,' . &tabstop . '}/\t/g'
+endfunction
+command! -register -range=% Unretab <line1>,<line2>call Unretab()
+" highlight Comment guifg=#afafb3
