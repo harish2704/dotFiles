@@ -1,58 +1,54 @@
 " This file is inspired by spf13's vimrc
 
-" My custom commands {{{
-
-imap <M-;> <End>;<CR>
-imap <M-,> <End>,<CR>
-imap <M-CR> <End><CR>
-" Grep for a word and open the result in errorlist
-command! -nargs=+ Gr :silent execute 'grep! -nr "<args>" | copen'
-" Raw version of Gr command. 
-command! -nargs=* Grc grep -nr <args>
-
-" Add file header to current buffer. Depends on https://github.com/harish2704/file-header
-command! Header :execute '0r!file-header %'
-
-" Open Terminal in split window
-command! Termw :execute '!konsole -e bash-session &'
-command! Term :execute 'sp | term'
-
-" Cd to current file's directory
-command! Cwd :execute 'cd %:p:h'
-
-" Cd to current file's directory, but limit to current tab
-command! Tcd :execute ':tcd %:p:h'
-
-" Reload current buffer
-command! Reload :execute "bufdo execute 'checktime . bufnr('%')'"
-
-" Delete current file and close buffer
-command! Rm :execute '!rm %' | bd
-
-" Copy current file path to unnamedplus register
-command! CopyFilename :let @+=@%
-
-" Open vscode in on current line
-command! Code :execute "!code ./ -g %:". ( line('.')+1 )
-" }}}
-
-
-
 " My settings {{{
 filetype on                   " required!
 filetype plugin indent on   " Automatically detect file types.
 
 " set selection=exclusive       " Do not inlcude char under cursor while doing visual selection
-set mouse=a
-set clipboard=unnamedplus
-set history=1000                 " Store a ton of history (default is 20)
-set spell                        " Spell checking on
-set hidden                       " Allow buffer switching without saving
-set noswapfile
-set title
+set nu                          " Line numbers on
+set expandtab                   " Tabs are spaces, not tabs
+set shiftwidth=0                " Use indents of 4 spaces
+set softtabstop=0               " Let backspace delete indent
+set tabstop=2                   " An indentation every four columns
 set path=.,
+set autoindent                  " Indent at the same level of the previous line
+set backspace=indent,eol,start  " Backspace for dummies
+set clipboard=unnamedplus
+set cursorline                  " Highlight current line
 set foldlevel=99
 set foldmethod=indent
+set hidden                       " Allow buffer switching without saving
+set history=1000                 " Store a ton of history (default is 20)
+set hlsearch                    " Highlight search terms
+set ignorecase                  " Case insensitive search
+set linespace=0                 " No extra spaces between rows
+set list
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+set mouse=a
+set nocompatible               " be iMproved
+set noincsearch
+set noswapfile
+set scrolljump=1                " Lines to scroll when cursor leaves screen
+set scrolloff=0                 " Minimum lines to keep above and below cursor
+set showmatch                   " Show matching brackets/parenthesis
+set showmode                    " Display the current mode
+set smartcase                   " Case sensitive when uc present
+set spell                        " Spell checking on
+set title
+set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
+set wildmenu                    " Show list instead of just completing
+set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
+set winminheight=0              " Windows can be 0 line high
+set wrap
+syntax on
+
+let javaScript_fold=0         " JavaScript
+let perl_fold=1               " Perl
+let r_syntax_folding=1        " R
+let ruby_fold=1               " Ruby
+let sh_fold_enabled=1         " sh
+let vimsyn_folding='af'       " Vim script
+let $FZF_DEFAULT_COMMAND='ag -g ""'
 
 au BufEnter *.js.ejs set ft=javascript.ejs
 au BufEnter *.sshconf set ft=sshconfig
@@ -61,18 +57,6 @@ au BufEnter *.sshconf set ft=sshconfig
 autocmd VimEnter *.py SyntasticToggleMode
 
 
-let g:python_host_prog='/usr/bin/python2'
-let g:python3_host_prog='/usr/bin/python3'
-
-let javaScript_fold=0         " JavaScript
-let perl_fold=1               " Perl
-" let php_folding=1             " PHP
-let r_syntax_folding=1        " R
-let ruby_fold=1               " Ruby
-let sh_fold_enabled=1         " sh
-let vimsyn_folding='af'       " Vim script
-" let xml_syntax_folding=1      " XML
-" set completeopt+=preview
 
 " Syntax based folding found be slow. In most of the cases, we will do indenting according to syntax.
 autocmd FileType java set foldmethod=indent
@@ -83,26 +67,7 @@ autocmd FileType xml set foldmethod=indent
 " % key will be mapped by MatchTag plugin to match HTML tags.
 " It is not need on php file
 autocmd FileType php unmap %
-
-" Add file header automatically for javascript files
-autocmd BufNewFile *.js :Header
-autocmd BufNewFile *.py :Header
-
 " }}}
-
-
-" for formating {{{
-" set nowrap                      " Wrap long lines
-set autoindent                  " Indent at the same level of the previous line
-set expandtab                   " Tabs are spaces, not tabs
-set tabstop=2                   " An indentation every four columns
-set shiftwidth=0                " Use indents of 4 spaces
-set softtabstop=0               " Let backspace delete indent
-set wrap
-set cursorline                  " Highlight current line
-set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
-set nocompatible               " be iMproved
-syntax on
 
 " for JavaScript {{{
 " if we press 'gf' under require('abc/xyz'), then also sarch for ./abs/xyz.js
@@ -126,61 +91,6 @@ autocmd BufEnter *.gradle set ft=groovy
 " }}}
 
 
-" for UI {{{
-
-set showmode                    " Display the current mode
-if has('statusline')
-  set laststatus=2
-  " Broken down into easily includeable segments
-  set statusline=%w%h%m%r                 " Options
-  " set statusline+=%{fugitive#statusline()} " Git Hotness
-  " set statusline+=\ [%{&ff}/%Y]            " Filetype
-  set statusline+=\ [%n]            " Filetype
-  " set statusline+=\ [%{winnr()}]            " Filetype
-  set statusline+=%<%f\                     " Filename
-  " set statusline+=\ [%{getcwd()}]          " Current dir
-  set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
-endif
-
-set backspace=indent,eol,start  " Backspace for dummies
-set linespace=0                 " No extra spaces between rows
-set nu                          " Line numbers on
-set showmatch                   " Show matching brackets/parenthesis
-set hlsearch                    " Highlight search terms
-set noincsearch
-set winminheight=0              " Windows can be 0 line high
-set ignorecase                  " Case insensitive search
-set smartcase                   " Case sensitive when uc present
-set wildmenu                    " Show list instead of just completing
-set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
-set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
-set scrolljump=1                " Lines to scroll when cursor leaves screen
-set scrolloff=0                 " Minimum lines to keep above and below cursor
-set list
-" }}}
-
-" for JS {{{
-let g:html_indent_inctags = "html,body,head,tbody"
-let g:html_indent_script1 = "inc"
-let g:html_indent_style1 = "inc"
-" }}}
-
-
-
-" AutoCloseTag {{{
-" Make it so AutoCloseTag works for xml and xhtml files as well
-au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
-" }}}
-
-" For NeRD Tree NERD Commenter {{{
-let NERDTreeShowBookmarks=1
-let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
-let NERDTreeChDirMode=0
-let NERDTreeQuitOnOpen=1
-let NERDTreeMouseMode=2
-let NERDTreeShowHidden=1
-let NERDTreeKeepTreeInNewTab=1
-let g:nerdtree_tabs_open_on_gui_startup=0
 
 " * Commenting support for jinja tempaltes
 " * Typedoc compatible Sexycomment support for typescript ( '/**' instead of '/*'' )
@@ -199,51 +109,21 @@ let g:NERDCustomDelimiters = {
 
 " Session List {{{
 set sessionoptions=blank,buffers,curdir,tabpages,winsize,resize,winpos
-" nmap <leader><leader>c  :JavaCorrect<cr>
-" nmap <leader>pt :ProjectsTree<CR>
 " }}}
 
 
 " for JavaScript syntax checking {{{
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_javascript_checkers = ['eslint']
-" let g:syntastic_javascript_checkers = ['jshint']
-" let g:syntastic_typescript_checkers = ['tsuquyomi']
 " }}}
 
-
-" gides {{{
-" let g:indent_guides_start_level = 2
-let g:indent_guides_guide_size = 1
-let g:indent_guides_enable_on_vim_startup = 1
-" }}}
-
-
-" for Gtags {{{
-let g:Gtags_Auto_Map = 1
-let g:Gtags_VerticalWindow = 1
-let g:Gtags_Auto_Update = 1
-let g:GtagsCscope_Auto_Load = 1
-" }}}
 
 
 " set lazyredraw
 let g:sparkupNextMapping = '<M-K>'
 
 
-" for taggatron.
-" let g:tagcommands = {
-"       \    "php" : {
-"       \        "tagfile" : ".php.tags",
-"       \        "args" : "-R --langmap=PHP:+.mod"
-"       \    }
-"       \}
 
-
-"for Plug {{{
-"
-" Use deoplete.
-let g:deoplete#enable_at_startup = 1
 
 " Ctrl-p will open fuzzy file search using fzf plugin. These are the shortcuts available in fzf window
 let g:fzf_action = {
@@ -252,143 +132,81 @@ let g:fzf_action = {
   \ 'ctrl-v': 'vsplit' }
 
 
-let nvim_conf_root='~/.config/nvim/'
+let nvim_conf_root = expand('<sfile>:p:h') . '/'
 
 " Enable jsdoc comments Highlight for javascript 
 let g:javascript_plugin_jsdoc = 1
 
 let g:MacroManagerDir = g:nvim_conf_root . 'macros'
 call plug#begin( )
-Plug 'tpope/vim-fugitive' " For Git repo management.
-Plug 'brooth/far.vim'   " Interactive Fine & replace on multiple files
-Plug 'Lokaltog/vim-easymotion' " Quick cursor movement to any where in the screen
-" Plug 'Lokaltog/vim-distinguished'
-" Plug 'junegunn/seoul256.vim'
-" Plug 'whatyouhide/vim-gotham'
-Plug 'rstacruz/sparkup' " HTML zen-coding  helper
-" Plug 'L9'
-" Plug 'FuzzyFinder'
-" Plug 'git://git.wincent.com/command-t.git'
-" Plug 'git://github.com/vim-scripts/YankRing.vim.git'
-Plug 'git://github.com/maxbrunsfeld/vim-yankstack.git' " Clipboard histroy management.
-"
-" Plug 'tpope/vim-repeat'
-" Plug 'svermeulen/vim-easyclip'
-
-" Plug 'vim-scripts/Auto-Pairs' 
-Plug 'vim-scripts/DoxygenToolkit.vim'  " Quickly create Doxygent style comments
-" Plug 'Raimondi/delimitMate.git' 
-" Plug 'bkad/CamelCaseMotion' 
-" Plug 'vim-scripts/boxdraw'
-" Plug 'vim-scripts/Vim-JDE'
-" Plug 'maksimr/vim-jsbeautify'
-
-
-Plug 'scrooloose/syntastic' " Syntax checking pluin
-Plug 'rust-lang/rust.vim', { 'for': 'rust'}
-" Plug 'othree/yajs.vim'
-" Plug 'harish2704/tern_for_vim' , { 'for': 'javascript' }
-Plug 'harish2704/nerdcommenter' " Code commenting uncommenting
-Plug 'tomtom/tlib_vim' " Dependency of Snipmate plugin
-Plug 'MarcWeber/vim-addon-mw-utils'  " Dependency of Snipmate plugin
-Plug 'garbas/vim-snipmate' " Snippet management
-" Plug 'amiorin/vim-project'
-" Plug 'nathanaelkane/vim-indent-guides' " Show indentation guides
-Plug 'Yggdroot/indentLine'
-" Plug 'flazz/vim-colorschemes'
-Plug 'vim-scripts/sessionman.vim' " Session manager. Manage projects
-" Plug 'kien/ctrlp.vim'
-" Plug 'leshill/vim-json'
-Plug 'godlygeek/tabular' " Tabularize Text
-Plug 'majutsushi/tagbar'
-" Plug 'amirh/HTML-AutoCloseTag'
-Plug 'tpope/vim-surround' " quickly Insert/remove/change quote/brackes any vim selection.
-function! DoRemote(arg)
-  UpdateRemotePlugins
-endfunction
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } "Autocompletion
-" Plug 'roxma/nvim-completion-manager'
-" Plug 'mhartington/deoplete-typescript'
-" Plug 'vim-scripts/AutoComplPop'
-" Plug 'Shougo/neocomplcache'
-" Plug 'Valloric/YouCompleteMe'
-" Plug 'Shougo/eocomplcache'
-
-Plug 'Shougo/vimproc.vim'
-" Plug 'Quramy/tsuquyomi'
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx' , { 'for': [ 'javascript.jsx'] }
-" Plug 'posva/vim-vue'
-Plug 'leafOfTree/vim-vue-plugin' , { 'for': ['vue']}
-Plug 'mhartington/nvim-typescript' , { 'for': ['javascript.ts'] }
-
-
-Plug 'spf13/vim-autoclose' " Autoclose brackets/quotes etc
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeFind' } "File tree
-" My personal utils which does 
-" 1. Open current file in new tab by keeping cursor position
-" 2. Open all snippet files of current Filetype
-" 3. Move current window to any tab
-Plug 'harish2704/harish2704-vim'
-Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
-Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
-Plug 'AndrewRadev/vim-eco', { 'for': [ 'ect', 'eco' ] }
-" Plug 'mustache/vim-mode'
-Plug 'mustache/vim-mustache-handlebars', { 'for': 'handlebars' }
-Plug 'chrisbra/NrrwRgn' " Edit a portion file as different buffer
-" Plug 'heavenshell/vim-jsdoc', { 'for': 'javascript' }
-" Plug 'vim-scripts/JavaScript-Indent'
-" Plug 'spf13/PIV'
-" Plug 'joonty/vim-taggatron'
-" Plug 'git://github.com/vim-scripts/autoload_cscope.vim.git'
-" Plug 'int3/vim-taglist-plus'
-" Plug 'vim-scripts/EasyGrep'
-Plug 'briancollins/vim-jst', { 'for': 'jst' }
-Plug 'vim-scripts/matchit.zip'
-Plug 'harish2704/vim-snippets'
-" Plug 'vim-scripts/SyntaxRange'
-" Plug 'harish2704/gtags.vim'
-" Plug 'vim-scripts/guicolorscheme.vim'
-" Plug 'vim-scripts/CSApprox'
-" Plug 'vim-scripts/adt.vim'
-" Plug 'tpope/eclim'
-Plug 'tomasr/molokai'
-" Plug 'joshdick/onedark.vim'
-" Plug 'mhartington/oceanic-next'
-" Plug 'joonty/vdebug'
+" Bsic set of plugins {
+Plug 'jamessan/vim-gnupg'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'rstacruz/sparkup'             " HTML zen-coding  helper
+Plug 'preservim/nerdcommenter'      " Code commenting uncommenting
+Plug 'tpope/vim-surround'           " quickly Insert/remove/change quote/brackes any vim selection.
+Plug 'harish2704/harish2704-vim'    " My utilities to move widows around tabs
 Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-" Plug 'vim-scripts/SyntaxComplete'
-" Plug 'justinj/vim-react-snippets'
-" Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'Glench/Vim-Jinja2-Syntax'
-" Plug 'kannokanno/previm'
-Plug 'tyru/open-browser.vim'
-" Plug 'harish2704/MatchTag'
-Plug 'Valloric/MatchTagAlways'
-" Plug 'leafgarland/typescript-vim'
-Plug 'bogado/file-line'
-" Plug 'vim-scripts/marvim'
-Plug 'dohsimpson/vim-macroeditor'
-Plug 'low-ghost/vim-macro-manager'
-Plug 'tikhomirov/vim-glsl'
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
-Plug 'ollykel/v-vim'
-Plug 'sjl/gundo.vim'
-Plug 'evanleck/vim-svelte', { 'for': 'svelte' }
-" Plug 'zenbro/mirror.vim'
-" Plug 'kassio/neoterm'
+Plug 'junegunn/fzf.vim'             " Ctrl-p Quick file search
+" }
+"
+" Extra utilities {
+Plug 'Shougo/deoplete.nvim',         { 'do': ':UpdateRemotePlugins' } " Autocompletion
+Plug 'vim-scripts/sessionman.vim'     " Session manager. Manage projects
+Plug 'scrooloose/syntastic'           " Syntax checking pluin
+Plug 'vim-scripts/DoxygenToolkit.vim' " Quickly create Doxygent style comments
+Plug 'godlygeek/tabular'              " Tabularize Text
+Plug 'tpope/vim-fugitive'             " For Git repo management.
+Plug 'spf13/vim-autoclose'            " Autoclose brackets/quotes etc
+Plug 'chrisbra/NrrwRgn'               " Edit a portion file as different buffer
+" }
+"
+" Langualge plugins{
+Plug 'iamcco/markdown-preview.nvim',     { 'for': 'markdown', 'do': 'cd app & yarn install' }
+Plug 'rust-lang/rust.vim',               { 'for': 'rust'}
+Plug 'pangloss/vim-javascript',          { 'for': 'javascript'}
+Plug 'mxw/vim-jsx' ,                     { 'for': [ 'javascript.jsx'] }
+Plug 'leafOfTree/vim-vue-plugin' ,       { 'for': [ 'vue']}
+Plug 'mhartington/nvim-typescript' ,     { 'for': [ 'javascript.ts'] }
+Plug 'AndrewRadev/vim-eco',              { 'for': [ 'ect', 'eco' ] }
+Plug 'Glench/Vim-Jinja2-Syntax',         { 'for': [ 'html', 'jinja', 'njk' ] }
+Plug 'kchmck/vim-coffee-script',         { 'for': 'coffee' }
+Plug 'digitaltoad/vim-jade',             { 'for': 'jade' }
+Plug 'mustache/vim-mustache-handlebars', { 'for': 'handlebars' }
+Plug 'briancollins/vim-jst',             { 'for': 'jst' }
+Plug 'evanleck/vim-svelte',              { 'for': 'svelte' }
+Plug 'tikhomirov/vim-glsl',              { 'for': 'glsl' }
+Plug 'ollykel/v-vim',                    { 'for': 'v' }
+" }
+
+
+" Other rarely used / untested plugins{
+" Plug 'sjl/gundo.vim'                                   " Visualize undo tree
+" Plug 'brooth/far.vim'                                  " Interactive Fine & replace on multiple files
+" Plug 'Lokaltog/vim-easymotion'                         " Quick cursor movement to any where in the screen
+" Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeFind' }   " File tree
+" Plug 'git://github.com/maxbrunsfeld/vim-yankstack.git' " Clipboard histroy management.
+" Plug 'Yggdroot/indentLine'
+" Plug 'majutsushi/tagbar'
+" Plug 'Shougo/vimproc.vim'
+" Plug 'vim-scripts/matchit.zip'
+" Plug 'tomasr/molokai'                                  " A beautiful colorscheme
+" Plug 'tyru/open-browser.vim'
+" Plug 'Valloric/MatchTagAlways'
+" Plug 'bogado/file-line'
+" Plug 'dohsimpson/vim-macroeditor'                      " Edit macros in split window
+" Plug 'low-ghost/vim-macro-manager'                     " Manage / save Macros
+" Plug 'HerringtonDarkholme/yats.vim'                    " Typescript language plugin
+" }
 call plug#end()
 
-" Source support_function.vim to support vim-snippets.
-if filereadable(expand( g:nvim_conf_root ."bundle/vim-snippets/snippets/support_functions.vim"))
-  source g:nvim_conf_root . 'bundle/vim-snippets/snippets/support_functions.vim'
-endif
 
+" enable deoplete at start up
+let g:deoplete#enable_at_startup = 1
 
-let $FZF_DEFAULT_COMMAND='ag -g ""'
-
+" Open edit snippets in vertial tab
+let g:UltiSnipsEditSplit="vertical"
 
 " Ctrl-p opens fuzzy file search
 nmap <C-p> :Files<CR>
@@ -397,8 +215,6 @@ nmap <C-p> :Files<CR>
 nmap <C-b> :Buffers<CR>
 
 colorscheme molokai
-" colorscheme OceanicNext
-" colorscheme onedark
 
 " Neovim specific settings
 
@@ -454,8 +270,6 @@ imap <C-s> <Esc><c-s>
 " Alt-q Delete current buffer ( Close file )
 nmap <M-q> :bd<CR>
 
-" map <F8> :TagbarToggle<CR>
-" nmap <F2> :wa<Bar>exe "mksession! " . v:this_session<CR>
 
 " '\\es' or '<leader><leader>es' Open vimrc in a new tab
 execute( 'nmap <Leader><Leader>es :tabedit '. g:nvim_conf_root .'init.vim <CR>' )
@@ -593,10 +407,48 @@ vmap <C-h> "fy:%s#<C-r>f#
 " Copy current word to 'f' register, search for that word
 vmap <C-f> "fy/<C-r>f
 
-
 " set guicursor=n-c:block,i-ci-ve:ver40,r-cr-v:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175
 set termguicolors
-" hi Visual guibg=#603D3D
+
+command! -register CopyMatches call CopyMatches(<q-reg>)
+
+command! -register -range=% Unretab <line1>,<line2>call Unretab()
+" My custom commands {{{
+
+imap <M-;> <End>;<CR>
+imap <M-,> <End>,<CR>
+imap <M-CR> <End><CR>
+" Grep for a word and open the result in errorlist
+command! -nargs=+ Gr :silent execute 'grep! -nr "<args>" | copen'
+" Raw version of Gr command. 
+command! -nargs=* Grc grep -nr <args>
+
+" Add file header to current buffer. Depends on https://github.com/harish2704/file-header
+command! Header :execute '0r!file-header %'
+
+" Open Terminal in split window
+command! Termw :execute '!konsole -e bash-session &'
+command! Term :execute 'sp | term'
+
+" Cd to current file's directory
+command! Cwd :execute 'cd %:p:h'
+
+" Cd to current file's directory, but limit to current tab
+command! Tcd :execute ':tcd %:p:h'
+
+" Reload current buffer
+command! Reload :execute "bufdo execute 'checktime . bufnr('%')'"
+
+" Delete current file and close buffer
+command! Rm :execute '!rm %' | bd
+
+" Copy current file path to unnamedplus register
+command! CopyFilename :let @+=@%
+
+" Open vscode in on current line
+command! Code :execute "!code ./ -g %:". ( line('.')+1 )
+" }}}
+
 
 
 
@@ -606,10 +458,7 @@ function! CopyMatches(reg)
   let reg = empty(a:reg) ? '+' : a:reg
   execute 'let @'.reg.' = join(hits, "\n") . "\n"'
 endfunction
-command! -register CopyMatches call CopyMatches(<q-reg>)
 
 function! Unretab() range
   execute a:firstline . "," . a:lastline . 's/ \{1,' . &tabstop . '}/\t/g'
 endfunction
-command! -register -range=% Unretab <line1>,<line2>call Unretab()
-" highlight Comment guifg=#afafb3
