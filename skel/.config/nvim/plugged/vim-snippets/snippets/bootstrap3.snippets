@@ -1,0 +1,63 @@
+snippet fg
+	<div class="form-group">
+		<label for="input${1:input1}" class="col-sm-2 control-label"> ${2:$1} </label>
+		<div class="col-sm-10">
+			<input type="${3:text}" name="${4:$1}" class="form-control" id="input$1" placeholder="${5:$2}">
+		</div>
+	</div>
+snippet form-h
+	<form action="${1}" method="${2:post}" accept-charset="utf-8" class="form-horizontal" role="form">
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<button type="submit" class="btn btn-default">${3:Submit}</button>
+			</div>
+		</div>
+	</form>
+snippet sel
+	<select class="form-control">
+		<option>${1:option}</option>
+	</select>${2}
+snippet abtn
+	<a href="${1:#}" class="btn">${2:Text}</a>
+
+snippet abtnblock
+	<a href="${1:#}" class="btn btn-block">${2:Text}</a>
+
+snippet abtndanger
+	<a href="${1:#}" class="btn btn-danger">${2:Text}</a>
+
+snippet abtninfo
+	<a href="${1:#}" class="btn btn-info">${2:Text}</a>
+
+snippet abtninverse
+	<a href="${1:#}" class="btn btn-inverse">${2:Text}</a>
+
+snippet abtnlarge
+	<a href="${1:#}" class="btn btn-large">${2:Text}</a>
+
+snippet abtnmini
+	<a href="${1:#}" class="btn btn-mini">${2:Text}</a>
+
+snippet abtnprimary
+	<a href="${1:#}" class="btn btn-primary">${2:Text}</a>
+
+snippet abtnsmall
+	<a href="${1:#}" class="btn btn-small">${2:Text}</a>
+
+snippet abtnsuccess
+	<a href="${1:#}" class="btn btn-success">${2:Text}</a>
+
+snippet abtnwarning
+	<a href="${1:#}" class="btn btn-warning">${2:Text}</a>
+snippet btn
+	<button type="button" class="btn">${1:Default}</button>
+
+snippet btnblock
+	<button class="btn btn-large btn-block" type="button">${1:Block level button}</button>
+
+snippet btndanger
+	<button type="button" class="btn btn-danger">${1:Default}</button>
+
+snippet btndisabled
+	<button type="button" class="btn disabled" disabled="disabled">${1:Primary button}</button>
+

@@ -1,0 +1,48 @@
+#!/usr/bin/env sh
+
+installTmp="$HOME/.local/installTmp";
+appDir="$HOME/.local/Apps";
+localBinDir="$HOME/.local/bin";
+
+checkPaths() {
+  for i in $installTmp $appDir $localBinDir; do
+    if [ ! -d "$i" ]; then
+      mkdir -p "$i";
+    fi
+  done
+}
+
+performDownloads(){
+  cd "$installTmp";
+  downloadPack;
+}
+
+doInstall(){
+  # Remove application dir if it already exists in installation path
+  if [ -d "$installationPath" ]; then
+    rm -rf "$installationPath"
+  fi
+  installPack;
+  cd "$installTmp";
+  mv "$appName" "$installationPath";
+}
+
+updateBinLinks(){
+  cd $localBinDir;
+  for i in $(find "$appDir" -name 'binaries.lst'); do
+    for f in $(cat $i);do
+      if [ -e "./$(basename $f)" ]; then
+        echo "Removing already existing file $(basename $f)"
+        rm "./$(basename $f)";
+      fi
+      ln -s $(dirname $i)/$f ./;
+    done;
+  done;
+}
+
+mainInstaller(){
+  checkPaths;
+  performDownloads;
+  doInstall;
+  updateBinLinks;
+}

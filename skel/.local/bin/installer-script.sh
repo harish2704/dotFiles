@@ -1,0 +1,1 @@
+/root/hariroot/etc/skel//.local/Apps/installer-scripts/./bin/installer-script.sh
