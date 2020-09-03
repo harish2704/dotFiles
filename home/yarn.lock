@@ -6439,9 +6439,9 @@ glogg@^1.0.0:
   dependencies:
     sparkles "^1.0.0"
 
-google-closure-library@^20170521.0.0:
-  version v20170521.0.0
-  resolved "https://registry.yarnpkg.com/google-closure-library/-/google-closure-library-20170521.0.0.tgz#06659ec07bb9042c5123dbb1568bcd6969df8f2b"
+google-closure-library@^20190301.0.0:
+  version "20190301.0.0"
+  resolved "https://registry.yarnpkg.com/google-closure-library/-/google-closure-library-20190301.0.0.tgz#1d0f584ad207dc3869af44668e7fbf04d10acdee"
 
 got@^2.3.0:
   version "2.9.2"
