@@ -50,6 +50,7 @@ let sh_fold_enabled=1         " sh
 let vimsyn_folding='af'       " Vim script
 let $FZF_DEFAULT_COMMAND='ag -ig ""'
 let g:gruvbox_contrast_dark = 'dark'
+let g:netrw_browse_split = 2
 
 au BufEnter *.js.ejs set ft=javascript.ejs
 au BufEnter *.dart set ft=dart
@@ -108,12 +109,14 @@ set sessionoptions=blank,buffers,curdir,tabpages,winsize,resize,winpos
 " }}}
 
 
+autocmd FileType go nmap <Leader>p :GoFmt<CR>
+let g:syntastic_go_checkers = ['gofmt']
+
 " for JavaScript syntax checking {{{
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_javascript_checkers = ['eslint']
 " }}}
 
-let g:syntastic_go_checkers = ['gofmt']
 
 
 " set lazyredraw
@@ -188,7 +191,7 @@ Plug 'ollykel/v-vim',                      { 'for': 'vlang' }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'dart-lang/dart-vim-plugin',          { 'for': 'dart' }
 Plug 'thosakwe/vim-flutter',               { 'for': 'dart' }
-Plug 'fatih/vim-go',                       { 'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go',                       { 'for': 'go', 'do': ':GoUpdateBinaries' }
 " }
 
 
@@ -427,7 +430,7 @@ vmap <C-f> "fy/<C-r>f
 " set guicursor=n-c:block,i-ci-ve:ver40,r-cr-v:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175
 set termguicolors
 
-command! -register CopyMatches call CopyMatches(<q-reg>)
+" command! -register CopyMatches call CopyMatches(<q-reg>)
 
 command! -register -range=% Unretab <line1>,<line2>call Unretab()
 " My custom commands {{{
