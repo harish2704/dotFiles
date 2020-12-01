@@ -48,7 +48,7 @@ let r_syntax_folding=1        " R
 let ruby_fold=1               " Ruby
 let sh_fold_enabled=1         " sh
 let vimsyn_folding='af'       " Vim script
-let $FZF_DEFAULT_COMMAND='ag -g ""'
+let $FZF_DEFAULT_COMMAND='ag -ig ""'
 let g:gruvbox_contrast_dark = 'dark'
 
 au BufEnter *.js.ejs set ft=javascript.ejs
@@ -113,6 +113,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_javascript_checkers = ['eslint']
 " }}}
 
+let g:syntastic_go_checkers = ['gofmt']
 
 
 " set lazyredraw
@@ -187,6 +188,7 @@ Plug 'ollykel/v-vim',                      { 'for': 'vlang' }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'dart-lang/dart-vim-plugin',          { 'for': 'dart' }
 Plug 'thosakwe/vim-flutter',               { 'for': 'dart' }
+Plug 'fatih/vim-go',                       { 'do': ':GoUpdateBinaries' }
 " }
 
 

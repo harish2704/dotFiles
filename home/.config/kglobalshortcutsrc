@@ -11,7 +11,7 @@ _k_friendly_name=Keyboard Layout Switcher
 Capture=Ctrl+Print,none,Take screenshot
 Configure=none,none,Configure
 _k_friendly_name=Launch Flameshot
-_launch=,none,Launch Flameshot
+_launch=Meta+Ctrl+Print,none,Launch Flameshot
 
 [kaccess]
 Toggle Screen Reader On and Off=Meta+Alt+S,Meta+Alt+S,Toggle Screen Reader On and Off

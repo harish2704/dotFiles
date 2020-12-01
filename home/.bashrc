@@ -34,12 +34,12 @@ export NVM_DIR="$HOME/.nvm"
 
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/hari/Downloads/google-cloud-sdk/path.bash.inc' ]; then . '/home/hari/Downloads/google-cloud-sdk/path.bash.inc'; fi
+if [ -f "$HOME/Downloads/google-cloud-sdk/path.bash.inc" ]; then . "$HOME/Downloads/google-cloud-sdk/path.bash.inc"; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/home/hari/Downloads/google-cloud-sdk/completion.bash.inc' ]; then . '/home/hari/Downloads/google-cloud-sdk/completion.bash.inc'; fi
+if [ -f "$HOME/Downloads/google-cloud-sdk/completion.bash.inc" ]; then . "$HOME/Downloads/google-cloud-sdk/completion.bash.inc"; fi
 
-export DENO_INSTALL="/home/hari/.deno"
+export DENO_INSTALL="$HOME/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 export USER_BASHRC_READ=1
 fi
@@ -49,5 +49,5 @@ nvmLoad(){
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
 
-. $HOME/.local/Apps/daily-utils/bin/_hari-tools-completion.sh
+eval "$($HOME/.local/bin/hari-tools.sh setup-autocomplete) hari-tools.sh"
 . /usr/share/bash-completion/completions/fzf-key-bindings

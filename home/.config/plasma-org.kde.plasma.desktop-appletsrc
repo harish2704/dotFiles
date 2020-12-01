@@ -292,7 +292,7 @@ immutability=1
 plugin=org.kde.plasma.icon
 
 [Containments][23][Applets][74][Configuration]
-PreloadWeight=10
+PreloadWeight=0
 localPath=/home/hari/.local/share/plasma_icons/kcm_kdeconnect.desktop
 url=file:///usr/share/kservices5/kcm_kdeconnect.desktop
 
@@ -301,9 +301,17 @@ immutability=1
 plugin=org.kde.plasma.icon
 
 [Containments][23][Applets][75][Configuration]
-PreloadWeight=42
+PreloadWeight=18
 localPath=/home/hari/.local/share/plasma_icons/firefox.desktop
 url=file:///usr/share/applications/firefox.desktop
+
+[Containments][23][Applets][78]
+immutability=1
+plugin=org.kde.plasma.icon
+
+[Containments][23][Applets][78][Configuration]
+localPath=/home/hari/.local/share/plasma_icons/barrier.desktop
+url=file:///usr/share/applications/barrier.desktop
 
 [Containments][23][ConfigDialog]
 DialogHeight=90
@@ -313,7 +321,7 @@ DialogWidth=1920
 PreloadWeight=0
 
 [Containments][23][General]
-AppletOrder=71;43;40;75;39;74;59;41;42;62;26;25;27;29;30
+AppletOrder=71;43;40;75;39;74;59;41;42;62;78;26;25;27;29;30
 
 [Containments][46]
 activityId=
@@ -350,14 +358,14 @@ immutability=1
 plugin=org.kde.plasma.keyboardindicator
 
 [Containments][46][Applets][50][Configuration]
-PreloadWeight=5
+PreloadWeight=0
 
 [Containments][46][Applets][51]
 immutability=1
 plugin=org.kde.plasma.notifications
 
 [Containments][46][Applets][51][Configuration]
-PreloadWeight=15
+PreloadWeight=0
 
 [Containments][46][Applets][51][Configuration][ConfigDialog]
 DialogHeight=1017
@@ -368,7 +376,7 @@ immutability=1
 plugin=org.kde.plasma.battery
 
 [Containments][46][Applets][52][Configuration]
-PreloadWeight=50
+PreloadWeight=100
 
 [Containments][46][Applets][53]
 immutability=1
@@ -386,14 +394,14 @@ immutability=1
 plugin=org.kde.plasma.bluetooth
 
 [Containments][46][Applets][54][Configuration]
-PreloadWeight=2
+PreloadWeight=7
 
 [Containments][46][Applets][55]
 immutability=1
 plugin=org.kde.plasma.mediacontroller
 
 [Containments][46][Applets][55][Configuration]
-PreloadWeight=15
+PreloadWeight=0
 
 [Containments][46][Applets][56][Configuration]
 PreloadWeight=42
@@ -403,7 +411,7 @@ immutability=1
 plugin=org.kde.kdeconnect
 
 [Containments][46][Applets][58][Configuration]
-PreloadWeight=0
+PreloadWeight=5
 
 [Containments][46][Applets][61]
 immutability=1
@@ -415,6 +423,16 @@ PreloadWeight=0
 [Containments][46][Applets][75][Configuration]
 PreloadWeight=42
 
+[Containments][46][Applets][76]
+immutability=1
+plugin=org.kde.kscreen
+
+[Containments][46][Applets][76][Configuration]
+PreloadWeight=100
+
+[Containments][46][Applets][77][Configuration]
+PreloadWeight=42
+
 [Containments][46][ConfigDialog]
 DialogHeight=540
 DialogWidth=720
@@ -423,7 +441,7 @@ DialogWidth=720
 PreloadWeight=0
 
 [Containments][46][General]
-extraItems=org.kde.plasma.volume,org.kde.plasma.keyboardindicator,org.kde.plasma.mediacontroller,org.kde.plasma.devicenotifier,org.kde.plasma.networkmanagement,org.kde.plasma.battery,org.kde.plasma.bluetooth,org.kde.plasma.notifications,org.kde.kdeconnect,org.kde.plasma.nightcolorcontrol
+extraItems=org.kde.plasma.volume,org.kde.plasma.keyboardindicator,org.kde.plasma.mediacontroller,org.kde.plasma.devicenotifier,org.kde.plasma.networkmanagement,org.kde.plasma.battery,org.kde.plasma.bluetooth,org.kde.plasma.notifications,org.kde.kdeconnect,org.kde.plasma.nightcolorcontrol,org.kde.kscreen
 iconSize=1
 knownItems=org.kde.plasma.volume,org.kde.plasma.keyboardindicator,org.kde.plasma.mediacontroller,org.kde.plasma.devicenotifier,org.kde.plasma.clipboard,org.kde.plasma.networkmanagement,org.kde.plasma.battery,org.kde.plasma.bluetooth,org.kde.plasma.notifications,org.kde.kdeconnect,org.kde.plasma.nightcolorcontrol
 
@@ -495,7 +513,7 @@ plugin=org.kde.plasma.folder
 wallpaperplugin=org.kde.image
 
 [Containments][72][Configuration]
-PreloadWeight=10
+PreloadWeight=0
 
 [Containments][72][Wallpaper][org.kde.image][General]
 Image=file:///usr/share/wallpapers/Next/contents/images/1920x1080.jpg
@@ -508,4 +526,4 @@ immutability=1
 
 [ScreenMapping]
 itemsOnDisabledScreens=
-screenMapping=desktop:/arduino-arduinoide.desktop,0,desktop:/LTspice XVII.desktop,0,desktop:/spacefm.desktop,0
+screenMapping=desktop:/spacefm.desktop,0,desktop:/LTspice XVII.desktop,0,desktop:/arduino-arduinoide.desktop,0
