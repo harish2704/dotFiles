@@ -48,9 +48,12 @@ let r_syntax_folding=1        " R
 let ruby_fold=1               " Ruby
 let sh_fold_enabled=1         " sh
 let vimsyn_folding='af'       " Vim script
-let $FZF_DEFAULT_COMMAND='ag -g ""'
+let $FZF_DEFAULT_COMMAND='ag -ig ""'
+let g:gruvbox_contrast_dark = 'dark'
+let g:netrw_browse_split = 2
 
 au BufEnter *.js.ejs set ft=javascript.ejs
+au BufEnter *.dart set ft=dart
 au BufEnter *.sshconf set ft=sshconfig
 
 " Disable python linting
@@ -66,13 +69,20 @@ autocmd FileType xml set foldmethod=indent
 
 " % key will be mapped by MatchTag plugin to match HTML tags.
 " It is not need on php file
-autocmd FileType php unmap %
+" autocmd FileType php unmap %
 " }}}
 
 " for JavaScript {{{
+" add '@' symbol as a valid char for js filename ( eg: '@mymodule/xyz' )
+autocmd FileType javascript set isfname=@,48-57,/,.,-,_,+,,,#,$,%,~,=,@-@
+autocmd FileType typescript set isfname=@,48-57,/,.,-,_,+,,,#,$,%,~,=,@-@
 " if we press 'gf' under require('abc/xyz'), then also sarch for ./abs/xyz.js
-autocmd FileType javascript set includeexpr='./'.v:fname
-autocmd FileType typescript set includeexpr='./'.v:fname
+function! LoadMainNodeModule(fname)
+  return systemlist("node -p 'require.resolve(\"" . a:fname . "\")'")[0]
+endfunction
+autocmd FileType javascript set includeexpr=LoadMainNodeModule(v:fname)
+autocmd FileType typescript set includeexpr=LoadMainNodeModule(v:fname)
+autocmd FileType vue set includeexpr=LoadMainNodeModule(v:fname)
 " }}}
 
 " for java {{{
@@ -90,27 +100,17 @@ autocmd BufRead *.njk set ft=jinja
 autocmd BufEnter *.gradle set ft=groovy
 " }}}
 
+" Disable setting jsx syntax for *.js files
+let g:jsx_pragma_required=1
 
-
-" * Commenting support for jinja tempaltes
-" * Typedoc compatible Sexycomment support for typescript ( '/**' instead of '/*'' )
-" * jsdoc3 compatible Sexycomment support for javascript ( '/**' instead of '/*'' )
-
-let g:NERDSpaceDelims=1
-au BufEnter *.ts let b:NERDSexyComMarker='* '
-au BufEnter *.js let b:NERDSexyComMarker='* '
-au BufEnter *.jsx let b:NERDSexyComMarker='* '
-let g:NERDCustomDelimiters = {
-      \ 'jinja': { 'left': '{# ', 'right': ' #}', 'leftAlt': '{# ', 'rightAlt': ' #}' },
-      \ 'typescript': { 'left': '//', 'leftAlt': '/**', 'rightAlt': '*/' },
-      \ 'javascript': { 'left': '//', 'leftAlt': '/**', 'rightAlt': '*/' },
-\ }
-" }}}
 
 " Session List {{{
 set sessionoptions=blank,buffers,curdir,tabpages,winsize,resize,winpos
 " }}}
 
+
+autocmd FileType go nmap <Leader>p :GoFmt<CR>
+let g:syntastic_go_checkers = ['gofmt']
 
 " for JavaScript syntax checking {{{
 let g:syntastic_always_populate_loc_list = 1
@@ -138,17 +138,25 @@ let nvim_conf_root = expand('<sfile>:p:h') . '/'
 let g:javascript_plugin_jsdoc = 1
 
 let g:MacroManagerDir = g:nvim_conf_root . 'macros'
+
+let g:tcomment_maps = 0
+vmap <leader>c<space> :TComment<CR>
+vmap <leader>cs :TCommentBlock<CR>
+nmap <leader>c<space> :TComment<CR>
+nmap <leader>cs :TCommentBlock<CR>
+
 call plug#begin( )
 " Bsic set of plugins {
 Plug 'jamessan/vim-gnupg'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'rstacruz/sparkup'             " HTML zen-coding  helper
-Plug 'preservim/nerdcommenter'      " Code commenting uncommenting
+Plug 'tomtom/tcomment_vim'          " Code commenting uncommenting
 Plug 'tpope/vim-surround'           " quickly Insert/remove/change quote/brackes any vim selection.
 Plug 'harish2704/harish2704-vim'    " My utilities to move widows around tabs
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'             " Ctrl-p Quick file search
+Plug 'wsdjeg/vim-fetch'
 " }
 "
 " Extra utilities {
@@ -160,28 +168,36 @@ Plug 'godlygeek/tabular'              " Tabularize Text
 Plug 'tpope/vim-fugitive'             " For Git repo management.
 Plug 'spf13/vim-autoclose'            " Autoclose brackets/quotes etc
 Plug 'chrisbra/NrrwRgn'               " Edit a portion file as different buffer
+Plug 'prettier/vim-prettier',        { 'do': 'yarn install',
+\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 " }
 "
 " Langualge plugins{
-Plug 'iamcco/markdown-preview.nvim',     { 'for': 'markdown', 'do': 'cd app & yarn install' }
-Plug 'rust-lang/rust.vim',               { 'for': 'rust'}
-Plug 'pangloss/vim-javascript',          { 'for': 'javascript'}
-Plug 'mxw/vim-jsx' ,                     { 'for': [ 'javascript.jsx'] }
-Plug 'leafOfTree/vim-vue-plugin' ,       { 'for': [ 'vue']}
-Plug 'mhartington/nvim-typescript' ,     { 'for': [ 'javascript.ts'] }
-Plug 'AndrewRadev/vim-eco',              { 'for': [ 'ect', 'eco' ] }
-Plug 'Glench/Vim-Jinja2-Syntax',         { 'for': [ 'html', 'jinja', 'njk' ] }
-Plug 'kchmck/vim-coffee-script',         { 'for': 'coffee' }
-Plug 'digitaltoad/vim-jade',             { 'for': 'jade' }
-Plug 'mustache/vim-mustache-handlebars', { 'for': 'handlebars' }
-Plug 'briancollins/vim-jst',             { 'for': 'jst' }
-Plug 'evanleck/vim-svelte',              { 'for': 'svelte' }
-Plug 'tikhomirov/vim-glsl',              { 'for': 'glsl' }
-Plug 'ollykel/v-vim',                    { 'for': 'v' }
+Plug 'iamcco/markdown-preview.nvim',       { 'for': 'markdown', 'do': 'cd app & yarn install' }
+Plug 'rust-lang/rust.vim',                 { 'for': 'rust'}
+Plug 'pangloss/vim-javascript',          " { 'for': 'javascript'}
+Plug 'mxw/vim-jsx' ,                       { 'for': [ 'jsx'] }
+Plug 'leafOfTree/vim-vue-plugin' ,         { 'for': ['vue']}
+Plug 'mhartington/nvim-typescript' ,       { 'for': [ 'javascript.ts'] }
+Plug 'AndrewRadev/vim-eco',                { 'for': [ 'ect', 'eco' ] }
+Plug 'Glench/Vim-Jinja2-Syntax',           { 'for': [ 'html', 'jinja', 'njk' ] }
+Plug 'kchmck/vim-coffee-script',           { 'for': 'coffee' }
+Plug 'digitaltoad/vim-jade',               { 'for': 'jade' }
+Plug 'mustache/vim-mustache-handlebars',   { 'for': 'handlebars' }
+Plug 'briancollins/vim-jst',               { 'for': 'jst' }
+Plug 'evanleck/vim-svelte',                { 'for': 'svelte' }
+Plug 'tikhomirov/vim-glsl',                { 'for': 'glsl' }
+Plug 'ollykel/v-vim',                      { 'for': 'vlang' }
+Plug 'editorconfig/editorconfig-vim'
+Plug 'dart-lang/dart-vim-plugin',          { 'for': 'dart' }
+Plug 'thosakwe/vim-flutter',               { 'for': 'dart' }
+Plug 'fatih/vim-go',                       { 'for': 'go', 'do': ':GoUpdateBinaries' }
 " }
 
 
 " Other rarely used / untested plugins{
+" Plug 'kshenoy/vim-signature'                           " Show markers in the margin
+" Plug 'chrisbra/Colorizer'                              " A plugin to color colornames and codes
 " Plug 'sjl/gundo.vim'                                   " Visualize undo tree
 " Plug 'brooth/far.vim'                                  " Interactive Fine & replace on multiple files
 " Plug 'Lokaltog/vim-easymotion'                         " Quick cursor movement to any where in the screen
@@ -192,12 +208,14 @@ Plug 'ollykel/v-vim',                    { 'for': 'v' }
 " Plug 'Shougo/vimproc.vim'
 " Plug 'vim-scripts/matchit.zip'
 " Plug 'tomasr/molokai'                                  " A beautiful colorscheme
+" Plug 'morhetz/gruvbox'
 " Plug 'tyru/open-browser.vim'
 " Plug 'Valloric/MatchTagAlways'
 " Plug 'bogado/file-line'
 " Plug 'dohsimpson/vim-macroeditor'                      " Edit macros in split window
 " Plug 'low-ghost/vim-macro-manager'                     " Manage / save Macros
 " Plug 'HerringtonDarkholme/yats.vim'                    " Typescript language plugin
+" Plug 'Shougo/context_filetype.vim'
 " }
 call plug#end()
 
@@ -207,6 +225,8 @@ let g:deoplete#enable_at_startup = 1
 
 " Open edit snippets in vertial tab
 let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsJumpForwardTrigger="<Tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 
 " Ctrl-p opens fuzzy file search
 nmap <C-p> :Files<CR>
@@ -392,7 +412,7 @@ nmap <leader>nt :NERDTreeFind<CR>
 " }}}
 
 " For Open a terminal in current directory
-nmap <Leader><Leader>t :!gnome-terminal<CR>
+nmap <Leader><Leader>t :!xdg-terminal&<CR>
 " Open git-gui in current pwd
 nmap <Leader><Leader>g :!git gui &<CR>
 
@@ -410,7 +430,7 @@ vmap <C-f> "fy/<C-r>f
 " set guicursor=n-c:block,i-ci-ve:ver40,r-cr-v:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175
 set termguicolors
 
-command! -register CopyMatches call CopyMatches(<q-reg>)
+" command! -register CopyMatches call CopyMatches(<q-reg>)
 
 command! -register -range=% Unretab <line1>,<line2>call Unretab()
 " My custom commands {{{
