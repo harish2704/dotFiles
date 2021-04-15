@@ -287,9 +287,6 @@ vmap <C-s> <Esc><c-s>gv
 imap <C-s> <Esc><c-s>
 " }}}
 
-" Alt-q Delete current buffer ( Close file )
-nmap <M-q> :bd<CR>
-
 
 " '\\es' or '<leader><leader>es' Open vimrc in a new tab
 execute( 'nmap <Leader><Leader>es :tabedit '. g:nvim_conf_root .'init.vim <CR>' )
@@ -418,6 +415,9 @@ nmap <Leader><Leader>g :!git gui &<CR>
 
 " <Alt-R> -> Reload current file
 nmap <M-r> :e!<CR>
+
+" Alt-q Delete current buffer ( Close file )
+nmap <M-q> :bd<CR>
 
 " <Ctrl-Shift-q> force Close buffer 
 nmap <M-Q> :bd!<CR>
