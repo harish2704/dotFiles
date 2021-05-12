@@ -185,7 +185,7 @@ kwinCompositorReload(){
 # List available vaccine centers
 cowin_list(){
   curl -s -X GET \
-    "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=303&date=$(date +'%d-%m-%Y' --date '1 day')" \
+    "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=303&date=$(date +'%d-%m-%Y' --date '0 day')" \
     -H "accept: application/json" \
     -H 'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36' | jq
 }
