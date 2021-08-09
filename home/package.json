@@ -77,7 +77,7 @@
     "snappy": "^6.0.0",
     "speed-test": "^1.8.0",
     "sqlite3": "^3.1.8",
-    "superstatic": "^4.1.0",
+    "superstatic": "^5.0.2",
     "systemjs": "^0.20.14",
     "t7": "^0.4.0",
     "t7-precompiler": "^0.1.9",
