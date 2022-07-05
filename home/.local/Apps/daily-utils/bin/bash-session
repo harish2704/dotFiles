@@ -1,9 +1,4 @@
 #!/usr/bin/env bash
 export HISTSIZE=10000
 export HISTFILE=$PWD/.bash_history
-
-if [[ $1 == '-n' ]]; then
-  xdg-terminal &
-else
-  bash
-fi
+bash
