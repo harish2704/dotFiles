@@ -38,4 +38,9 @@ export PATH=/opt/android-sdk/platform-tools:$PATH
 export USER_PROFILEREAD=1
 
 
+export INPUT_METHOD=ibus
+export GTK_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export QT_IM_MODULE=ibus
+
 fi

@@ -49,5 +49,14 @@ nvmLoad(){
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
 
+javaLoad(){
+  export JAVA_HOME=/opt/jdk1.8.0_201/jre/
+  export PATH="/opt/android-sdk/tools:/opt/android-sdk/tools/bin:$PATH"
+}
+
+androidLoad(){
+  export ANDROID_SDK_ROOT=/opt/android-sdk
+}
+
 eval "$($HOME/.local/bin/hari-tools.sh setup-autocomplete) hari-tools.sh"
 . /usr/share/bash-completion/completions/fzf-key-bindings

@@ -53,6 +53,7 @@ let g:gruvbox_contrast_dark = 'dark'
 let g:netrw_browse_split = 2
 
 au BufEnter *.js.ejs set ft=javascript.ejs
+au BufEnter *.cir set ft=spice
 au BufEnter *.dart set ft=dart
 au BufEnter *.sshconf set ft=sshconfig
 
@@ -83,16 +84,19 @@ endfunction
 autocmd FileType javascript set includeexpr=LoadMainNodeModule(v:fname)
 autocmd FileType typescript set includeexpr=LoadMainNodeModule(v:fname)
 autocmd FileType vue set includeexpr=LoadMainNodeModule(v:fname)
+" autocmd FileType vue set ft=vue.html
 " }}}
+
+" Load tempate
+autocmd BufNewFile  *.vue	if &modifiable | execute('0r ~/.config/nvim/templates/template.vue') | endif
+autocmd BufNewFile  *.test.js	if &modifiable | execute('0r ~/.config/nvim/templates/template.test.js')| endif
+autocmd BufNewFile  *.js	if &modifiable | execute('Header') | endif
 
 " for java {{{
 autocmd BufRead *.java set include=^#\s*import
 autocmd BufRead *.java set includeexpr=substitute(v:fname,'\\.','/','g')
 autocmd BufRead *.java set suffixesadd=.java,.xml
 autocmd BufRead *.ect set suffixesadd=.ect ft=html.ect
-
-" For vue js
-" autocmd BufRead,BufNewFile *.vue setlocal filetype=html.vue
 
 " For Nunjucks templates
 autocmd BufRead *.njk set ft=jinja
@@ -115,12 +119,18 @@ let g:syntastic_go_checkers = ['gofmt']
 " for JavaScript syntax checking {{{
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_checkers = ['eslint']
 " }}}
 
 
 
 " set lazyredraw
-let g:sparkupNextMapping = '<M-K>'
+" let g:sparkupNextMapping = '<M-K>'
+let g:user_emmet_mode='inv'  "enable all functions, which is equal to
+let g:user_emmet_install_global = 0
+autocmd FileType html,css,vue,jsx,php EmmetInstall
+imap <C-E> <Plug>(emmet-expand-abbr)
+" let g:user_emmet_leader_key='<C-E>'
 
 
 
@@ -150,13 +160,16 @@ call plug#begin( )
 Plug 'jamessan/vim-gnupg'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'rstacruz/sparkup'             " HTML zen-coding  helper
+" Plug 'rstacruz/sparkup'             " HTML zen-coding  helper
+Plug 'mattn/emmet-vim'
 Plug 'tomtom/tcomment_vim'          " Code commenting uncommenting
 Plug 'tpope/vim-surround'           " quickly Insert/remove/change quote/brackes any vim selection.
 Plug 'harish2704/harish2704-vim'    " My utilities to move widows around tabs
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'             " Ctrl-p Quick file search
 Plug 'wsdjeg/vim-fetch'
+Plug 'mbbill/undotree'              " Visualize undo history
+" Plug 'bogado/file-line'             " Open file:linenumber
 " }
 "
 " Extra utilities {
@@ -168,17 +181,22 @@ Plug 'godlygeek/tabular'              " Tabularize Text
 Plug 'tpope/vim-fugitive'             " For Git repo management.
 Plug 'spf13/vim-autoclose'            " Autoclose brackets/quotes etc
 Plug 'chrisbra/NrrwRgn'               " Edit a portion file as different buffer
-Plug 'prettier/vim-prettier',        { 'do': 'yarn install',
-\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+Plug 'prettier/vim-prettier',        { 'do': 'yarn install', 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+" Plug 'easymotion/vim-easymotion'
 " }
 "
 " Langualge plugins{
-Plug 'iamcco/markdown-preview.nvim',       { 'for': 'markdown', 'do': 'cd app & yarn install' }
+if has('nvim')
+  Plug 'iamcco/markdown-preview.nvim',       { 'for': 'markdown', 'do': 'cd app & yarn install' }
+  Plug 'mhartington/nvim-typescript' ,       { 'for': [ 'javascript.ts'] }
+else
+  Plug 'roxma/vim-hug-neovim-rpc'
+  Plug 'roxma/nvim-yarp'
+endif
 Plug 'rust-lang/rust.vim',                 { 'for': 'rust'}
 Plug 'pangloss/vim-javascript',          " { 'for': 'javascript'}
 Plug 'mxw/vim-jsx' ,                       { 'for': [ 'jsx'] }
 Plug 'leafOfTree/vim-vue-plugin' ,         { 'for': ['vue']}
-Plug 'mhartington/nvim-typescript' ,       { 'for': [ 'javascript.ts'] }
 Plug 'AndrewRadev/vim-eco',                { 'for': [ 'ect', 'eco' ] }
 Plug 'Glench/Vim-Jinja2-Syntax',           { 'for': [ 'html', 'jinja', 'njk' ] }
 Plug 'kchmck/vim-coffee-script',           { 'for': 'coffee' }
@@ -192,6 +210,8 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'dart-lang/dart-vim-plugin',          { 'for': 'dart' }
 Plug 'thosakwe/vim-flutter',               { 'for': 'dart' }
 Plug 'fatih/vim-go',                       { 'for': 'go', 'do': ':GoUpdateBinaries' }
+Plug 'pantharshit00/vim-prisma',            { 'for': 'prisma' }
+
 " }
 
 
@@ -289,7 +309,11 @@ imap <C-s> <Esc><c-s>
 
 
 " '\\es' or '<leader><leader>es' Open vimrc in a new tab
-execute( 'nmap <Leader><Leader>es :tabedit '. g:nvim_conf_root .'init.vim <CR>' )
+if has('nvim')
+  execute( 'nmap <Leader><Leader>es :tabedit '. g:nvim_conf_root .'init.vim <CR>' )
+else
+  execute( 'nmap <Leader><Leader>es :tabedit '. $MYVIMRC .' <CR>' )
+endif
 
 " '\\en' '<leader><leader>en' Open current file's snippets file in a new tab
 nmap <Leader><Leader>en :execute 'OpenSnippets'<CR>

@@ -1,3 +1,3 @@
-bin/hari-tools.sh
-bin/_hari-tools-completion.sh
-bin/bash-session
+./bin/chromium
+./bin/hari-tools.sh
+./bin/bash-session

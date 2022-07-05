@@ -138,7 +138,7 @@ bulk_replace(){
   set -u
   old=$1
   new=$2
-  ag -l "$old" | xargs -l sed -i "s/${old}/${new}/g"
+  ag -l "$old" | xargs -l sed -Ei "s#${old}#${new}#g"
   # ag -l "$old"
 }
 
@@ -182,12 +182,49 @@ kwinCompositorReload(){
   qdbus-qt5 org.kde.KWin /Compositor resume
 }
 
+# format cookies copied from chrome cookie table
+# Usage cat file | formatChromeCookie domain.com
+formatChromeCookie(){
+  echo -e "# Netscape HTTP Cookie File\n\n"
+  cat /dev/stdin | cut -f 1,2 | xargs -l echo -e ".$1 TRUE / FALSE 0 " | sed 's/ /\t/g'
+}
+
 # List available vaccine centers
 cowin_list(){
   curl -s -X GET \
     "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=303&date=$(date +'%d-%m-%Y' --date '1 day')" \
     -H "accept: application/json" \
     -H 'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36' | jq
+
+chromewayland(){
+  chromium --enable-features=UseOzonePlatform --ozone-platform=wayland
+}
+
+# pidEnv <PID> . Print environment variables of a PID. 
+pidEnv(){
+  cat /proc/$(pgrep kwin)/environ | tr '\0' '\n' | awk '{ print "export "$0}'
+}
+
+# Copy files from local to remote
+rsyncfast(){
+  rsync -zaP --delete $@
+}
+
+# Render a subtitle into a video
+# <video file> <.ass subtitle file> <output file>
+subtitleBurn(){
+  ffmpeg -i "$1" -vf "ass=$2" $3
+}
+
+# Gen random password
+genPassword(){
+  node -p "require('base-x')('!#$%&()*+,-.0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_abcdefghijklmnopqrstuvwxyz{|}~' ).encode( crypto.randomBytes(${1:-15}) )"
+}
+
+# Convert json to csv with column headers
+# cat file.json | this-tool json2csv
+json2csv(){
+  jq -r '(map(keys) | add | unique) as $cols | map(. as $row | $cols | map($row[.])) as $rows | $cols, $rows[] | @csv'
 }
 
 
