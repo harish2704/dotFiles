@@ -3,7 +3,7 @@ export HISTSIZE=10000
 export HISTFILE=$PWD/.bash_history
 
 if [[ $1 == '-n' ]]; then
-  xdg-terminal &
+  konsole &
 else
   bash
 fi
