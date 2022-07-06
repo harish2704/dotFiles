@@ -1,3 +1,4 @@
 ./bin/chromium
 ./bin/hari-tools.sh
 ./bin/bash-session
+./bin/ibus-next-engine.mjs
