@@ -189,13 +189,6 @@ formatChromeCookie(){
   cat /dev/stdin | cut -f 1,2 | xargs -l echo -e ".$1 TRUE / FALSE 0 " | sed 's/ /\t/g'
 }
 
-# List available vaccine centers
-cowin_list(){
-  curl -s -X GET \
-    "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=303&date=$(date +'%d-%m-%Y' --date '1 day')" \
-    -H "accept: application/json" \
-    -H 'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36' | jq
-
 chromewayland(){
   chromium --enable-features=UseOzonePlatform --ozone-platform=wayland
 }
@@ -225,6 +218,12 @@ genPassword(){
 # cat file.json | this-tool json2csv
 json2csv(){
   jq -r '(map(keys) | add | unique) as $cols | map(. as $row | $cols | map($row[.])) as $rows | $cols, $rows[] | @csv'
+}
+
+# pdfTile <input file> <nup 2x1>
+# Tile input pdf in A4 sheet
+pdfTile(){
+  pdfjam $1  --no-landscape  --nup $2 --paper a4paper  --suffix A4
 }
 
 
