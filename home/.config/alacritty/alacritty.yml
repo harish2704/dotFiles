@@ -2,7 +2,7 @@ font:
   size: 13.0
   normal:
     # family: Source Code Pro Medium
-    family: CodeNewRoman Nerd Font Mono
+    family: DejaVuSansMono Nerd Font Mono
 
 key_bindings:
   - { key: Return,    mods: Shift,           chars: "\e[13;2u"      }

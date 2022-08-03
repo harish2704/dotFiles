@@ -195,7 +195,7 @@ chromewayland(){
 
 # pidEnv <PID> . Print environment variables of a PID. 
 pidEnv(){
-  cat /proc/$(pgrep kwin)/environ | tr '\0' '\n' | awk '{ print "export "$0}'
+  cat /proc/$(pgrep $1)/environ | tr '\0' '\n' | awk '{ print "export "$0}'
 }
 
 # Copy files from local to remote
@@ -220,12 +220,49 @@ json2csv(){
   jq -r '(map(keys) | add | unique) as $cols | map(. as $row | $cols | map($row[.])) as $rows | $cols, $rows[] | @csv'
 }
 
-# pdfTile <input file> <nup 2x1>
+# pdfTile <input file> <nup 2x1> [options]
 # Tile input pdf in A4 sheet
 pdfTile(){
-  pdfjam $1  --no-landscape  --nup $2 --paper a4paper  --suffix A4
+  local infile=$1
+  shift
+  local nup=$1
+  shift
+  pdfjam $infile --nup $nup --paper a4paper  --suffix A4 $@
 }
 
+# servicegen <name> <exec> [logsdir]
+# Generate systemd service file
+servicegen(){
+	local name=$1
+	local cmd=$2
+	local logsdir=$3
+	cat<<EOF
+[Unit]
+Description = $name
+
+[Service]
+Type           = simple
+LimitNOFILE    = 4096
+Restart        = always
+RestartSec     = 2s
+StandardOutput = append:$logsdir/stdout.log
+StandardError  = append:$logsdir/stderr.log
+ExecStart      = $cmd
+
+[Install]
+WantedBy = multi-user.target 
+EOF
+}
+
+# Start pulseaudio in tcp port 24667 to use with docker containers
+pulseTcpStart(){
+  pactl load-module module-native-protocol-tcp  port=24667 auth-ip-acl=172.16.0.0/12
+}
+
+# Stop pulseaudio in tcp port 24667
+pulseTcpStop(){
+  pactl unload-module module-native-protocol-tcp
+}
 
 # Setup autocomplete. run eval "$(THIS_FILE setup-autocomplete)"
 setup-autocomplete(){

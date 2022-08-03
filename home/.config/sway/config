@@ -14,7 +14,8 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term gnome-terminal
+# set $term gnome-terminal
+set $term konsole
 # Your preferred application launcher
 set $menu dmenu_run
 
@@ -62,7 +63,7 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
     # Change normal to inverse to use left mouse button for resizing and right
-    # mouse button for dragging.
+
     floating_modifier $mod normal
 
     # reload the configuration file
@@ -189,7 +190,9 @@ bindsym $mod+r mode "resize"
 #
 # Read `man 5 sway-bar` for more information about this section.
 bar {
-    status_command i3status
+    #status_command i3status
+    swaybar_command waybar
+    status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
     position top
     colors {
         statusline #ffffff
@@ -201,7 +204,7 @@ bar {
 include /etc/sway/config.d/*
 
 
-set $wp_switch ~/.local/bin/sway-wp-switch
+set $wp_switch sway-wp-switch
 
 bindsym Control+Shift+Alt+Up exec $wp_switch -m up
 bindsym Control+Shift+Alt+Down exec $wp_switch -m down
