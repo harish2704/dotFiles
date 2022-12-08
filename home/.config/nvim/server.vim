@@ -223,4 +223,4 @@ nmap <M-Q> :bd!<CR>
 vmap <C-h> "fy:%s#<C-r>f#
 " Copy current word to 'f' register, search for that word
 vmap <C-f> "fy/<C-r>f
-colorscheme elflord
+" colorscheme elflord

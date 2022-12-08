@@ -18,6 +18,16 @@ fonts_for_lang(){
   fc-list :lang=$1
 }
 
+# list executable files
+ls-exe(){
+  find ./ -type f -executable
+}
+
+# List docker containers with IP address
+docker-ips() {
+    docker inspect --format='{{ .Id }} - {{ .Name }} - {{ .NetworkSettings.IPAddress }}' $(docker ps -aq)
+}
+# Start tesseract web demo
 ocr(){
   cd /home/hari/Projects/Github/harish2704.github.io/ml-tesseract-demo
   http-server -o
@@ -262,6 +272,18 @@ pulseTcpStart(){
 # Stop pulseaudio in tcp port 24667
 pulseTcpStop(){
   pactl unload-module module-native-protocol-tcp
+}
+
+#list scsi devices
+scsiList(){
+  cat /proc/scsi/scsi
+}
+
+#remove scsi device
+scsiRemoveDevice(){
+  cat <<EOF
+echo "scsi remove-single-device 7 0 0 0" > /proc/scsi/scsi
+EOF
 }
 
 # Setup autocomplete. run eval "$(THIS_FILE setup-autocomplete)"

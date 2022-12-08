@@ -165,7 +165,7 @@ Plug 'mattn/emmet-vim'
 Plug 'tomtom/tcomment_vim'          " Code commenting uncommenting
 Plug 'tpope/vim-surround'           " quickly Insert/remove/change quote/brackes any vim selection.
 Plug 'harish2704/harish2704-vim'    " My utilities to move widows around tabs
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'             " Ctrl-p Quick file search
 Plug 'wsdjeg/vim-fetch'
 Plug 'mbbill/undotree'              " Visualize undo history
