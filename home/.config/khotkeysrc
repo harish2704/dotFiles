@@ -1,8 +1,142 @@
 [$Version]
 update_info=spectacle_shortcuts.upd:spectacle-migrate-shortcuts
 
+[ColorEffects:Disabled]
+ChangeSelectionColor[$d]
+Color[$d]
+ColorAmount[$d]
+ColorEffect[$d]
+ContrastAmount[$d]
+ContrastEffect[$d]
+Enable[$d]
+IntensityAmount[$d]
+IntensityEffect[$d]
+
+[ColorEffects:Inactive]
+ChangeSelectionColor[$d]
+Color[$d]
+ColorAmount[$d]
+ColorEffect[$d]
+ContrastAmount[$d]
+ContrastEffect[$d]
+Enable[$d]
+IntensityAmount[$d]
+IntensityEffect[$d]
+
+[Colors:Button]
+BackgroundAlternate[$d]
+BackgroundNormal[$d]
+DecorationFocus[$d]
+DecorationHover[$d]
+ForegroundActive[$d]
+ForegroundInactive[$d]
+ForegroundLink[$d]
+ForegroundNegative[$d]
+ForegroundNeutral[$d]
+ForegroundNormal[$d]
+ForegroundPositive[$d]
+ForegroundVisited[$d]
+
+[Colors:Complementary]
+BackgroundAlternate[$d]
+BackgroundNormal[$d]
+DecorationFocus[$d]
+DecorationHover[$d]
+ForegroundActive[$d]
+ForegroundInactive[$d]
+ForegroundLink[$d]
+ForegroundNegative[$d]
+ForegroundNeutral[$d]
+ForegroundNormal[$d]
+ForegroundPositive[$d]
+ForegroundVisited[$d]
+
+[Colors:Header]
+BackgroundAlternate[$d]
+BackgroundNormal[$d]
+DecorationFocus[$d]
+DecorationHover[$d]
+ForegroundActive[$d]
+ForegroundInactive[$d]
+ForegroundLink[$d]
+ForegroundNegative[$d]
+ForegroundNeutral[$d]
+ForegroundNormal[$d]
+ForegroundPositive[$d]
+ForegroundVisited[$d]
+
+[Colors:Header][Inactive]
+BackgroundAlternate[$d]
+BackgroundNormal[$d]
+DecorationFocus[$d]
+DecorationHover[$d]
+ForegroundActive[$d]
+ForegroundInactive[$d]
+ForegroundLink[$d]
+ForegroundNegative[$d]
+ForegroundNeutral[$d]
+ForegroundNormal[$d]
+ForegroundPositive[$d]
+ForegroundVisited[$d]
+
+[Colors:Selection]
+BackgroundAlternate[$d]
+BackgroundNormal[$d]
+DecorationFocus[$d]
+DecorationHover[$d]
+ForegroundActive[$d]
+ForegroundInactive[$d]
+ForegroundLink[$d]
+ForegroundNegative[$d]
+ForegroundNeutral[$d]
+ForegroundNormal[$d]
+ForegroundPositive[$d]
+ForegroundVisited[$d]
+
+[Colors:Tooltip]
+BackgroundAlternate[$d]
+BackgroundNormal[$d]
+DecorationFocus[$d]
+DecorationHover[$d]
+ForegroundActive[$d]
+ForegroundInactive[$d]
+ForegroundLink[$d]
+ForegroundNegative[$d]
+ForegroundNeutral[$d]
+ForegroundNormal[$d]
+ForegroundPositive[$d]
+ForegroundVisited[$d]
+
+[Colors:View]
+BackgroundAlternate[$d]
+BackgroundNormal[$d]
+DecorationFocus[$d]
+DecorationHover[$d]
+ForegroundActive[$d]
+ForegroundInactive[$d]
+ForegroundLink[$d]
+ForegroundNegative[$d]
+ForegroundNeutral[$d]
+ForegroundNormal[$d]
+ForegroundPositive[$d]
+ForegroundVisited[$d]
+
+[Colors:Window]
+BackgroundAlternate[$d]
+BackgroundNormal[$d]
+DecorationFocus[$d]
+DecorationHover[$d]
+ForegroundActive[$d]
+ForegroundInactive[$d]
+ForegroundLink[$d]
+ForegroundNegative[$d]
+ForegroundNeutral[$d]
+ForegroundNormal[$d]
+ForegroundPositive[$d]
+ForegroundVisited[$d]
+
 [Data]
-DataCount=3
+DataCount=5
 
 [Data_1]
 Comment=KMenuEdit Global Shortcuts
@@ -18,7 +152,7 @@ ConditionsCount=0
 
 [Data_1_1]
 Comment=Comment
-Enabled=true
+Enabled=false
 Name=Search
 Type=SIMPLE_ACTION_DATA
 
@@ -66,7 +200,7 @@ TriggersCount=1
 [Data_1_2Triggers0]
 Key=Ctrl+Alt+T
 Type=SHORTCUT
-Uuid={001c39c3-d994-4494-a135-0b2d482ab940}
+Uuid={96759833-7730-4bd7-b4e7-d2c785658045}
 
 [Data_2]
 Comment=This group contains various examples demonstrating most of the features of KHotkeys. (Note that this group and all its actions are disabled by default.)
@@ -119,7 +253,7 @@ TriggersCount=1
 [Data_2_1Triggers0]
 Key=Ctrl+Alt+I
 Type=SHORTCUT
-Uuid={4897a8ee-11eb-42d2-979d-ec2fad4c72d9}
+Uuid={ba02f03d-5ae9-4d01-82d0-7e51cbf84ad7}
 
 [Data_2_2]
 Comment=After pressing Alt+Ctrl+H the input of 'Hello' will be simulated, as if you typed it.  This is especially useful if you have call to frequently type a word (for instance, 'unsigned').  Every keypress in the input is separated by a colon ':'. Note that the keypresses literally mean keypresses, so you have to write what you would press on the keyboard. In the table below, the left column shows the input and the right column shows what to type.\n\n"enter" (i.e. new line)                Enter or Return\na (i.e. small a)                          A\nA (i.e. capital a)                       Shift+A\n: (colon)                                  Shift+;\n' '  (space)                              Space
@@ -146,7 +280,7 @@ TriggersCount=1
 [Data_2_2Triggers0]
 Key=Ctrl+Alt+H
 Type=SHORTCUT
-Uuid={1e75df36-3f30-4906-ac7d-a85f2d5c9012}
+Uuid={171e5cae-2855-4879-b471-7800f249b78e}
 
 [Data_2_3]
 Comment=This action runs Konsole, after pressing Ctrl+Alt+T.
@@ -170,9 +304,9 @@ Comment=Simple_action
 TriggersCount=1
 
 [Data_2_3Triggers0]
-Key=Ctrl+Alt+T
+Key=
 Type=SHORTCUT
-Uuid={be4b973c-e473-4f91-80e5-e4d4f5fe4549}
+Uuid={1da9fabd-b7c7-4bc4-8c05-daf8d23a2b37}
 
 [Data_2_4]
 Comment=Read the comment on the "Type 'Hello'" action first.\n\nQt Designer uses Ctrl+F4 for closing windows.  In KDE, however, Ctrl+F4 is the shortcut for going to virtual desktop 4, so this shortcut does not work in Qt Designer.  Further, Qt Designer does not use KDE's standard Ctrl+W for closing the window.\n\nThis problem can be solved by remapping Ctrl+W to Ctrl+F4 when the active window is Qt Designer. When Qt Designer is active, every time Ctrl+W is pressed, Ctrl+F4 will be sent to Qt Designer instead. In other applications, the effect of Ctrl+W is unchanged.\n\nWe now need to specify three things: A new shortcut trigger on 'Ctrl+W', a new keyboard input action sending Ctrl+F4, and a new condition that the active window is Qt Designer.\nQt Designer seems to always have title 'Qt Designer by Trolltech', so the condition will check for the active window having that title.
@@ -217,7 +351,7 @@ TriggersCount=1
 [Data_2_4Triggers0]
 Key=Ctrl+W
 Type=SHORTCUT
-Uuid={68f84851-7d93-4f5d-a945-2017023a95e0}
+Uuid={a4f669f8-1b3a-4338-a08a-86b172ca7925}
 
 [Data_2_5]
 Comment=By pressing Alt+Ctrl+W a D-Bus call will be performed that will show the minicli. You can use any kind of D-Bus call, just like using the command line 'qdbus' tool.
@@ -246,10 +380,10 @@ TriggersCount=1
 [Data_2_5Triggers0]
 Key=Ctrl+Alt+W
 Type=SHORTCUT
-Uuid={504433d9-9574-4bf8-a0be-f2e3fac8faf3}
+Uuid={9a0f280b-8edc-4aed-808c-6ce8d4090b96}
 
 [Data_2_6]
-Comment=Read the comment on the "Type 'Hello'" action first.\n\nJust like the "Type 'Hello'" action, this one simulates keyboard input, specifically, after pressing Ctrl+Alt+B, it sends B to XMMS (B in XMMS jumps to the next song). The 'Send to specific window' tickbox is ticked and a window with its class containing 'XMMS_Player' is specified; this will make the input always be sent to this window. This way, you can control XMMS even if, for instance, it is on a different virtual desktop.\n\n(Run 'xprop' and click on the XMMS window and search for WM_CLASS to see 'XMMS_Player').
+Comment=Read the comment on the "Type 'Hello'" action first.\n\nJust like the "Type 'Hello'" action, this one simulates keyboard input, specifically, after pressing Ctrl+Alt+B, it sends B to XMMS (B in XMMS jumps to the next song). The 'Send to specific window' checkbox is checked and a window with its class containing 'XMMS_Player' is specified; this will make the input always be sent to this window. This way, you can control XMMS even if, for instance, it is on a different virtual desktop.\n\n(Run 'xprop' and click on the XMMS window and search for WM_CLASS to see 'XMMS_Player').
 Enabled=false
 Name=Next in XMMS
 Type=SIMPLE_ACTION_DATA
@@ -288,10 +422,10 @@ TriggersCount=1
 [Data_2_6Triggers0]
 Key=Ctrl+Alt+B
 Type=SHORTCUT
-Uuid={b19b903d-8536-4a00-a892-2fdb48e244d5}
+Uuid={86246d6b-d385-4412-bfc5-f1d3e2ba4570}
 
 [Data_2_7]
-Comment=Konqueror in KDE3.1 has tabs, and now you can also have gestures.\n\nJust press the middle mouse button and start drawing one of the gestures, and after you are finished, release the mouse button. If you only need to paste the selection, it still works, just click the middle mouse button. (You can change the mouse button to use in the global settings).\n\nRight now, there are the following gestures available:\nmove right and back left - Forward (Alt+Right)\nmove left and back right - Back (Alt+Left)\nmove up and back down  - Up (Alt+Up)\ncircle anticlockwise - Reload (F5)\n\nThe gesture shapes can be entered by performing them in the configuration dialogue. You can also look at your numeric pad to help you: gestures are recognised like a 3x3 grid of fields, numbered 1 to 9.\n\nNote that you must perform exactly the gesture to trigger the action. Because of this, it is possible to enter more gestures for the action. You should try to avoid complicated gestures where you change the direction of mouse movement more than once.  For instance, 45654 or 74123 are simple to perform, but 1236987 may be already quite difficult.\n\nThe conditions for all gestures are defined in this group. All these gestures are active only if the active window is Konqueror (class contains 'konqueror').
+Comment=Konqueror in KDE3.1 has tabs, and now you can also have gestures.\n\nJust press the middle mouse button and start drawing one of the gestures, and after you are finished, release the mouse button. If you only need to paste the selection, it still works, just click the middle mouse button. (You can change the mouse button to use in the global settings).\n\nRight now, there are the following gestures available:\nmove right and back left - Forward (Alt+Right)\nmove left and back right - Back (Alt+Left)\nmove up and back down  - Up (Alt+Up)\ncircle counterclockwise - Reload (F5)\n\nThe gesture shapes can be entered by performing them in the configuration dialog. You can also look at your numeric pad to help you: gestures are recognized like a 3x3 grid of fields, numbered 1 to 9.\n\nNote that you must perform exactly the gesture to trigger the action. Because of this, it is possible to enter more gestures for the action. You should try to avoid complicated gestures where you change the direction of mouse movement more than once.  For instance, 45654 or 74123 are simple to perform, but 1236987 may be already quite difficult.\n\nThe conditions for all gestures are defined in this group. All these gestures are active only if the active window is Konqueror (class contains 'konqueror').
 DataCount=4
 Enabled=false
 Name=Konqi Gestures
@@ -480,12 +614,12 @@ TriggersCount=1
 [Data_2_8Triggers0]
 Key=Meta+E
 Type=SHORTCUT
-Uuid={bf8b97fe-76d0-4eae-b94e-0621bca569f8}
+Uuid={206e20f5-5923-40fb-aae9-1ad77ca477b8}
 
 [Data_3]
 Comment=Basic Konqueror gestures.
 DataCount=14
-Enabled=true
+Enabled=false
 ImportId=konqueror_gestures_kde321
 Name=Konqueror Gestures
 SystemGroup=0
@@ -885,18 +1019,272 @@ TriggersCount=1
 GesturePointData=0,0.0625,-0.5,0.5,1,0.0625,0.0625,-0.5,0.5,0.875,0.125,0.0625,-0.5,0.5,0.75,0.1875,0.0625,-0.5,0.5,0.625,0.25,0.0625,-0.5,0.5,0.5,0.3125,0.0625,-0.5,0.5,0.375,0.375,0.0625,-0.5,0.5,0.25,0.4375,0.0625,-0.5,0.5,0.125,0.5,0.0625,0.5,0.5,0,0.5625,0.0625,0.5,0.5,0.125,0.625,0.0625,0.5,0.5,0.25,0.6875,0.0625,0.5,0.5,0.375,0.75,0.0625,0.5,0.5,0.5,0.8125,0.0625,0.5,0.5,0.625,0.875,0.0625,0.5,0.5,0.75,0.9375,0.0625,0.5,0.5,0.875,1,0,0,0.5,1
 Type=GESTURE
 
-[Directories]
-dir_pixmap[$d]
+[Data_4]
+Comment=Comment
+DataCount=1
+Enabled=true
+Name=Hari-custom
+SystemGroup=0
+Type=ACTION_DATA_GROUP
+
+[Data_4Conditions]
+Comment=
+ConditionsCount=0
+
+[Data_4_1]
+Comment=Ibus next engine
+Enabled=true
+Name=Ibus next eng
+Type=SIMPLE_ACTION_DATA
+
+[Data_4_1Actions]
+ActionsCount=1
+
+[Data_4_1Actions0]
+CommandURL=/home/harish/.local/Apps/daily-utils/bin/ibus-next-engine.py
+Type=COMMAND_URL
+
+[Data_4_1Conditions]
+Comment=
+ConditionsCount=0
+
+[Data_4_1Triggers]
+Comment=Simple_action
+TriggersCount=1
+
+[Data_4_1Triggers0]
+Key=Ctrl+Space
+Type=SHORTCUT
+Uuid={2b2f3d81-c5fb-49ee-832d-75aab6b21a1d}
+
+[Data_5]
+Comment=Shortcuts for Skanlite
+DataCount=7
+Enabled=true
+ImportId=skanlite
+Name=Skanlite
+SystemGroup=0
+Type=ACTION_DATA_GROUP
+
+[Data_5Conditions]
+Comment=
+ConditionsCount=0
+
+[Data_5_1]
+Comment=Global hotkey: Alt+S to start scanning. Skanlite must be up and running.
+Enabled=true
+Name=Scan
+Type=SIMPLE_ACTION_DATA
+
+[Data_5_1Actions]
+ActionsCount=1
+
+[Data_5_1Actions0]
+Arguments=
+Call=scan
+RemoteApp=org.kde.skanlite
+RemoteObj=/
+Type=DBUS
+
+[Data_5_1Conditions]
+Comment=
+ConditionsCount=0
+
+[Data_5_1Triggers]
+Comment=Simple_action
+TriggersCount=1
+
+[Data_5_1Triggers0]
+Key=
+Type=SHORTCUT
+Uuid={3c04e4ea-1f6e-430e-82bb-0e4adb79a6a3}
+
+[Data_5_2]
+Comment=Global hotkey: Alt+C to cancel scanning while it's performing. Do nothing otherwise.
+Enabled=true
+Name=Cancel Scan
+Type=SIMPLE_ACTION_DATA
+
+[Data_5_2Actions]
+ActionsCount=1
+
+[Data_5_2Actions0]
+Arguments=
+Call=scanCancel
+RemoteApp=org.kde.skanlite
+RemoteObj=/
+Type=DBUS
+
+[Data_5_2Conditions]
+Comment=
+ConditionsCount=0
+
+[Data_5_2Triggers]
+Comment=Simple_action
+TriggersCount=1
+
+[Data_5_2Triggers0]
+Key=
+Type=SHORTCUT
+Uuid={aaed7bc1-a7bc-4abc-b319-9b95abb5216b}
+
+[Data_5_3]
+Comment=Global hotkey: press Ctrl+Alt+1 to save current Skanlite scanner settings as Profile 1. You can switch to this profile later with Alt+1.
+Enabled=true
+Name=Save Profile 1
+Type=SIMPLE_ACTION_DATA
+
+[Data_5_3Actions]
+ActionsCount=1
+
+[Data_5_3Actions0]
+Arguments=1
+Call=saveCurrentScannerOptionsToProfile
+RemoteApp=org.kde.skanlite
+RemoteObj=/
+Type=DBUS
+
+[Data_5_3Conditions]
+Comment=
+ConditionsCount=0
+
+[Data_5_3Triggers]
+Comment=Simple_action
+TriggersCount=1
+
+[Data_5_3Triggers0]
+Key=
+Type=SHORTCUT
+Uuid={5d4c37a6-d8b3-40b0-aa6a-92f325302538}
+
+[Data_5_4]
+Comment=Global hotkey: press Alt+1 to restore scanner settings from Profile 1 in Skanlite. If profile doesn't exists - restore default settings.
+Enabled=true
+Name=Load Profile 1
+Type=SIMPLE_ACTION_DATA
+
+[Data_5_4Actions]
+ActionsCount=1
+
+[Data_5_4Actions0]
+Arguments=1
+Call=switchToProfile
+RemoteApp=org.kde.skanlite
+RemoteObj=/
+Type=DBUS
+
+[Data_5_4Conditions]
+Comment=
+ConditionsCount=0
+
+[Data_5_4Triggers]
+Comment=Simple_action
+TriggersCount=1
+
+[Data_5_4Triggers0]
+Key=
+Type=SHORTCUT
+Uuid={81787487-f07d-4111-b1cf-9da1406075ca}
+
+[Data_5_5]
+Comment=Global hotkey: press Ctrl+Alt+2 to save current Skanlite scanner settings as Profile 2. You can switch to this profile later with Alt+2.
+Enabled=true
+Name=Save Profile 2
+Type=SIMPLE_ACTION_DATA
+
+[Data_5_5Actions]
+ActionsCount=1
+
+[Data_5_5Actions0]
+Arguments=2
+Call=saveCurrentScannerOptionsToProfile
+RemoteApp=org.kde.skanlite
+RemoteObj=/
+Type=DBUS
+
+[Data_5_5Conditions]
+Comment=
+ConditionsCount=0
+
+[Data_5_5Triggers]
+Comment=Simple_action
+TriggersCount=1
+
+[Data_5_5Triggers0]
+Key=
+Type=SHORTCUT
+Uuid={e74b442f-47db-4314-a0e0-a56e1b753804}
+
+[Data_5_6]
+Comment=Global hotkey: press Alt+2 to restore scanner settings from Profile 2 in Skanlite. If profile doesn't exists - restore default settings.
+Enabled=true
+Name=Load Profile 2
+Type=SIMPLE_ACTION_DATA
+
+[Data_5_6Actions]
+ActionsCount=1
+
+[Data_5_6Actions0]
+Arguments=2
+Call=switchToProfile
+RemoteApp=org.kde.skanlite
+RemoteObj=/
+Type=DBUS
+
+[Data_5_6Conditions]
+Comment=
+ConditionsCount=0
+
+[Data_5_6Triggers]
+Comment=Simple_action
+TriggersCount=1
+
+[Data_5_6Triggers0]
+Key=
+Type=SHORTCUT
+Uuid={9f894206-fbcf-48f1-9fb3-df9cec37bacb}
+
+[Data_5_7]
+Comment=Global hotkey: Alt+P to start scanning preview. Skanlite must be up and running.
+Enabled=true
+Name=Preview
+Type=SIMPLE_ACTION_DATA
+
+[Data_5_7Actions]
+ActionsCount=1
+
+[Data_5_7Actions0]
+Arguments=
+Call=preview
+RemoteApp=org.kde.skanlite
+RemoteObj=/
+Type=DBUS
+
+[Data_5_7Conditions]
+Comment=
+ConditionsCount=0
+
+[Data_5_7Triggers]
+Comment=Simple_action
+TriggersCount=1
+
+[Data_5_7Triggers0]
+Key=
+Type=SHORTCUT
+Uuid={96c0b3ae-9d0d-45dd-b275-c11c01424ff7}
 
 [General]
+AccentColor[$d]
 BrowserApplication[$d]
-desktopFont[$d]
+ColorScheme[$d]
+ColorSchemeHash[$d]
+XftHintStyle[$d]
+XftSubPixel[$d]
+accentColorFromWallpaper[$d]
 fixed[$d]
 font[$d]
 menuFont[$d]
-shadeSortColumn[$d]
 smallestReadableFont[$d]
-taskbarFont[$d]
 toolBarFont[$d]
 
 [Gestures]
@@ -912,29 +1300,57 @@ WindowsCount=0
 Theme[$d]
 
 [KDE]
-ChangeCursor[$d]
+AnimationDurationFactor[$d]
+ColorScheme[$d]
 LookAndFeelPackage[$d]
-contrast[$d]
+ShowDeleteCommand[$d]
+SingleClick[$d]
+widgetStyle[$d]
 
-[KDE URL Restrictions]
-rule_1[$d]
-rule_count[$d]
+[KDE Action Restrictions]
+action/start_new_session[$d]
+action/switch_user[$d]
 
 [KFileDialog Settings]
+Allow Expansion[$d]
+Automatically select filename extension[$d]
 Breadcrumb Navigation[$d]
+Decoration position[$d]
+LocationCombo Completionmode[$d]
+PathCombo Completionmode[$d]
+Preview Width[$d]
+Show Bookmarks[$d]
+Show Full Path[$d]
+Show Inline Previews[$d]
+Show Preview[$d]
+Show Speedbar[$d]
+Show hidden files[$d]
+Sort by[$d]
+Sort directories first[$d]
+Sort hidden files last[$d]
+Sort reversed[$d]
+Speedbar Width[$d]
+View Style[$d]
+
+[KShortcutsDialog Settings]
+Dialog Size[$d]
 
 [Main]
-AlreadyImported=defaults,kde32b1,spectacle,konsole,konqueror_gestures_kde321
+AlreadyImported=defaults,kde32b1,konqueror_gestures_kde321,konsole,skanlite
 Disabled=false
 Version=2
 
-[Paths]
-Trash[$d]
-
 [PreviewSettings]
-camera[$d]
-file[$d]
-fonts[$d]
+MaximumRemoteSize[$d]
 
 [Voice]
 Shortcut=
+
+[WM]
+activeBackground[$d]
+activeBlend[$d]
+activeFont[$d]
+activeForeground[$d]
+inactiveBackground[$d]
+inactiveBlend[$d]
+inactiveForeground[$d]

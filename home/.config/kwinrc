@@ -1,44 +1,21 @@
 [$Version]
-update_info=kwin.upd:replace-scalein-with-scale,kwin.upd:port-minimizeanimation-effect-to-js,kwin.upd:port-scale-effect-to-js,kwin.upd:port-dimscreen-effect-to-js,kwin.upd:auto-bordersize,kwin.upd:animation-speed,kwin.upd:desktop-grid-click-behavior,kwin.upd:no-swap-encourage
+update_info=kwin.upd:replace-scalein-with-scale,kwin.upd:port-minimizeanimation-effect-to-js,kwin.upd:port-scale-effect-to-js,kwin.upd:port-dimscreen-effect-to-js,kwin.upd:auto-bordersize,kwin.upd:animation-speed,kwin.upd:desktop-grid-click-behavior,kwin.upd:no-swap-encourage,kwin.upd:make-translucency-effect-disabled-by-default,kwin.upd:remove-flip-switch-effect,kwin.upd:remove-cover-switch-effect,kwin.upd:remove-cubeslide-effect,kwin.upd:remove-xrender-backend,kwin.upd:enable-scale-effect-by-default,kwin.upd:overview-group-plugin-id,kwin.upd:animation-speed-cleanup
 
 [Compositing]
-AnimationSpeed[$d]
-GLCore=true
-GLPreferBufferSwap=a
 GLTextureFilter=1
-HiddenPreviews=5
 OpenGLIsUnsafe=false
-WindowsBlockCompositing=false
-XRenderSmoothScale=false
 
 [Desktops]
-Id_1=ac4c2095-68c8-4bb2-841a-42cf03cac1b3
-Id_10=34586101-3aaa-4d39-8f85-a4dc751e1ed6
-Id_11=b3fbbd62-e25b-4d5b-afe2-c35b7bafd6d5
-Id_12=7b78429b-4927-4360-8c11-970f92cd613c
-Id_13=a736cc28-b2c9-41b3-9b0e-8aa7f4d80d8e
-Id_14=d5baa737-2e9a-4c33-addc-7f2ea0ac821d
-Id_15=977d9f48-62d2-4518-bbe1-d1fd52f27285
-Id_16=bd34bcac-6915-4ccb-876a-3d7bca5bec90
-Id_17=a5594210-f994-4c32-9388-8971426cba9e
-Id_18=b9f43a33-c6cc-4c8e-b0c3-14a74be65f55
-Id_2=b054dc04-4057-4668-9d9a-3761101e1d42
-Id_3=ba5dba2e-e200-479e-a60f-615e0cf2edb7
-Id_4=ad40ba1b-598b-474b-896d-29fe791529bb
-Id_5=b86a3a26-4c15-4615-9f2e-9c30b74d50bf
-Id_6=bd9fb4c9-96d7-4a2a-9ee8-525765f3b26e
-Id_7=1ae2e874-ab79-4cf6-87df-efcdb7b9a877
-Id_8=8c0e75c4-e55b-4197-a120-c0a4815bfb11
-Id_9=1c0c98cd-783d-4868-b659-149fed74340e
-Name_10=New Desktop
-Name_11=New Desktop
-Name_12=New Desktop
-Name_13=New Desktop
-Name_14=New Desktop
-Name_15=New Desktop
-Name_16=New Desktop
-Name_17=New Desktop
-Name_18=New Desktop
+Id_1=530b2e8c-a321-41ca-ba52-2fba5b5e2f52
+Id_2=76ffaa94-4f73-4520-a3e0-480eb3fa4d87
+Id_3=84ef5d92-b39b-4f01-b593-76799daa2ce0
+Id_4=5fe31393-808e-4747-8bfe-9a4df1075a59
+Id_5=d758db65-7f63-464c-8c19-f7594b1a7c72
+Id_6=0259dad0-c996-46c7-b8a1-364756a779ed
+Id_7=fc82803a-f727-408a-aa1f-84e76c11c1cf
+Id_8=a52131ec-edac-4001-965f-ce878e73377e
+Id_9=2feaf12f-0461-4372-8878-fdf5f282aec0
+Name_2=New Desktop
 Name_3=New Desktop
 Name_4=New Desktop
 Name_5=New Desktop
@@ -46,88 +23,21 @@ Name_6=New Desktop
 Name_7=New Desktop
 Name_8=New Desktop
 Name_9=New Desktop
-Number=18
+Number=9
 Rows=3
-
-[DrmOutputs][05e0819458][4447eebfd4]
-Scale=1
-
-[DrmOutputs][05e0819458][cdfb932421]
-Scale=1
-
-[ElectricBorders]
-TopLeft=None
-
-[MouseBindings]
-CommandActiveTitlebar1=Raise
-CommandActiveTitlebar2=Nothing
-CommandActiveTitlebar3=Operations menu
-CommandAll1=Move
-CommandAll2=Toggle raise and lower
-CommandAll3=Resize
-CommandAllKey=Meta
-CommandAllWheel=Nothing
-CommandInactiveTitlebar1=Activate and raise
-CommandInactiveTitlebar2=Nothing
-CommandInactiveTitlebar3=Operations menu
-CommandTitlebarWheel=Change Opacity
-CommandWindow1=Activate, raise and pass click
-CommandWindow2=Activate and pass click
-CommandWindow3=Activate and pass click
-CommandWindowWheel=Scroll
 
 [NightColor]
 Active=true
-LatitudeAuto=9.967
-LongitudeAuto=76.2917
+LatitudeAuto=9.9185
+LongitudeAuto=76.2558
+Mode=Constant
+NightTemperature=4800
 
 [Plugins]
-desktopchangeosdEnabled=false
-mouseclickEnabled=true
-mousemarkEnabled=true
-windowgeometryEnabled=false
+desktopchangeosdEnabled=true
 
 [Script-desktopchangeosd]
-PopupHideDelay=1000
-TextOnly=false
-
-[TabBox]
-BorderActivate=9
-DesktopLayout=org.kde.breeze.desktop
-DesktopListLayout=org.kde.breeze.desktop
-LayoutName=org.kde.breeze.desktop
+PopupHideDelay=200
 
 [Windows]
-ActiveMouseScreen=false
-AutoRaise=false
-AutoRaiseInterval=750
-BorderSnapZone=10
-CenterSnapZone=0
-ClickRaise=true
-DelayFocusInterval=300
-FocusPolicy=ClickToFocus
-FocusStealingPreventionLevel=1
-GeometryTip=false
-HideUtilityWindowsForInactive=true
-MaximizeButtonLeftClickCommand=Maximize
-MaximizeButtonMiddleClickCommand=Maximize (vertical only)
-MaximizeButtonRightClickCommand=Maximize (horizontal only)
-NextFocusPrefersMouse=false
-Placement=Smart
 RollOverDesktops=false
-SeparateScreenFocus=false
-ShadeHover=false
-ShadeHoverInterval=250
-SnapOnlyWhenOverlapping=false
-TitlebarDoubleClickCommand=Maximize
-WindowSnapZone=10
-
-[org.kde.kdecoration2]
-BorderSize=Normal
-BorderSizeAuto=false
-ButtonsOnLeft=MS
-ButtonsOnRight=HIAX
-CloseOnDoubleClickOnMenu=false
-ShowToolTips=true
-library=org.kde.breeze
-theme=Breeze
