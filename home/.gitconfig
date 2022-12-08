@@ -1,0 +1,13 @@
+[user]
+	email = harish2704@gmail.com
+	name = Harish Karumuthil
+[guitool "Terminal2"]
+	cmd = konsole -e zsh
+	noconsole = yes
+[init]
+	defaultBranch = main
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
