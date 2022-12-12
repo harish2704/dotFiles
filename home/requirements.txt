@@ -1,0 +1,117 @@
+# argcomplete
+# Beaker
+# black
+# blessings
+# blivet
+# blivet-gui
+# bpython
+# cached-property
+# cssselect
+csv-to-sqlite
+# cupshelpers
+# dasbus
+# dbus-next
+# deluge
+django-database-view
+django-import-export
+django-location-field
+# docker-compose
+# docker-pycreds
+# dooit
+# excelrd
+# fb-re2
+# freecell-solver
+# GeoIP
+# geopy
+# gpg
+gunicorn
+# gupshup
+httpie
+humanize
+# i3ipc
+# initial-setup
+# iso639
+# koji
+# langtable
+# libcomps
+# libtorrent
+# lockfile
+# lorax
+# maigret
+# Markdown
+# MarkupPy
+# mercurial
+meson
+mysqlclient
+# netifaces
+# nftables
+# notify2
+# nwg-panel
+# nwg-shell-config
+# odfpy
+# olefile
+# op1svg
+# openpyxl
+pandas
+# paramiko
+# Paste
+pdftools.pdfposter
+# pid
+# podman-compose
+# productmd
+# progressbar2
+# ptyprocess
+# pwquality
+# py3status
+# pycdio
+# pycrypto
+# pycups
+# pydbus
+# pyenchant
+# pygame
+# pykickstart
+# pylibacl
+pynvim
+# pypandoc
+# pyparted
+# PyQt4_sip
+# PyQt5
+# PySolFC
+# pystache
+# python-augeas
+# python-Levenshtein
+# python-manatools
+# python-meh
+# pyxattr
+# quearcode
+# rdiff-backup
+# requests-file
+# requests-ftp
+# rpm
+# rpmautospec
+# scour
+# selinux
+# sepolicy
+# service-identity
+# setools
+# sgtk-menu
+# simpleaudio
+# simpleline
+# sklearn
+# sos
+speedtest-cli
+sqlfluff
+sqlite-utils
+sqlitebiter
+# systemd-python
+# Tempita
+# tenacity
+# tesserocr
+# urlgrabber
+# uvloop
+watchdog
+# wxPython
+# xlrd
+xlsx2csv
+# xlwt
+youtube-dl
