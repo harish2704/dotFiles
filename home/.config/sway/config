@@ -132,7 +132,7 @@ output HDMI-A-1 resolution 1920x1080 position 0,0
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
     bindsym $mod+b splith
-    bindsym $mod+v splitv
+    # bindsym $mod+v splitv
 
     # Switch the current container between different layout styles
     bindsym $mod+s layout stacking
@@ -140,7 +140,7 @@ output HDMI-A-1 resolution 1920x1080 position 0,0
     bindsym $mod+e layout toggle split
 
     # Make the current focus fullscreen
-    bindsym F11 fullscreen
+    bindsym Shift+F11 fullscreen
 
     # Toggle the current focus between tiling and floating mode
     bindsym $mod+Shift+space floating toggle

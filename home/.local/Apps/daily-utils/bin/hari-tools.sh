@@ -12,6 +12,11 @@ list-commands(){
   typeset -F | cut -d ' ' -f 3 | grep -v '^_' | sort
 }
 
+# cmd <inputfile> .csv to json using miller cli
+csvToJson(){
+  mlr --c2j --jlistwrap cat "$1"
+}
+
 # list available fonts for a language.
 # Usage: THIS_FN <lang_code>
 fonts_for_lang(){
@@ -285,6 +290,13 @@ scsiRemoveDevice(){
 echo "scsi remove-single-device 7 0 0 0" > /proc/scsi/scsi
 EOF
 }
+
+
+# Put system into sleep in sway
+swaysleep(){
+  swaylock & systemctl suspend
+}
+
 
 # Setup autocomplete. run eval "$(THIS_FILE setup-autocomplete)"
 setup-autocomplete(){
