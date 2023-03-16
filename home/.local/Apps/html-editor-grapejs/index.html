@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>html editor</title>
+    <script type="text/javascript" src="https://unpkg.com/grapesjs"></script>
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/grapesjs-blocks-basic"
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://unpkg.com/grapesjs/dist/css/grapes.min.css"
+    />
+
+    <style type="text/css" media="screen">
+      body,
+      html {
+        margin: 0;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="gjs">
+      <div class="col col-md-12">
+        <h2>Welcome</h2>
+      </div>
+    </div>
+
+    <script type="text/javascript" >
+      const editor = grapesjs.init({
+        container: "#gjs",
+        fromElement: 1,
+        height: "100%",
+        storageManager: false,
+        plugins: ["gjs-blocks-basic"],
+        avoidInlineStyle: 1,
+      });
+
+      editor.getModel().set("dmode", "absolute");
+    </script>
+  </body>
+</html>
