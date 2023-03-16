@@ -61,6 +61,9 @@ au BufEnter *.sshconf set ft=sshconfig
 autocmd VimEnter *.py SyntasticToggleMode
 
 
+" Disable sytax for big files
+" autocmd BufWinEnter * if line2byte(line("$") + 1) > 10000 | set ft=text | let b:deoplete_disable_auto_complete = 1 | endif
+" autocmd BufEnter * if getfsize(expand("%")) > 10000 | set ft=text | endif
 
 " Syntax based folding found be slow. In most of the cases, we will do indenting according to syntax.
 autocmd FileType java set foldmethod=indent
