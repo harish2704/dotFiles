@@ -298,6 +298,12 @@ swaysleep(){
 }
 
 
+# Run any application with ibus support
+ibusRun(){
+  env GTK_IM_MODULE=ibus QT_IM_MODULE=ibus XMODIFIERS=@im=ibus $@
+}
+
+
 # Setup autocomplete. run eval "$(THIS_FILE setup-autocomplete)"
 setup-autocomplete(){
   cat<<EOF
