@@ -38,6 +38,11 @@ ocr(){
   http-server -o
 }
 
+# resize pdf <input> <output>
+resizePdf(){
+  gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dDownsampleColorImages=true -dColorImageResolution=94 -dNOPAUSE  -dBATCH -sOutputFile="$2" "$1"
+}
+
 # Open many ssh sessions in separate tabs in gnome-terminal
 sshInTabs(){
   logins="$@"
@@ -295,6 +300,11 @@ EOF
 # Put system into sleep in sway
 swaysleep(){
   swaylock & systemctl suspend
+}
+
+# Start php with xdebug
+phpdebugsrv(){
+  php -S 127.0.0.1:8000 -d xdebug.mode=develop,debug  -d xdebug.start_with_request=yes $@
 }
 
 
