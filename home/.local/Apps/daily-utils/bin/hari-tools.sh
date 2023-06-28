@@ -307,10 +307,20 @@ phpdebugsrv(){
   php -S 127.0.0.1:8000 -d xdebug.mode=develop,debug  -d xdebug.start_with_request=yes $@
 }
 
+# Restart sound system
+soundRestart(){
+  systemctl --user restart pipewire
+}
+
 
 # Run any application with ibus support
 ibusRun(){
   env GTK_IM_MODULE=ibus QT_IM_MODULE=ibus XMODIFIERS=@im=ibus $@
+}
+
+# Refresh font cache
+fontCacheRefresh(){
+  fc-cache -f -v
 }
 
 

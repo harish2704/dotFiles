@@ -2,3 +2,4 @@
 ./bin/hari-tools.sh
 ./bin/bash-session
 ./bin/ibus-next-engine.py
+./bin/csv-split-by-col.py
