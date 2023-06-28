@@ -21,6 +21,7 @@ lvim.format_on_save = {
 lvim.leader = "space"
 -- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
+lvim.keys.normal_mode['<C-p>'] = ":Telescope find_files<CR>"
 
 -- lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 -- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
@@ -74,15 +75,14 @@ lvim.builtin.treesitter.auto_install = true
 -- end
 
 -- -- linters and formatters <https://www.lunarvim.org/docs/languages#lintingformatting>
--- local formatters = require "lvim.lsp.null-ls.formatters"
--- formatters.setup {
---   { command = "stylua" },
---   {
---     command = "prettier",
---     extra_args = { "--print-width", "100" },
---     filetypes = { "typescript", "typescriptreact" },
---   },
--- }
+local formatters = require "lvim.lsp.null-ls.formatters"
+formatters.setup {
+  {
+    command = "prettier",
+    extra_args = { "--print-width", "100" },
+    filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+  },
+}
 -- local linters = require "lvim.lsp.null-ls.linters"
 -- linters.setup {
 --   { command = "flake8", filetypes = { "python" } },
@@ -109,6 +109,12 @@ lvim.builtin.treesitter.auto_install = true
 --   end,
 -- })
 
+local actions = require("telescope.actions")
+lvim.builtin.telescope.pickers.find_files.mappings = {
+  i = {
+    ['<C-t>'] = actions.smart_send_to_qflist + actions.open_qflist,
+  }
+}
 
 vim.cmd([[
 command! -nargs=+ Gr :silent execute 'grep! -nr "<args>" | copen'
@@ -191,8 +197,26 @@ vmap <C-s> <Esc><c-s>gv
 imap <C-s> <Esc><c-s>
 nmap <C-PageUp> :BufferLineCyclePrev<CR>
 nmap <C-PageDown> :BufferLineCycleNext<CR>
+
+let g:user_emmet_mode='inv'
+let g:user_emmet_install_global = 0
+autocmd FileType html,css,vue,jsx,php EmmetInstall
+nmap <C-G> :execute 'Telescope live_grep default_text=' . expand('<cword>')<cr>
 ]])
+-- imap <C-E> <plug>(emmet-expand-abbr)
+vim.keymap.set('i', '<C-E>', '<plug>(emmet-expand-abbr)')
+
+vim.keymap.set('n', '<F5>', function() require('dap').continue() end)
+vim.keymap.set('n', '<F10>', function() require('dap').step_over() end)
+vim.keymap.set('n', '<F11>', function() require('dap').step_into() end)
+vim.keymap.set('n', '<F12>', function() require('dap').step_out() end)
 lvim.builtin.dap.active = true
+lvim.builtin.which_key.mappings["l"]["f"] = {
+  function()
+    require("lvim.lsp.utils").format { timeout_ms = 2000 }
+  end,
+  "Format",
+}
 
 local dap = require('dap')
 dap.adapters.php = {
@@ -212,7 +236,59 @@ dap.configurations.php = {
 }
 
 lvim.plugins = {
-    {
-      "gpanders/editorconfig.nvim",
+  {
+    "gpanders/editorconfig.nvim",
+  },
+  { 'mattn/emmet-vim' },
+  {
+    "tpope/vim-fugitive",
+    cmd = {
+      "G",
+      "Git",
+      "Gdiffsplit",
+      "Gread",
+      "Gwrite",
+      "Ggrep",
+      "GMove",
+      "GDelete",
+      "GBrowse",
+      "GRemove",
+      "GRename",
+      "Glgrep",
+      "Gedit"
     },
+    ft = { "fugitive" }
+  },
+  {
+    "iamcco/markdown-preview.nvim",
+    build = "cd app && npm install",
+    ft = "markdown",
+    config = function()
+      vim.g.mkdp_auto_start = 1
+    end,
+  },
+  {
+    "turbio/bracey.vim",
+    cmd = { "Bracey", "BracyStop", "BraceyReload", "BraceyEval" },
+    build = "npm install --prefix server",
+    lazy = true,
+  },
+  {
+    "kylechui/nvim-surround",
+    config = function()
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
+    end
+  },
+  {
+    'rmagatti/auto-session',
+    -- cmd = { 'SaveSession', 'RestoreSession', 'RestoreSessionFromFile', 'DeleteSession', 'Autosession', },
+    config = function()
+      require("auto-session").setup {
+        log_level = "error",
+        auto_session_create_enabled = false,
+      }
+    end
+  }
 }
