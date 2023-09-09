@@ -12,6 +12,74 @@ list-commands(){
   typeset -F | cut -d ' ' -f 3 | grep -v '^_' | sort
 }
 
+# ts / tsx to js/jsx
+tstojs(){
+  set -x
+  tsc --jsx preserve -t es2020 --outDir js --noEmit false $@
+}
+
+# cmd </long/file/path.ext> Create file by creating all parents
+touchp(){
+  local fname="$1"
+  local parentDir=$(dirname "$fname")
+  mkdir -p "$parentDir"
+  touch "$fname"
+}
+
+# cmd <width> <height>. Change waydroid size and restart session
+waydroidChangeSize(){
+  local width=$1
+  local height=$2
+  waydroid prop set persist.waydroid.width $width
+  waydroid prop set persist.waydroid.height $height
+  waydroid session stop
+  waydroid session start &
+  sleep 1
+  waydroid show-full-ui
+}
+
+# Restart pulseaudio
+pulseAudioRestart(){
+  set -x
+  systemctl --user restart pipewire-pulse
+}
+
+# Convert video to mp4 for mobile device. videoformobile <infile> [opts...]
+videoformobile(){
+  local infile=$1;
+  shift
+  set -x
+  ffmpeg -i "$infile" -c:v libx264 -pix_fmt yuv420p  -profile:v baseline -level 3.0 $@
+}
+
+# allow permission for docker container. dockerAllow <path>
+dockerAllow(){
+  set -x
+  chcon -R system_u:object_r:container_file_t:s0 "$1"
+}
+
+# Start development env in current directory
+devSetup(){
+  qdbus org.kde.kglobalaccel  /component/kwin invokeShortcut  "Switch One Desktop to the Right"
+  lvim &
+  bash-session -n &
+  sleep 1.5
+  qdbus org.kde.kglobalaccel  /component/kwin invokeShortcut  "Window Maximize"
+  qdbus org.kde.kglobalaccel  /component/kwin invokeShortcut  "Walk Through Windows"
+  qdbus org.kde.kglobalaccel  /component/kwin invokeShortcut  "Window Maximize"
+  qdbus org.kde.kglobalaccel  /component/kwin invokeShortcut  "Switch One Desktop Down"
+  git gui &
+  sleep 1.5
+  qdbus org.kde.kglobalaccel  /component/kwin invokeShortcut  "Window Maximize"
+  qdbus org.kde.kglobalaccel  /component/kwin invokeShortcut  "Switch One Desktop Up"
+}
+
+# cd to npm home
+npmHome(){
+  cd ~/.node_modules_mine;
+  bash-session
+}
+
 # cmd <inputfile> .csv to json using miller cli
 csvToJson(){
   mlr --c2j --jlistwrap cat "$1"
@@ -39,7 +107,7 @@ ocr(){
 }
 
 # resize pdf <input> <output>
-resizePdf(){
+pdfResize(){
   gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dDownsampleColorImages=true -dColorImageResolution=94 -dNOPAUSE  -dBATCH -sOutputFile="$2" "$1"
 }
 
@@ -68,6 +136,7 @@ clearSysRq(){
 
 # Print current public ip using ipify API
 myIp(){
+  set -x
 	curl 'https://api.ipify.org?format=json'
 }
 
@@ -202,6 +271,23 @@ kwinCompositorReload(){
   qdbus-qt5 org.kde.KWin /Compositor resume
 }
 
+# Clone git with custom key
+# gitclone <url> [ssh_key_path]
+gitClone(){
+  set -x
+  local url="$1"
+  shift
+  local sshkey="$1"
+  if [[ -n "$sshkey" ]]; then
+    export GIT_SSH_COMMAND="ssh -i '$sshkey'"
+  fi
+  targetDir=$(basename "$url")
+  targetDir=${targetDir/.git/}
+  git clone "$url" "$targetDir"
+  cd "$targetDir"
+  git config core.sshCommand "$GIT_SSH_COMMAND"
+}
+
 # format cookies copied from chrome cookie table
 # Usage cat file | formatChromeCookie domain.com
 formatChromeCookie(){
@@ -284,12 +370,12 @@ pulseTcpStop(){
   pactl unload-module module-native-protocol-tcp
 }
 
-#list scsi devices
+# list scsi devices
 scsiList(){
   cat /proc/scsi/scsi
 }
 
-#remove scsi device
+# remove scsi device
 scsiRemoveDevice(){
   cat <<EOF
 echo "scsi remove-single-device 7 0 0 0" > /proc/scsi/scsi
