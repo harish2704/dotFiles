@@ -1,0 +1,12 @@
+
+import { View, StyleSheet, Text } from 'react-native';
+
+export default function(){
+  return <View style={css.wrapper}></View> ;
+}
+
+const css = StyleSheet.create({
+  wrapper:{
+
+  }
+});
