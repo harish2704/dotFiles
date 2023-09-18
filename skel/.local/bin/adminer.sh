@@ -1,1 +1,0 @@
-../Apps/adminer-standalone/adminer.sh
