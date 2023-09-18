@@ -6,3 +6,4 @@
 ./bin/dasel_linux_amd64
 ./bin/octosql
 ./bin/dsq
+./bin/sway-wp-switch

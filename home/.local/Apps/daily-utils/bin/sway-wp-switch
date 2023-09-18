@@ -1,0 +1,150 @@
+#!/usr/bin/python3
+
+import subprocess
+import json
+import math
+
+def exec(cmd):
+  print('exec: ', cmd)
+  return subprocess.getoutput(cmd)
+
+def getSwayInfo(cmd):
+  return json.loads(exec("swaymsg -t "+cmd))
+
+
+class WpManager(object):
+
+  """"
+   *  Workspace Manager
+  """
+  def __init__(self,Rows, Cols, monitorCount):
+    w = 0
+    workspaces = []
+    r=0
+    while r < Rows:
+      c = 0
+      while c < Cols:
+        workspaces.append({
+          'left': c != 0 and w - 1,
+          'right': ( ( c + 1 ) != Cols ) and w + 1,
+          'up': ( r != 0 ) and ( w - Cols ),
+          'down': ( ( r + 1 ) != Rows ) and w + Cols
+        })
+        w=w+1
+        c=c+1
+      r=r+1
+    self.workspaces = workspaces
+    self.Rows = Rows
+    self.Cols = Cols
+    self.monitorCount = monitorCount
+
+
+  """"
+   *  Workspace grid initialisation command generator.
+   *  Currenlty not working because `Workspace` command will not work through `swaymsg`.
+   *  it will work only if we put these commands on config file
+  """
+  def getInitCmd (self):
+    outputs = [ v['name'] for v in getSwayInfo('get_outputs') if v['active']]
+    outputCout = len( outputs )
+    totalWorkspaces = self.Rows * self.Cols
+    cmd = []
+    ws=0
+    while ws < totalWorkspaces:
+      op = 0
+      while op < outputCout:
+        cmd.append("workspace " + str(ws * outputCout + op + 1) + " output "+outputs[op])
+        op=op+1
+      ws=ws+1
+
+
+    return ';\n'.join(cmd)
+
+
+  """"
+   * Return the list of target workspaces.
+   *
+   * Given current focused workspace and switching direction. eg: ( 1, down )
+   * for a 3x3 grid in a dual monitor, it will reutrn [ 7, 8 ].
+   * for single monitor setup, it will return [ 4 ]
+   * For three monitor setup, it will return [ 10, 11, 12 ]
+   *
+   * @param current - current monitor
+   * @param direction - direction up|down|right|left
+   * @returns {Array<Number>} - list of target workspaces
+  """
+  def getWorkspaces (self,current, direction):
+    monitorCount = self.monitorCount
+    out = []
+    targetw = self.workspaces[math.ceil(current / monitorCount) - 1][direction]
+    if targetw is not  False:
+      targetw = targetw * monitorCount
+      i = monitorCount
+      while i != 0:
+        out.append(targetw + i)
+        i=i-1
+
+      return out
+
+
+
+  """"
+   * Get swaymsg command for switching current Workspace to <direction> direction
+   *
+   * @param swayWorkspace
+   * @param direction
+   * @param isMove
+   * @returns {String} - swaymsg command
+  """
+  def getCmd (self,swayWorkspace, direction, isMove):
+    currentWS = swayWorkspace['num']
+    currentOutput = swayWorkspace['output']
+    ws = self.getWorkspaces(currentWS, direction)
+    if not ws:
+      return
+
+    out = ["workspace %d"%v for v in ws ]
+    if isMove:
+      tws = ws[currentWS % self.monitorCount]
+      out.insert(0,"move container to workspace %d"%tws)
+
+    out.append("focus output "+currentOutput)
+    return '; '.join(out)
+
+helpStr = '''
+sway-wp-switch
+Usage:
+sway-wp-switch [ -m ] <up|down|right|left>
+Options:
+-m    move current window to new workspace while switching.
+If currently focused windows in output-2, it will be placed in output-two itself without losing focus
+'''
+def main():
+  import sys
+  direction = sys.argv[1]
+  isMove = False
+  ROWS = 3
+  COLS = 3
+  if direction == '-m':
+    isMove = True
+    direction = sys.argv[2]
+  if direction not in ['up', 'down', 'right', 'left', '-i']:
+    print(helpStr)
+    return
+
+  outputInfo = getSwayInfo('get_outputs')
+  outputInfo = [v for v in outputInfo if v['active'] ]
+  wm = WpManager(ROWS, COLS, len( outputInfo ))
+  if direction == '-i':
+    cmd = wm.getInitCmd()
+    print(cmd)
+    cmd=''
+  else:
+    workspaceInfo = next(v for v in getSwayInfo('get_workspaces') if v[ 'focused' ] )
+    cmd = wm.getCmd(workspaceInfo, direction, isMove)
+
+  if cmd:
+    exec('swaymsg -t command "%s"'% cmd)
+
+
+main()
