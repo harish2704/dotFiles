@@ -22,7 +22,6 @@ then
   export TIME_STYLE=long-iso
   export TCLLIBPATH=~/.local/share/tkthemes
   export ANDROID_HOME=/home/harish/.local/Apps/android-sdk
-  export OPENAI_KEY=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
 
   export GTK_IM_MODULE=ibus
   export XMODIFIERS=@im=ibus
