@@ -1,5 +1,5 @@
 [$Version]
-update_info=kwin.upd:replace-scalein-with-scale,kwin.upd:port-minimizeanimation-effect-to-js,kwin.upd:port-scale-effect-to-js,kwin.upd:port-dimscreen-effect-to-js,kwin.upd:auto-bordersize,kwin.upd:animation-speed,kwin.upd:desktop-grid-click-behavior,kwin.upd:no-swap-encourage,kwin.upd:make-translucency-effect-disabled-by-default,kwin.upd:remove-flip-switch-effect,kwin.upd:remove-cover-switch-effect,kwin.upd:remove-cubeslide-effect,kwin.upd:remove-xrender-backend,kwin.upd:enable-scale-effect-by-default,kwin.upd:overview-group-plugin-id,kwin.upd:animation-speed-cleanup
+update_info=kwin.upd:replace-scalein-with-scale,kwin.upd:port-minimizeanimation-effect-to-js,kwin.upd:port-scale-effect-to-js,kwin.upd:port-dimscreen-effect-to-js,kwin.upd:auto-bordersize,kwin.upd:animation-speed,kwin.upd:desktop-grid-click-behavior,kwin.upd:no-swap-encourage,kwin.upd:make-translucency-effect-disabled-by-default,kwin.upd:remove-flip-switch-effect,kwin.upd:remove-cover-switch-effect,kwin.upd:remove-cubeslide-effect,kwin.upd:remove-xrender-backend,kwin.upd:enable-scale-effect-by-default,kwin.upd:overview-group-plugin-id,kwin.upd:animation-speed-cleanup,kwin.upd:replace-cascaded-zerocornered
 
 [Compositing]
 GLTextureFilter=1
@@ -7,6 +7,9 @@ OpenGLIsUnsafe=false
 
 [Desktops]
 Id_1=530b2e8c-a321-41ca-ba52-2fba5b5e2f52
+Id_10=af9aa3e6-6382-4ccb-a92d-800b0b1f74a7
+Id_11=7aaace88-9ee2-43c0-844c-19c5514523d3
+Id_12=63c876d8-76e7-4a8b-9903-7b30d31363e2
 Id_2=76ffaa94-4f73-4520-a3e0-480eb3fa4d87
 Id_3=84ef5d92-b39b-4f01-b593-76799daa2ce0
 Id_4=5fe31393-808e-4747-8bfe-9a4df1075a59
@@ -15,6 +18,9 @@ Id_6=0259dad0-c996-46c7-b8a1-364756a779ed
 Id_7=fc82803a-f727-408a-aa1f-84e76c11c1cf
 Id_8=a52131ec-edac-4001-965f-ce878e73377e
 Id_9=2feaf12f-0461-4372-8878-fdf5f282aec0
+Name_10=Desktop 2
+Name_11=Desktop 3
+Name_12=Desktop 4
 Name_2=New Desktop
 Name_3=New Desktop
 Name_4=New Desktop
@@ -23,7 +29,7 @@ Name_6=New Desktop
 Name_7=New Desktop
 Name_8=New Desktop
 Name_9=New Desktop
-Number=9
+Number=12
 Rows=3
 
 [NightColor]
@@ -31,7 +37,7 @@ Active=true
 LatitudeAuto=9.9185
 LongitudeAuto=76.2558
 Mode=Constant
-NightTemperature=4800
+NightTemperature=4200
 
 [Plugins]
 desktopchangeosdEnabled=true
@@ -39,5 +45,41 @@ desktopchangeosdEnabled=true
 [Script-desktopchangeosd]
 PopupHideDelay=200
 
+[Tiling]
+padding=4
+
+[Tiling][0d39903c-8966-51c1-b3a1-c3ebda3dc7d0]
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Tiling][37c04cea-60e5-572b-8cdf-0edec2e3e650]
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Tiling][4b32c1ec-cf2f-5157-9ba6-70191f308af7]
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Tiling][4f220735-699f-553f-a72e-7a926d3f0774]
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Tiling][620b6d4f-c2c0-5dcb-abfb-a14e98a46430]
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Tiling][6b9c3fe7-c68b-52f5-ace8-17b337127e5e]
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Tiling][a3d991e5-e4d6-5b87-b0c7-d6949c612be9]
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Tiling][c8c8a1aa-ae6b-5caf-85b7-76aff40574b4]
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Tiling][ccd244ca-5575-569f-a8c9-ce17c79b0288]
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Tiling][ecc5d445-b642-5d22-991f-6423e65b585e]
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
 [Windows]
 RollOverDesktops=false
+
+[Xwayland]
+Scale=1
