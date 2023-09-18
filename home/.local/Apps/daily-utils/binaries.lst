@@ -3,7 +3,4 @@
 ./bin/bash-session
 ./bin/ibus-next-engine.py
 ./bin/csv-split-by-col.py
-./bin/dasel_linux_amd64
-./bin/octosql
-./bin/dsq
 ./bin/sway-wp-switch

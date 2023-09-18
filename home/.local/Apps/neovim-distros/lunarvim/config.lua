@@ -39,6 +39,10 @@ lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 
+
+lvim.builtin.lualine.sections.lualine_b = { 'branch', '%f' }
+
+
 -- Automatically install missing parsers when entering buffer
 lvim.builtin.treesitter.auto_install = true
 
@@ -48,6 +52,8 @@ lvim.builtin.treesitter.auto_install = true
 -- lvim.builtin.treesitter.ensure_installed = { "comment", "markdown_inline", "regex" }
 
 -- -- generic LSP settings <https://www.lunarvim.org/docs/languages#lsp-support>
+
+lvim.lsp.null_ls.setup.timeout_ms = 20000
 
 -- --- disable automatic installation of servers
 -- lvim.lsp.installer.setup.automatic_installation = false
@@ -92,6 +98,12 @@ formatters.setup {
 --   },
 -- }
 
+-- Flutter snippets enable
+local luasnip = require("luasnip")
+luasnip.filetype_extend("dart", { "flutter" })
+
+
+
 -- -- Additional Plugins <https://www.lunarvim.org/docs/plugins#user-plugins>
 -- lvim.plugins = {
 --     {
@@ -122,11 +134,13 @@ command! -nargs=+ Gr :silent execute 'grep! -nr "<args>" | copen'
 command! -nargs=* Grc grep -nr <args>
 
 " Add file header to current buffer. Depends on https://github.com/harish2704/file-header
-command! Header :execute '0r!file-header %'
+command! Header :execute "0r!file-header '%'"
 
 " Open Terminal in split window
 command! Termw :execute '!konsole -e bash-session &'
 command! Term :execute 'sp | term'
+
+command! EditSnippet :execute 'lua require("luasnip.loaders").edit_snippet_files()'
 
 " Cd to current file's directory
 command! Cwd :execute 'cd %:p:h'
@@ -155,7 +169,7 @@ nmap <Leader><Leader>g :!git gui &<CR>
 nmap <M-r> :e!<CR>
 
 " Alt-q Delete current buffer ( Close file )
-nmap <M-q> :bd<CR>
+nmap <M-q> :BufferKill<CR>
 
 " <Ctrl-Shift-q> force Close buffer
 nmap <M-Q> :bd!<CR>
@@ -197,10 +211,12 @@ vmap <C-s> <Esc><c-s>gv
 imap <C-s> <Esc><c-s>
 nmap <C-PageUp> :BufferLineCyclePrev<CR>
 nmap <C-PageDown> :BufferLineCycleNext<CR>
+nmap <C-S-PageUp> :BufferLineMovePrev<CR>
+nmap <C-S-PageDown> :BufferLineMoveNext<CR>
 
 let g:user_emmet_mode='inv'
 let g:user_emmet_install_global = 0
-autocmd FileType html,css,vue,jsx,php EmmetInstall
+autocmd FileType html,css,vue,jsx,php,javascriptreact EmmetInstall
 nmap <C-G> :execute 'Telescope live_grep default_text=' . expand('<cword>')<cr>
 ]])
 -- imap <C-E> <plug>(emmet-expand-abbr)
@@ -213,7 +229,7 @@ vim.keymap.set('n', '<F12>', function() require('dap').step_out() end)
 lvim.builtin.dap.active = true
 lvim.builtin.which_key.mappings["l"]["f"] = {
   function()
-    require("lvim.lsp.utils").format { timeout_ms = 2000 }
+    require("lvim.lsp.utils").format { timeout_ms = 20000 }
   end,
   "Format",
 }
@@ -272,6 +288,10 @@ lvim.plugins = {
     cmd = { "Bracey", "BracyStop", "BraceyReload", "BraceyEval" },
     build = "npm install --prefix server",
     lazy = true,
+  },
+  {
+    "jamessan/vim-gnupg",
+    -- lazy = true,
   },
   {
     "kylechui/nvim-surround",
