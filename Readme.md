@@ -2,6 +2,10 @@ dotFiles
 ========
 
 My dot files 
+## Usage
+```sh
+stow  --ignore=.local/Apps/neovim-distros/lunarvim/share --ignore=.local/Apps/neovim-distros/lunarvim/cache -t $HOME home
+```
 ## This includes
 * My openbox configuration files
     * my favorite keyboard-mappings
