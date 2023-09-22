@@ -14,8 +14,17 @@ if [[ -f  $HOME/.local/Apps/daily-utils/hari-autocomplete.sh ]]; then
   . $HOME/.local/Apps/daily-utils/hari-autocomplete.sh
 fi
 
-#export PS1='\e[1;36;40m[\u@\h\e[1;33;40m \W]\e[0;37;40m\$ '
-PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] '
+# C_AQUAMARINE1="\e[38;5;86m"
+# C_DARKCYAN="\e[38;5;36m"
+# C_YELLOW="\e[38;5;11m"
+# C_CYAN1="\e[38;5;51m"
+# C_RED="\033[38;5;9m"
+
+NO_FORMAT="\e[0m"
+F_BOLD="\e[1m"
+C_ORANGERED1="\e[38;5;202m"
+C_YELLOW1="\e[38;5;226m"
+PS1="${F_BOLD}${C_ORANGERED1}\u@\h${C_YELLOW1} \w \$${NO_FORMAT} "
 
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
