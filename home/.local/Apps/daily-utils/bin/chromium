@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-/usr/bin/chromium-browser --password-store=kwallet5 "$@"
+/usr/bin/chromium-browser --password-store=kwallet5 --force-device-scale-factor=1.25 "$@"
