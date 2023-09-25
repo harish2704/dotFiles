@@ -46,6 +46,12 @@ lvim.builtin.lualine.sections.lualine_b = { 'branch', '%f' }
 -- Automatically install missing parsers when entering buffer
 lvim.builtin.treesitter.auto_install = true
 
+lvim.builtin.luasnip = {
+  sources = {
+    friendly_snippets = false,
+  },
+}
+
 -- lvim.builtin.treesitter.ignore_install = { "haskell" }
 
 -- -- always installed on startup, useful for parsers without a strict filetype
@@ -292,6 +298,24 @@ lvim.plugins = {
   {
     "jamessan/vim-gnupg",
     -- lazy = true,
+  },
+  {
+    "honza/vim-snippets",
+    lazy = true,
+    event = "InsertEnter",
+    config = function()
+      -- TODO: Implement - custom snippets should go to user's directory. See below
+      -- https://github.com/L3MON4D3/LuaSnip/blob/master/DOC.md#edit_snippets
+      -- require("luasnip.loaders.from_snipmate").lazy_load {
+      --   paths = get_runtime_dir() ..  "/site/pack/lazy/opt/vim-snippets/snippets"
+      -- }
+    end,
+    dependencies = {
+      "LuaSnip",
+    },
+  },
+  {
+    "godlygeek/tabular"
   },
   {
     "kylechui/nvim-surround",
