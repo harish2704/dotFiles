@@ -306,9 +306,9 @@ lvim.plugins = {
     config = function()
       -- TODO: Implement - custom snippets should go to user's directory. See below
       -- https://github.com/L3MON4D3/LuaSnip/blob/master/DOC.md#edit_snippets
-      -- require("luasnip.loaders.from_snipmate").lazy_load {
-      --   paths = get_runtime_dir() ..  "/site/pack/lazy/opt/vim-snippets/snippets"
-      -- }
+      require("luasnip.loaders.from_snipmate").lazy_load {
+        paths = get_runtime_dir() .. "/site/pack/lazy/opt/vim-snippets/snippets"
+      }
     end,
     dependencies = {
       "LuaSnip",
@@ -317,6 +317,7 @@ lvim.plugins = {
   {
     "godlygeek/tabular"
   },
+  { "chrisbra/NrrwRgn" },
   {
     "kylechui/nvim-surround",
     config = function()

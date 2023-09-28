@@ -1,0 +1,8 @@
+snippet jd "json dump and die"
+	echo json_encode(${1}, JSON_PRETTY_PRINT); die();${0:}
+
+snippet pjd "json dump and die"
+	echo '<pre>';echo json_encode(${1}, JSON_PRETTY_PRINT); echo '</pre>'; die();${0:}
+
+snippet ppbt
+	echo '<pre>'; debug_print_backtrace(); echo '</pre>';${0:}
