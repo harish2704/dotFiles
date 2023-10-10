@@ -25,6 +25,9 @@ lvim.keys.normal_mode['<C-p>'] = ":Telescope find_files<CR>"
 
 -- lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 -- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
+for i = 1, 9, 1 do
+  lvim.keys.normal_mode["<M-" .. i .. ">"] = ":BufferLineGoToBuffer " .. i .. "<CR>"
+end
 
 -- -- Use which-key to add extra bindings with the leader-key prefix
 -- lvim.builtin.which_key.mappings["W"] = { "<cmd>noautocmd w<cr>", "Save without formatting" }
@@ -39,6 +42,13 @@ lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 
+
+
+lvim.builtin.terminal.execs = {
+  { nil, "<Leader>ts", "Horizontal Terminal", "horizontal", 0.3 },
+  { nil, "<Leader>tv", "Vertical Terminal",   "vertical",   0.4 },
+  { nil, "<Leader>tf", "Float Terminal",      "float",      nil },
+}
 
 lvim.builtin.lualine.sections.lualine_b = { 'branch', '%f' }
 
@@ -133,6 +143,9 @@ lvim.builtin.telescope.pickers.find_files.mappings = {
     ['<C-t>'] = actions.smart_send_to_qflist + actions.open_qflist,
   }
 }
+lvim.builtin.telescope.defaults.path_display = { "shorten" };
+
+
 
 vim.cmd([[
 command! -nargs=+ Gr :silent execute 'grep! -nr "<args>" | copen'
@@ -219,6 +232,10 @@ nmap <C-PageUp> :BufferLineCyclePrev<CR>
 nmap <C-PageDown> :BufferLineCycleNext<CR>
 nmap <C-S-PageUp> :BufferLineMovePrev<CR>
 nmap <C-S-PageDown> :BufferLineMoveNext<CR>
+nmap <C-j> :BufferLineCyclePrev<CR>
+nmap <C-k> :BufferLineCycleNext<CR>
+nmap <C-S-j> :BufferLineMovePrev<CR>
+nmap <C-S-k> :BufferLineMoveNext<CR>
 
 let g:user_emmet_mode='inv'
 let g:user_emmet_install_global = 0
