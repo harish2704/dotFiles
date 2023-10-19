@@ -33,8 +33,13 @@ end
 -- lvim.builtin.which_key.mappings["W"] = { "<cmd>noautocmd w<cr>", "Save without formatting" }
 -- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 
+-- Disable automatic changing of directory in lunarvim
+lvim.builtin.project.manual_mode = true
+lvim.builtin.project.silent_chdir = false
+
 -- -- Change theme settings
 -- lvim.colorscheme = "lunar"
+--
 
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
