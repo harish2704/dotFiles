@@ -21,6 +21,16 @@ podmanStart(){
   echo export DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock
 }
 
+# dockerLinux [imagename=ubuntu:22.40] . Quick shell inside given linux container
+dockerLinux(){
+  set -x
+  local cid=$(($RANDOM%20))
+  local name=linux_$cid
+  local image=${1:-ubuntu:22.04}
+  docker  run -d --name $name $image sh -c  "trap : TERM INT; sleep infinity & wait"
+  docker exec -it $name sh
+}
+
 # ts / tsx to js/jsx
 tstojs(){
   set -x

@@ -11,3 +11,6 @@ key_bindings:
   - { key: Tab,       mods: Shift,           chars: "\e[Z"          }
   - { key: Tab,       mods: Control,         chars: "\e[27;5;9~"    }
   - { key: Tab,       mods: Control|Shift,   chars: "\e[27;6;9~"    }
+  - { key: J,         mods: Control|Shift,   chars: "\x1b[74;5u"    }
+  - { key: K,         mods: Control|Shift,   chars: "\x1b[75;5u"    }
+    
