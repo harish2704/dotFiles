@@ -12,6 +12,15 @@ list-commands(){
   typeset -F | cut -d ' ' -f 3 | grep -v '^_' | sort
 }
 
+# start rootless podman socket
+podmanStart(){
+  set -x
+  systemctl --user enable podman.socket
+  systemctl --user start podman.socket
+  systemctl --user status podman.socket
+  echo export DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock
+}
+
 # ts / tsx to js/jsx
 tstojs(){
   set -x
