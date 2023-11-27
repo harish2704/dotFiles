@@ -32,3 +32,5 @@ export EDITOR=vim
 export HISTCONTROL=ignoredups
 export HISTSIZE=11000
 export HISTFILESIZE=11000
+
+alias ip='ip --color=auto'

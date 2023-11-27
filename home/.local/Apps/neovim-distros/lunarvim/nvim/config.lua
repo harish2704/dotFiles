@@ -6,6 +6,7 @@
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.opt.relativenumber = true
+vim.opt.list = true
 
 -- general
 lvim.log.level = "info"
@@ -34,6 +35,7 @@ end
 -- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 
 -- Disable automatic changing of directory in lunarvim
+lvim.builtin.project.active = false
 lvim.builtin.project.manual_mode = true
 lvim.builtin.project.silent_chdir = false
 
@@ -143,6 +145,16 @@ luasnip.filetype_extend("dart", { "flutter" })
 -- })
 
 local actions = require("telescope.actions")
+lvim.builtin.telescope.pickers.git_files.mappings = {
+  i = {
+    ['<C-t>'] = actions.smart_send_to_qflist + actions.open_qflist,
+  }
+}
+lvim.builtin.telescope.pickers.live_grep.mappings = {
+  i = {
+    ['<C-t>'] = actions.smart_send_to_qflist + actions.open_qflist,
+  }
+}
 lvim.builtin.telescope.pickers.find_files.mappings = {
   i = {
     ['<C-t>'] = actions.smart_send_to_qflist + actions.open_qflist,
