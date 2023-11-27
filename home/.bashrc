@@ -28,6 +28,8 @@ PS1="${F_BOLD}${C_AQUAMARINE1}\u@\h${C_YELLOW1} \w \\\$${NO_FORMAT} "
 
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+export DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock
+
 export EDITOR=vim
 export HISTCONTROL=ignoredups
 export HISTSIZE=11000
