@@ -68,7 +68,7 @@ videoformobile(){
   local infile=$1;
   shift
   set -x
-  ffmpeg -i "$infile" -c:v libx264 -pix_fmt yuv420p  -profile:v baseline -level 3.0 $@
+  ffmpeg -i "$infile" -c:v h264 -pix_fmt yuv420p  -level 3.0 $@
 }
 
 # allow permission for docker container. dockerAllow <path>
