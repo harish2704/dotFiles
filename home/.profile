@@ -22,10 +22,10 @@ if test -z "$USER_PROFILEREAD"; then
   export ANDROID_HOME=$HOME/.local/Apps/android-sdk
   export SYSTEMD_PAGER=
 
-  export INPUT_METHOD=ibus
-  export GTK_IM_MODULE=ibus
-  export XMODIFIERS=@im=ibus
-  export QT_IM_MODULE=ibus
+# export INPUT_METHOD=ibus
+# export GTK_IM_MODULE=ibus
+# export XMODIFIERS=@im=ibus
+# export QT_IM_MODULE=ibus
 
   export USER_PROFILEREAD=1
 fi

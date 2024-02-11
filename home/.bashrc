@@ -36,3 +36,6 @@ export HISTSIZE=11000
 export HISTFILESIZE=11000
 
 alias ip='ip --color=auto'
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

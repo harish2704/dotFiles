@@ -26,6 +26,14 @@ PreloadWeight=100
 popupHeight=450
 popupWidth=396
 
+[Containments][3][Applets][21][Configuration][Appearance]
+selectedTimeZones=America/New_York,Europe/Zagreb,Local
+showSeconds=true
+
+[Containments][3][Applets][21][Configuration][ConfigDialog]
+DialogHeight=660
+DialogWidth=880
+
 [Containments][3][Applets][22]
 immutability=1
 plugin=org.kde.plasma.showdesktop
