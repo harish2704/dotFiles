@@ -160,7 +160,7 @@ lvim.builtin.telescope.pickers.find_files.mappings = {
     ['<C-t>'] = actions.smart_send_to_qflist + actions.open_qflist,
   }
 }
-lvim.builtin.telescope.defaults.path_display = { "shorten" };
+lvim.builtin.telescope.defaults.path_display = { shorten = 2 };
 
 
 

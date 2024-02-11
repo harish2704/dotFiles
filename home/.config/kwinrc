@@ -51,6 +51,9 @@ padding=4
 [Tiling][0d39903c-8966-51c1-b3a1-c3ebda3dc7d0]
 tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
 
+[Tiling][31d42160-070b-554b-b196-ee308d3a8430]
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
 [Tiling][37c04cea-60e5-572b-8cdf-0edec2e3e650]
 tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
 
@@ -67,6 +70,9 @@ tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"wi
 tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
 
 [Tiling][6b9c3fe7-c68b-52f5-ace8-17b337127e5e]
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Tiling][a149f44c-18c8-54d9-bea5-8d58d841af49]
 tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
 
 [Tiling][a3d991e5-e4d6-5b87-b0c7-d6949c612be9]
@@ -92,7 +98,6 @@ tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"wi
 
 [Wayland]
 InputMethod[$e]=/usr/share/applications/org.freedesktop.IBus.Panel.Wayland.Gtk3.desktop
-VirtualKeyboardEnabled=true
 
 [Windows]
 RollOverDesktops=false
