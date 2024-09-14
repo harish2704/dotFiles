@@ -164,6 +164,58 @@ lvim.builtin.telescope.pickers.find_files.mappings = {
   }
 }
 lvim.builtin.telescope.defaults.path_display = { shorten = 4 };
+lvim.builtin.telescope.defaults.file_ignore_patterns = {
+  "vendor/*",
+  "%.lock",
+  "__pycache__/*",
+  "%.sqlite3",
+  "%.ipynb",
+  "node_modules/*",
+  "%.jpg",
+  "%.jpeg",
+  "%.png",
+  "%.svg",
+  "%.otf",
+  "%.ttf",
+  ".git/",
+  "%.webp",
+  ".dart_tool/",
+  ".github/",
+  ".gradle/",
+  ".idea/",
+  ".settings/",
+  ".vscode/",
+  "__pycache__/",
+  "build/",
+  "env/",
+  "gradle/",
+  "node_modules/",
+  "target/",
+  "%.pdb",
+  "%.dll",
+  "%.class",
+  "%.exe",
+  "%.cache",
+  "%.ico",
+  "%.pdf",
+  "%.dylib",
+  "%.jar",
+  "%.docx",
+  "%.met",
+  "smalljre_*/*",
+  ".vale/",
+  "%.burp",
+  "%.mp4",
+  "%.mkv",
+  "%.rar",
+  "%.zip",
+  "%.7z",
+  "%.tar",
+  "%.bz2",
+  "%.epub",
+  "%.flac",
+  "%.tar.gz",
+}
 
 
 
@@ -200,7 +252,7 @@ command! CopyFilename :let @+=@%
 command! Code :execute "!code ./ -g %:". ( line('.')+1 )
 
 " For Open a terminal in current directory
-nmap <Leader><Leader>t :!xdg-terminal&<CR>
+nmap <Leader><Leader>t :!konsole&<CR>
 " Open git-gui in current pwd
 nmap <Leader><Leader>g :!git gui &<CR>
 
