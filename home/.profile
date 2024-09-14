@@ -1,6 +1,7 @@
 
-if test -z "$USER_PROFILEREAD"; then
 
+if test -z "$USER_PROFILEREAD"; then
+  export EDITOR=/usr/bin/vim
   export PYENV_ROOT="$HOME/.pyenv"
   export NVM_DIR="$HOME/.nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
