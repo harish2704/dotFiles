@@ -3,6 +3,7 @@ update_info=kwin.upd:replace-scalein-with-scale,kwin.upd:port-minimizeanimation-
 
 [Compositing]
 GLTextureFilter=1
+LatencyPolicy=Medium
 OpenGLIsUnsafe=false
 
 [Desktops]
@@ -98,9 +99,14 @@ tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"wi
 
 [Wayland]
 InputMethod[$e]=/usr/share/applications/org.freedesktop.IBus.Panel.Wayland.Gtk3.desktop
+VirtualKeyboardEnabled=true
 
 [Windows]
 RollOverDesktops=false
 
 [Xwayland]
-Scale=1.25
+Scale=1
+
+[org.kde.kdecoration2]
+library=org.kde.kwin.aurorae
+theme=__aurorae__svg__Breezemite

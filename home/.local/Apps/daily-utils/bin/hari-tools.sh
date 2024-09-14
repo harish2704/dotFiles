@@ -336,6 +336,7 @@ subtitleBurn(){
 
 # Gen random password
 genPassword(){
+  cd ~/.node_modules_mine;
   node -p "require('base-x')('!#$%&()*+,-.0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_abcdefghijklmnopqrstuvwxyz{|}~' ).encode( crypto.randomBytes(${1:-15}) )"
 }
 

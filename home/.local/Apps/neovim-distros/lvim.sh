@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+THIS_DIR=$(dirname $(readlink -f $0))
+
+export NVIM_APPNAME="lvim"
+export LUNARVIM_RUNTIME_DIR="$THIS_DIR/lunarvim/share/lvim"
+export LUNARVIM_CONFIG_DIR="$THIS_DIR/lunarvim/nvim"
+export LUNARVIM_CACHE_DIR="$THIS_DIR/lunarvim/cache"
+export LUNARVIM_BASE_DIR="$THIS_DIR/lunarvim/LunarVim"
+
+nvim -u "$LUNARVIM_BASE_DIR/init.lua" "$@"

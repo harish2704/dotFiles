@@ -22,7 +22,7 @@ lvim.format_on_save = {
 lvim.leader = "space"
 -- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
-lvim.keys.normal_mode['<C-p>'] = ":Telescope find_files<CR>"
+lvim.keys.normal_mode['<C-p>'] = ":Telescope fd<CR>"
 
 -- lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 -- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
@@ -63,11 +63,11 @@ lvim.builtin.lualine.sections.lualine_b = { 'branch', '%f' }
 -- Automatically install missing parsers when entering buffer
 lvim.builtin.treesitter.auto_install = true
 
-lvim.builtin.luasnip = {
-  sources = {
-    friendly_snippets = false,
-  },
-}
+-- lvim.builtin.luasnip = {
+--   sources = {
+--     friendly_snippets = false,
+--   },
+-- }
 
 -- lvim.builtin.treesitter.ignore_install = { "haskell" }
 
@@ -76,7 +76,10 @@ lvim.builtin.luasnip = {
 
 -- -- generic LSP settings <https://www.lunarvim.org/docs/languages#lsp-support>
 
-lvim.lsp.null_ls.setup.timeout_ms = 20000
+-- add `pyright` to `skipped_servers` list
+-- vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright" })
+
+-- lvim.lsp.null_ls.setup.timeout_ms = 20000
 
 -- --- disable automatic installation of servers
 -- lvim.lsp.installer.setup.automatic_installation = false
@@ -160,14 +163,14 @@ lvim.builtin.telescope.pickers.find_files.mappings = {
     ['<C-t>'] = actions.smart_send_to_qflist + actions.open_qflist,
   }
 }
-lvim.builtin.telescope.defaults.path_display = { shorten = 2 };
+lvim.builtin.telescope.defaults.path_display = { shorten = 4 };
 
 
 
 vim.cmd([[
-command! -nargs=+ Gr :silent execute 'grep! -nr "<args>" | copen'
+command! -nargs=+ Gr :silent execute 'grep!  "<args>" | copen'
 " Raw version of Gr command.
-command! -nargs=* Grc grep -nr <args>
+command! -nargs=* Grc grep <args>
 
 " Add file header to current buffer. Depends on https://github.com/harish2704/file-header
 command! Header :execute "0r!file-header '%'"
@@ -234,7 +237,7 @@ tmap   <M-Right>    <C-\><C-n><C-W>l
 tmap   <M-Left>     <C-\><C-n><C-W>h
 " }}}
 
-set grepprg=ag\ --nogroup\ --nocolor
+set grepprg=ag\ --vimgrep
 
 nmap <C-/> :Gr <C-R><C-W>
 
