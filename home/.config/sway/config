@@ -17,12 +17,12 @@ set $right l
 # set $term gnome-terminal
 set $term konsole
 # Your preferred application launcher
-set $menu dmenu_run
+set $menu rofi -show drun
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg /usr/share/backgrounds/f39/default/f39-01-day.png fill
 #
 # Example configuration:
 #
