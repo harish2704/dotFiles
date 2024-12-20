@@ -429,6 +429,17 @@ fontCacheRefresh(){
   fc-cache -f -v
 }
 
+# usbreset
+usbreset(){
+  set -x
+  buses=$(lspci | grep USB | cut -d' '  -f1)
+  for i in $buses; do
+    echo -n "0000:$i" | sudo tee /sys/bus/pci/drivers/xhci_hcd/unbind
+    sleep 0.5
+    echo -n "0000:$i" | sudo tee /sys/bus/pci/drivers/xhci_hcd/bind
+  done
+}
+
 
 # Setup autocomplete. run eval "$(THIS_FILE setup-autocomplete)"
 setup-autocomplete(){
