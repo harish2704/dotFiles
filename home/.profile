@@ -16,7 +16,7 @@ if test -z "$USER_PROFILEREAD"; then
   PATH="$PYENV_ROOT/bin:$PATH"
   export PATH
 
-  export DENO_INSTALL="/home/harish/.deno"
+  export DENO_INSTALL="$HOME/.deno"
   export PATH="$DENO_INSTALL/bin:$PATH"
   export TIME_STYLE=long-iso
   export TCLLIBPATH=$HOME/.local/share/tkthemes
@@ -37,3 +37,4 @@ if [ -n "$BASH_VERSION" -a -n "$PS1" ]; then
     . "$HOME/.bashrc"
     fi
 fi
+. "$HOME/.deno/env"

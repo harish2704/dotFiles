@@ -193,7 +193,6 @@ lvim.builtin.telescope.defaults.file_ignore_patterns = {
   "target/",
   "%.pdb",
   "%.dll",
-  "%.class",
   "%.exe",
   "%.cache",
   "%.ico",
@@ -334,7 +333,7 @@ dap.adapters.php = {
   type = 'executable',
   command = 'node',
   args = {
-    '/home/harish/tmp/nvim-configs/lunarvim/share/nvim/mason/packages/php-debug-adapter/extension/out/phpDebug.js' }
+    '$HOME/tmp/nvim-configs/lunarvim/share/nvim/mason/packages/php-debug-adapter/extension/out/phpDebug.js' }
 }
 
 dap.configurations.php = {

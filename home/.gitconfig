@@ -19,3 +19,6 @@
 	autoSetupRemote = true
 [pull]
 	rebase = false
+[gui]
+	fontui = -family \"Noto Sans\" -size 16 -weight normal -slant roman -underline 0 -overstrike 0
+	fontdiff = -family \"Noto Sans Mono\" -size 16 -weight normal -slant roman -underline 0 -overstrike 0
