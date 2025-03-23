@@ -1,6 +1,9 @@
 [$Version]
 update_info=kwin.upd:replace-scalein-with-scale,kwin.upd:port-minimizeanimation-effect-to-js,kwin.upd:port-scale-effect-to-js,kwin.upd:port-dimscreen-effect-to-js,kwin.upd:auto-bordersize,kwin.upd:animation-speed,kwin.upd:desktop-grid-click-behavior,kwin.upd:no-swap-encourage,kwin.upd:make-translucency-effect-disabled-by-default,kwin.upd:remove-flip-switch-effect,kwin.upd:remove-cover-switch-effect,kwin.upd:remove-cubeslide-effect,kwin.upd:remove-xrender-backend,kwin.upd:enable-scale-effect-by-default,kwin.upd:overview-group-plugin-id,kwin.upd:animation-speed-cleanup,kwin.upd:replace-cascaded-zerocornered
 
+[Activities][LastVirtualDesktop]
+5631f9b9-eda6-43ff-826c-7cb51e8f26f5=76ffaa94-4f73-4520-a3e0-480eb3fa4d87
+
 [Compositing]
 GLTextureFilter=1
 LatencyPolicy=Medium
@@ -38,7 +41,7 @@ Active=true
 LatitudeAuto=9.9185
 LongitudeAuto=76.2558
 Mode=Constant
-NightTemperature=4200
+NightTemperature=4800
 
 [Plugins]
 desktopchangeosdEnabled=true
@@ -67,6 +70,9 @@ tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"wi
 [Tiling][4f220735-699f-553f-a72e-7a926d3f0774]
 tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
 
+[Tiling][5ff9608b-9606-5820-afce-f307ffff35eb]
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
 [Tiling][620b6d4f-c2c0-5dcb-abfb-a14e98a46430]
 tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
 
@@ -91,6 +97,9 @@ tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"wi
 [Tiling][ccd244ca-5575-569f-a8c9-ce17c79b0288]
 tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
 
+[Tiling][d02c035d-eef0-5c68-aa2f-2e83d0ba08b1]
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
 [Tiling][e0ede2ad-3993-5f06-892f-6edfc85dc7f2]
 tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
 
@@ -108,5 +117,5 @@ RollOverDesktops=false
 Scale=1
 
 [org.kde.kdecoration2]
-library=org.kde.kwin.aurorae
-theme=__aurorae__svg__Breezemite
+library=org.kde.breeze
+theme=Breeze
