@@ -2,7 +2,7 @@
 update_info=kwin.upd:replace-scalein-with-scale,kwin.upd:port-minimizeanimation-effect-to-js,kwin.upd:port-scale-effect-to-js,kwin.upd:port-dimscreen-effect-to-js,kwin.upd:auto-bordersize,kwin.upd:animation-speed,kwin.upd:desktop-grid-click-behavior,kwin.upd:no-swap-encourage,kwin.upd:make-translucency-effect-disabled-by-default,kwin.upd:remove-flip-switch-effect,kwin.upd:remove-cover-switch-effect,kwin.upd:remove-cubeslide-effect,kwin.upd:remove-xrender-backend,kwin.upd:enable-scale-effect-by-default,kwin.upd:overview-group-plugin-id,kwin.upd:animation-speed-cleanup,kwin.upd:replace-cascaded-zerocornered
 
 [Activities][LastVirtualDesktop]
-5631f9b9-eda6-43ff-826c-7cb51e8f26f5=76ffaa94-4f73-4520-a3e0-480eb3fa4d87
+5631f9b9-eda6-43ff-826c-7cb51e8f26f5=84ef5d92-b39b-4f01-b593-76799daa2ce0
 
 [Compositing]
 GLTextureFilter=1
@@ -14,6 +14,9 @@ Id_1=530b2e8c-a321-41ca-ba52-2fba5b5e2f52
 Id_10=af9aa3e6-6382-4ccb-a92d-800b0b1f74a7
 Id_11=7aaace88-9ee2-43c0-844c-19c5514523d3
 Id_12=63c876d8-76e7-4a8b-9903-7b30d31363e2
+Id_13=092794f6-c66a-4fc1-a45f-3d785a9ef4e8
+Id_14=1165984d-098d-4983-8f5d-dcb4c82981c4
+Id_15=21eb75c5-52fe-4e36-9ab1-f1371025d8f4
 Id_2=76ffaa94-4f73-4520-a3e0-480eb3fa4d87
 Id_3=84ef5d92-b39b-4f01-b593-76799daa2ce0
 Id_4=5fe31393-808e-4747-8bfe-9a4df1075a59
@@ -22,18 +25,22 @@ Id_6=0259dad0-c996-46c7-b8a1-364756a779ed
 Id_7=fc82803a-f727-408a-aa1f-84e76c11c1cf
 Id_8=a52131ec-edac-4001-965f-ce878e73377e
 Id_9=2feaf12f-0461-4372-8878-fdf5f282aec0
-Name_10=Desktop 2
-Name_11=Desktop 3
-Name_12=Desktop 4
-Name_2=New Desktop
-Name_3=New Desktop
-Name_4=New Desktop
-Name_5=New Desktop
-Name_6=New Desktop
-Name_7=New Desktop
-Name_8=New Desktop
-Name_9=New Desktop
-Number=12
+Name_1=D1
+Name_10=D10
+Name_11=D11
+Name_12=D12
+Name_13=D13
+Name_14=D14
+Name_15=D15
+Name_2=D2
+Name_3=D3
+Name_4=D4
+Name_5=D5
+Name_6=D6
+Name_7=D7
+Name_8=D8
+Name_9=D9
+Number=15
 Rows=3
 
 [NightColor]

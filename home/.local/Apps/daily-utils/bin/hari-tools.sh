@@ -83,13 +83,13 @@ devSetup(){
   lvim &
   bash-session -n &
   sleep 1.5
-  qdbus org.kde.kglobalaccel  /component/kwin invokeShortcut  "Window Maximize"
+  # qdbus org.kde.kglobalaccel  /component/kwin invokeShortcut  "Window Maximize"
   qdbus org.kde.kglobalaccel  /component/kwin invokeShortcut  "Walk Through Windows"
   qdbus org.kde.kglobalaccel  /component/kwin invokeShortcut  "Window Maximize"
   qdbus org.kde.kglobalaccel  /component/kwin invokeShortcut  "Switch One Desktop Down"
   git gui &
   sleep 1.5
-  qdbus org.kde.kglobalaccel  /component/kwin invokeShortcut  "Window Maximize"
+  # qdbus org.kde.kglobalaccel  /component/kwin invokeShortcut  "Window Maximize"
   qdbus org.kde.kglobalaccel  /component/kwin invokeShortcut  "Switch One Desktop Up"
 }
 
