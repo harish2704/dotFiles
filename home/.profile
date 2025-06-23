@@ -13,7 +13,7 @@ if test -z "$USER_PROFILEREAD"; then
   PATH="$HOME/.linuxbrew/bin:$PATH";
   PATH="$HOME/.local/bin:$HOME/bin:$PATH"
   PATH="$PATH:$HOME/.local/Apps/flutter/bin"
-  PATH="$PYENV_ROOT/bin:$PATH"
+  # PATH="$PYENV_ROOT/bin:$PATH"
   export PATH
 
   export DENO_INSTALL="$HOME/.deno"
