@@ -261,4 +261,5 @@ function! s:ParseFileAndLine(bufferName)
   "    current window. Because the dummy buffer is now hidden
   "    and marked 'bufhidden=delete', it gets removed.
   execute 'edit! +' . s:line_num . ' ' . fnameescape(s:real_file)
+  doautocmd filetypedetect BufRead
 endfunction
