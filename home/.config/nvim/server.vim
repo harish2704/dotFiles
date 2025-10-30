@@ -224,3 +224,41 @@ vmap <C-h> "fy:%s#<C-r>f#
 " Copy current word to 'f' register, search for that word
 vmap <C-f> "fy/<C-r>f
 colorscheme elflord
+
+
+
+" Automatically open file:line: arguments
+augroup OpenFileWithLineNumber
+  autocmd!
+  " Trigger when a buffer is added or created
+  autocmd BufAdd,BufNewFile * call s:ParseFileAndLine(bufname('%'))
+augroup END
+
+function! s:ParseFileAndLine(bufferName)
+  " Use regex to match the 'filename:linenumber:' format
+  " \v = very magic regex
+  " ^(.+): = Capture group 1: (anything) followed by :
+  " (\d+):$ = Capture group 2: (digits) followed by : at the end
+  let s:matches = matchlist(a:bufferName, '\v^(.+):(\d+):?$')
+
+  " If the pattern didn't match, do nothing
+  if empty(s:matches)
+    return
+  endif
+
+  " Extract the real file name and line number
+  let s:real_file = s:matches[1]
+  let s:line_num = s:matches[2]
+
+  " --- This is the important part ---
+
+  " 1. Mark the current dummy buffer (e.g., 'default.conf:38:')
+  "    to be deleted as soon as it's hidden.
+  setlocal bufhidden=delete
+
+  " 2. Open the *real* file, jumping to the correct line.
+  "    This 'edit' command replaces the dummy buffer in the
+  "    current window. Because the dummy buffer is now hidden
+  "    and marked 'bufhidden=delete', it gets removed.
+  execute 'edit! +' . s:line_num . ' ' . fnameescape(s:real_file)
+endfunction
