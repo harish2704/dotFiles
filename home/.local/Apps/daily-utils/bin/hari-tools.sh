@@ -429,6 +429,11 @@ fontCacheRefresh(){
   fc-cache -f -v
 }
 
+# tell yarn to use node_modules directory
+yarnUseNodemodules(){
+  yarn config set nodeLinker node-modules
+}
+
 # usbreset
 usbreset(){
   set -x
