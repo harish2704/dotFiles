@@ -7,6 +7,7 @@ vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.opt.relativenumber = true
 vim.opt.list = true
+vim.opt.relativenumber = false
 
 -- general
 lvim.log.level = "info"
@@ -38,6 +39,8 @@ end
 lvim.builtin.project.active = false
 lvim.builtin.project.manual_mode = true
 lvim.builtin.project.silent_chdir = false
+lvim.builtin.nvimtree.setup.update_cwd = false
+lvim.builtin.nvimtree.setup.update_focused_file.update_cwd = false
 
 -- -- Change theme settings
 -- lvim.colorscheme = "lunar"
@@ -219,6 +222,7 @@ lvim.builtin.telescope.defaults.file_ignore_patterns = {
 
 
 vim.cmd([[
+au BufRead,BufNewFile *Caddyfile		set filetype=caddy
 command! -nargs=+ Gr :silent execute 'grep!  "<args>" | copen'
 " Raw version of Gr command.
 command! -nargs=* Grc grep <args>
