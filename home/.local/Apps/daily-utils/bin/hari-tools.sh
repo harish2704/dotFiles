@@ -337,7 +337,7 @@ subtitleBurn(){
 # Gen random password
 genPassword(){
   cd ~/.node_modules_mine;
-  node -p "require('base-x')('!#$%&()*+,-.0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_abcdefghijklmnopqrstuvwxyz{|}~' ).encode( crypto.randomBytes(${1:-15}) )"
+  node -p "require('base-x').default('!#$%&()*+,-.0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_abcdefghijklmnopqrstuvwxyz{|}~' ).encode( crypto.randomBytes(${1:-15}) )"
 }
 
 # Convert json to csv with column headers
@@ -443,6 +443,14 @@ usbreset(){
     sleep 0.5
     echo -n "0000:$i" | sudo tee /sys/bus/pci/drivers/xhci_hcd/bind
   done
+}
+
+# Make sample pdf file
+# mk-sample-pdf [count=10] [prefix=sample-]
+mk-sample-pdf(){
+  count=${1:-10}
+  prefix=${2:-sample}
+  for i in `seq 1 $count`; do   printf "Sample PDF #%02d\nThis is test PDF number %02d\n" "$i" "$i"   | enscript -B -o -   | ps2pdf - "${prefix}_$i.pdf"; done
 }
 
 
