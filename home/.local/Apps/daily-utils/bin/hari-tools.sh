@@ -454,6 +454,28 @@ mk-sample-pdf(){
 }
 
 
+# Mysql dump all database
+# mysqldump [ mysql connection args... ]
+mysqldump(){
+  set -x
+  mysql $@ -e "SHOW DATABASES;" \
+    | grep -Ev "(Database|information_schema|performance_schema|sys|mysql)" \
+    | xargs -I % sh -c "mysqldump $( echo $@ ) --insert-ignore --triggers --events --complete-insert --single-transaction --extended-insert --quick % | gzip > %_$(date +%Y%m%d_%H%M%S).sql.gz"
+}
+
+# Make ssh tunnel
+sshMkTunne(){
+  cat<<EOF
+cat<<EEE >> ~/.ssh/config
+Host *
+  ServerAliveInterval 40
+EEE
+
+while :; do ssh -R 4025:127.0.0.1:22 myguest@${1:-myserver}; sleep 10; done;
+EOF
+}
+
+
 # Setup autocomplete. run eval "$(THIS_FILE setup-autocomplete)"
 setup-autocomplete(){
   cat<<EOF
