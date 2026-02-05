@@ -471,11 +471,70 @@ Host *
   ServerAliveInterval 40
 EEE
 
-while :; do ssh -R 4025:127.0.0.1:22 myguest@${1:-myserver}; sleep 10; done;
+while :; do ssh  -NT -R 4025:127.0.0.1:22 myguest@${1:-myserver}; sleep 10; done;
 EOF
 }
 
+# Usage: mysqlCreateDbUser <username> [password] [database]
+mysqlCreateDbUser() {
+  if [ $# -ne 1 ]; then
+    echo "Usage: ${FUNCNAME[0]} <username> [password] [database]" >&2
+    return 1
+  fi
 
+  local randPass=$(openssl rand -base64 18)
+  local username="$1"
+  local defDbName="${username}_db"
+  local user_password="${2:-$randPass}"
+  local db_name="${3:-$defDbName}"
+
+  # Validate username
+  if [[ -z "$username" || "$username" =~ [^a-zA-Z0-9_-] ]]; then
+    echo "Error: Invalid username. Only alphanumeric, hyphen, and underscore allowed." >&2
+    return 1
+  fi
+
+  echo -e "-- Using password '$user_password' for user '$username' and creating database '$db_name' \n"
+
+  # Execute MySQL commands
+  cat<<EOF
+CREATE DATABASE IF NOT EXISTS \`$db_name\`;
+CREATE USER '$username'@'%' IDENTIFIED BY '$user_password';
+GRANT ALL PRIVILEGES ON \`$db_name\`.* TO '$username'@'%';
+FLUSH PRIVILEGES;
+EOF
+}
+
+# Create duckdb from csv. Usage csv2duckdb <csv-file>
+csv2duckdb(){
+  csv=$1;
+  tbl="$(basename $csv)"
+  tbl=${tbl%.*};
+  tbl="$(echo $tbl | sed 's/[^[:alnum:]]/_/g' )";
+  echo "CREATE TABLE $tbl AS SELECT * FROM '$csv';" |  duckdb "$tbl.duckdb" ;
+}
+
+# Create sqlite3 db from csv. Usage csv2sqlite <csv-file>
+csv2sqlite(){
+  csv=$1;
+  tbl="$(basename $csv)"
+  tbl=${tbl%.*};
+  tbl="$(echo $tbl | sed 's/[^[:alnum:]]/_/g' )";
+  echo "ATTACH '$tbl.db' AS sqdb  (TYPE sqlite); CREATE TABLE sqdb.$tbl AS SELECT * FROM '$csv';" |  duckdb ;
+}
+
+# Expose port of container using pasta. pastaExpose <container> <portmapping>
+pastaExpose(){
+  cont=$1;
+  portMapping=$2;
+  contPid=$(podman inspect -f '{{.State.Pid}}' $cont);
+  pasta  -f  --config-net -t $portMapping -u none -T none -U none --no-map-gw  $contPid;
+  # pasta  -f  --config-net -t $portMapping --dns-forward 169.254.1.1 -u none -T none -U none --no-map-gw    --map-guest-addr 169.254.1.2 $contPid;
+}
+
+
+
+#### END OF USER FUNCTIONS ####
 # Setup autocomplete. run eval "$(THIS_FILE setup-autocomplete)"
 setup-autocomplete(){
   cat<<EOF
