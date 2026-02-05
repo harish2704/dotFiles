@@ -26,7 +26,7 @@ C_YELLOW1="\[\e[38;5;226m\]"
 C_AQUAMARINE1="\[\e[38;5;86m\]"
 PS1="${F_BOLD}${C_AQUAMARINE1}\u@\h${C_YELLOW1} \w \\\$${NO_FORMAT} "
 
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock
 
@@ -37,8 +37,8 @@ export HISTFILESIZE=11000
 
 alias ip='ip --color=auto'
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 
 #export PYENV_ROOT="$HOME/.pyenv"
@@ -52,3 +52,14 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 . "$HOME/.deno/env"
 source $HOME/.local/share/bash-completion/completions/deno.bash
 eval "$(~/.local/bin/mise activate bash)"
+
+# PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
+# PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+# PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+# PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
+# PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
+
+mycp(){
+  mkdir -p "$(dirname "$2" )";
+  cp "$1" "$2";
+}
