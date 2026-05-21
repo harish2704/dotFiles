@@ -477,7 +477,7 @@ EOF
 
 # Usage: mysqlCreateDbUser <username> [password] [database]
 mysqlCreateDbUser() {
-  if [ $# -ne 1 ]; then
+  if [ $# -lt 1 ]; then
     echo "Usage: ${FUNCNAME[0]} <username> [password] [database]" >&2
     return 1
   fi
@@ -508,19 +508,21 @@ EOF
 # Create duckdb from csv. Usage csv2duckdb <csv-file>
 csv2duckdb(){
   csv=$1;
+  dirName="$(dirname $csv)"
   tbl="$(basename $csv)"
   tbl=${tbl%.*};
   tbl="$(echo $tbl | sed 's/[^[:alnum:]]/_/g' )";
-  echo "CREATE TABLE $tbl AS SELECT * FROM '$csv';" |  duckdb "$tbl.duckdb" ;
+  echo "CREATE TABLE $tbl AS SELECT * FROM '$csv';" |  duckdb "$dirName/$tbl.duckdb" ;
 }
 
 # Create sqlite3 db from csv. Usage csv2sqlite <csv-file>
 csv2sqlite(){
   csv=$1;
+  dirName="$(dirname $csv)"
   tbl="$(basename $csv)"
   tbl=${tbl%.*};
   tbl="$(echo $tbl | sed 's/[^[:alnum:]]/_/g' )";
-  echo "ATTACH '$tbl.db' AS sqdb  (TYPE sqlite); CREATE TABLE sqdb.$tbl AS SELECT * FROM '$csv';" |  duckdb ;
+  echo "ATTACH '$dirName/$tbl.db' AS sqdb  (TYPE sqlite); CREATE TABLE sqdb.$tbl AS SELECT * FROM '$csv';" |  duckdb ;
 }
 
 # Expose port of container using pasta. pastaExpose <container> <portmapping>
@@ -528,8 +530,8 @@ pastaExpose(){
   cont=$1;
   portMapping=$2;
   contPid=$(podman inspect -f '{{.State.Pid}}' $cont);
-  pasta  -f  --config-net -t $portMapping -u none -T none -U none --no-map-gw  $contPid;
-  # pasta  -f  --config-net -t $portMapping --dns-forward 169.254.1.1 -u none -T none -U none --no-map-gw    --map-guest-addr 169.254.1.2 $contPid;
+  # pasta  -f  --config-net -t $portMapping -u none -T none -U none --no-map-gw  $contPid;
+  pasta  -f  --config-net -t $portMapping --dns-forward 169.254.1.1 -u none -T none -U none --no-map-gw  --map-guest-addr 169.254.1.2 $contPid;
 }
 
 
