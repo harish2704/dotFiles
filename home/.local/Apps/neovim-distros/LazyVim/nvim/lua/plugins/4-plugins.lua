@@ -127,8 +127,13 @@ return {
   --- @section plugins-nvim-surround
   {
     "kylechui/nvim-surround",
+    keys = {
+      { "S", mode = "v", desc = "Surround selection" },
+    },
     config = function()
-      require("nvim-surround").setup({})
+      require("nvim-surround").setup({
+        keymaps = { visual = "S" },
+      })
     end,
     desc = "Surround text objects (parentheses, quotes, tags, etc.)",
   },

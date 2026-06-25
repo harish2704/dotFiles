@@ -11,15 +11,15 @@ local map = vim.keymap.set
 -- LazyVim provides <leader>bj for BufferLinePick (interactive pick).
 -- These direct-access keys are preserved from your LunarVim config.
 for i = 1, 9 do
-  map("n", "<M-" .. i .. ">", function()
-    vim.cmd("BufferLineGoToBuffer " .. i)
-  end, { desc = "Go to buffer " .. i })
+	map("n", "<M-" .. i .. ">", function()
+		vim.cmd("BufferLineGoToBuffer " .. i)
+	end, { desc = "Go to buffer " .. i })
 end
 
 --- @section keymaps-picker
 -- <C-p>: Quick file find (Snacks picker replaces your Telescope "fd" picker)
 map("n", "<C-p>", function()
-  LazyVim.pick("files")()
+	LazyVim.pick("files")()
 end, { desc = "Find Files" })
 
 --- @section keymaps-external
@@ -31,9 +31,15 @@ map("n", "<Leader><Leader>g", ":!git gui &<CR>", { desc = "Open Git GUI" })
 -- File-level operations
 map("n", "<M-r>", ":e!<CR>", { desc = "Reload current file (discard changes)" })
 map("n", "<M-q>", function()
-  Snacks.bufdelete()
+	Snacks.bufdelete()
 end, { desc = "Delete current buffer (preserves window layout)" })
 map("n", "<M-Q>", ":bd!<CR>", { desc = "Force delete buffer and close window" })
+
+--- @section keymaps-comment
+-- Toggle comment with Space+/ (normal and visual)
+map("n", "c<Space>", "gcc", { desc = "Toggle comment", remap = true })
+map("n", "<Space>/", "gcc", { desc = "Toggle comment", remap = true })
+-- map("v", "<Space>/", "gc", { desc = "Toggle comment" })
 
 --- @section keymaps-visual
 -- Visual mode operations
@@ -84,14 +90,14 @@ map("n", "<C-S-T>", ":tabedit<CR>", { desc = "Open new tab" })
 -- Quick DAP access keys (dap.core extra provides <leader>d prefix mappings)
 -- These F-keys provide direct access to the most common debugging actions.
 map("n", "<F5>", function()
-  require("dap").continue()
+	require("dap").continue()
 end, { desc = "DAP: Continue / Start debugging" })
 map("n", "<F10>", function()
-  require("dap").step_over()
+	require("dap").step_over()
 end, { desc = "DAP: Step over" })
 map("n", "<F11>", function()
-  require("dap").step_into()
+	require("dap").step_into()
 end, { desc = "DAP: Step into" })
 map("n", "<F12>", function()
-  require("dap").step_out()
+	require("dap").step_out()
 end, { desc = "DAP: Step out" })

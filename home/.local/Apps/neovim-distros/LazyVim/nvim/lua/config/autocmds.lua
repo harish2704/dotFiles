@@ -63,12 +63,6 @@ vim.api.nvim_create_user_command("Code", function()
 	vim.cmd("!code ./ -g %:" .. (vim.fn.line(".") + 1))
 end, { desc = "Open in VS Code at current line" })
 
---- @section keymaps-grep (defined as keymap in vim.cmd, moved here for clarity)
--- <C-/>: Search word under cursor with custom Gr command
-vim.keymap.set("n", "<C-/>", function()
-	vim.cmd("Gr " .. vim.fn.expand("<cword>"))
-end, { desc = "Grep word under cursor (custom Gr)" })
-
 -- <C-G>: Live grep word under cursor via Snacks picker
 vim.keymap.set("n", "<C-G>", function()
 	LazyVim.pick("live_grep", { default_text = vim.fn.expand("<cword>") })()
