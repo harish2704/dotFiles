@@ -1,0 +1,3 @@
+[submodule "home/.local/Apps/neovim-distros/lunarvim/LunarVim"]
+	path = home/.local/Apps/neovim-distros/lunarvim/LunarVim
+	url = https://github.com/jukrb0x/LunarVim

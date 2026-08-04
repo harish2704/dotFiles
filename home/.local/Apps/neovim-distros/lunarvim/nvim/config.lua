@@ -349,6 +349,18 @@ dap.configurations.php = {
   }
 }
 
+local lspconfig = require('lspconfig')
+local configs = require('lspconfig.configs')
+if not configs.oxlint then
+  configs.oxlint = {
+    default_config = {
+      cmd = { 'oxlint', '--lsp' },
+      filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+      root_dir = lspconfig.util.root_pattern('.oxlintrc.json', 'package.json', '.git'),
+    },
+  }
+end
+
 lvim.plugins = {
   {
     "gpanders/editorconfig.nvim",
