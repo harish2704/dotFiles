@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+export HISTFILE=
+
+if [[ $1 == '-n' ]]; then
+  konsole &
+else
+  bash
+fi
