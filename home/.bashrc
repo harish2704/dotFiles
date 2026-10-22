@@ -63,3 +63,8 @@ mycp(){
   mkdir -p "$(dirname "$2" )";
   cp "$1" "$2";
 }
+mkdircd(){
+  mkdir -p $1;
+  cd $1 ;
+}
+
