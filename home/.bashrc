@@ -33,12 +33,12 @@ export DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock
 export EDITOR=vim
 export HISTCONTROL=ignoredups
 export HISTSIZE=11000
-export HISTFILESIZE=11000
+export HISTFILESIZE=110000
 
 alias ip='ip --color=auto'
 
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 
 #export PYENV_ROOT="$HOME/.pyenv"
@@ -63,3 +63,39 @@ mycp(){
   mkdir -p "$(dirname "$2" )";
   cp "$1" "$2";
 }
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
+
+export YDOTOOL_SOCKET="$HOME/.ydotool_socket"
+
+alias gst='git status'
+
+alias glg='git log --stat'
+alias glo='git log --oneline --decorate'
+
+alias gl='git pull'
+
+alias gc='git commit -v'
+alias gc!='git commit -v --amend'
+
+alias gb='git branch'
+alias gcb='git checkout -b'
+alias gbD='git branch -D'
+
+alias gcm='git checkout master'
+alias gco='git checkout'
+
+alias grb='git rebase'
+alias grbm='git rebase master'
+alias grbi='git rebase -i'
+alias grbc='git rebase --continue'
+
+alias gstaa='git stash apply'
+alias gstl='git stash list'
+alias gstall='git stash --all'
+
+alias grbc='git rebase --continue'
+alias grbi='git rebase -i'
+
+alias gsta='git stash push'
+alias gstaa='git stash apply'
