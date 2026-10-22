@@ -1,5 +1,11 @@
 home/.local/Apps/neovim-distros/lunarvim/cache
 home/.local/Apps/neovim-distros/lunarvim/share
 home/.local/Apps/neovim-distros/lunarvim/LunarVim
-home/.local/Apps/neovim-distros/LazyVim
+home/.local/Apps/neovim-distros/LazyVim/cache/
+home/.local/Apps/neovim-distros/LazyVim/github-copilot/
+home/.local/Apps/neovim-distros/LazyVim/LazyVim/
+home/.local/Apps/neovim-distros/LazyVim/share/
+home/.local/Apps/neovim-distros/LazyVim/go
+home/.local/Apps/neovim-distros/LazyVim/pulse
+home/.local/Apps/neovim-distros/LazyVim/starter
 node_modules

@@ -1,6 +1,7 @@
 ./bin/chromium
 ./bin/hari-tools.sh
 ./bin/bash-session
+./bin/bash-nosession
 ./bin/ibus-next-engine.py
 ./bin/csv-split-by-col.py
 ./bin/sway-wp-switch

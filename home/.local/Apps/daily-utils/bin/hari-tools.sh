@@ -88,6 +88,7 @@ devSetup(){
   qdbus org.kde.kglobalaccel  /component/kwin invokeShortcut  "Window Maximize"
   qdbus org.kde.kglobalaccel  /component/kwin invokeShortcut  "Switch One Desktop Down"
   git gui &
+  env BAHS_HISTORY= konsole -e zsh &
   sleep 1.5
   # qdbus org.kde.kglobalaccel  /component/kwin invokeShortcut  "Window Maximize"
   qdbus org.kde.kglobalaccel  /component/kwin invokeShortcut  "Switch One Desktop Up"
